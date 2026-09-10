@@ -5,14 +5,28 @@ public class Mascota {
     private double peso;
     private double tamaño;
     private String estadoAdopcion;
+    private String nombre;
 
-    public Mascota(String raza, int edad, String genero, double peso, double tamaño) {
+    public Mascota(){
+        
+    }
+
+    public Mascota(String nombre, String raza, int edad, String genero, double peso, double tamaño) {
+        this.nombre = nombre;
         this.raza = raza;
-        this.edad = edad;
-        this.genero = genero;
+        setEdad(edad);
+        setGenero(genero);
         this.peso = peso;
         this.tamaño = tamaño;
-        this.estadoAdopcion="refugiado";
+        setEstadoAdopcion("refugiado");
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+    
+    public void setNombre(String nombre){
+        this.nombre = nombre;
     }
 
     public String getRaza() {
@@ -32,7 +46,10 @@ public class Mascota {
             this.edad = edad;
             return true; 
         }
-        return false;
+        else{
+            System.out.println("Ingresa nuevamente la edad");
+            return false;
+        }
 
     }
 
@@ -50,7 +67,7 @@ public class Mascota {
             return false;
         }
 }
-    }
+    
 
     public double getPeso() {
         return peso;
@@ -68,12 +85,12 @@ public class Mascota {
         this.tamaño = tamaño;
     }
 
-    public String getestadoAdopcion() {
+    public String getEstadoAdopcion() {
         return estadoAdopcion;
 
     }
 
-    public boolean setestadoAdopción(String estadoAdopcion) {
+    public boolean setEstadoAdopcion(String estadoAdopcion) {
         if (estadoAdopcion.equalsIgnoreCase("Refugiado") || 
             estadoAdopcion.equalsIgnoreCase("Tratamiento") || 
             estadoAdopcion.equalsIgnoreCase("Adoptado")) {
@@ -84,9 +101,8 @@ public class Mascota {
             System.out.println("Ingrese otra vez el estado");
             return false;
         }
-      
+    
     }
-
     
 
     
