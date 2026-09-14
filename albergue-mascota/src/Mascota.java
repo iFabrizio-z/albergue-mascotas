@@ -4,13 +4,29 @@ public class Mascota {
     private String genero;
     private double peso;
     private double tamaño;
+    private String estadoAdopcion;
+    private String nombre;
 
-    public Mascota(String raza, int edad, String genero, double peso, double tamaño) {
+    public Mascota(){
+        
+    }
+
+    public Mascota(String nombre, String raza, int edad, String genero, double peso, double tamaño) {
+        this.nombre = nombre;
         this.raza = raza;
-        this.edad = edad;
-        this.genero = genero;
+        setEdad(edad);
+        setGenero(genero);
         this.peso = peso;
         this.tamaño = tamaño;
+        setEstadoAdopcion("refugiado");
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+    
+    public void setNombre(String nombre){
+        this.nombre = nombre;
     }
 
     public String getRaza() {
@@ -25,17 +41,33 @@ public class Mascota {
         return edad;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
+    public boolean setEdad(int edad) {
+        if (edad >= 0 && edad <= 12) {
+            this.edad = edad;
+            return true; 
+        }
+        else{
+            System.out.println("Ingresa nuevamente la edad");
+            return false;
+        }
+
     }
 
     public String getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
+    public boolean setGenero(String genero) {
+        if (genero != null && (genero.equalsIgnoreCase("Macho") || genero.equalsIgnoreCase("Hembra"))) {
+            this.genero = genero;
+            return true;
+        }
+        else{
+            System.out.println("Genero no permitido, ingresa otra vez");
+            return false;
+        }
+}
+    
 
     public double getPeso() {
         return peso;
@@ -53,7 +85,24 @@ public class Mascota {
         this.tamaño = tamaño;
     }
 
+    public String getEstadoAdopcion() {
+        return estadoAdopcion;
+
+    }
+
+    public boolean setEstadoAdopcion(String estadoAdopcion) {
+        if (estadoAdopcion.equalsIgnoreCase("Refugiado") || 
+            estadoAdopcion.equalsIgnoreCase("Tratamiento") || 
+            estadoAdopcion.equalsIgnoreCase("Adoptado")) {
+            
+            this.estadoAdopcion = estadoAdopcion;
+            return true;
+        } else {
+            System.out.println("Ingrese otra vez el estado");
+            return false;
+        }
     
+    }
     
 
     
