@@ -4,9 +4,10 @@ public class Usuario {
     private String correo;
     private String rol;
     private boolean activo;
+    private String contrasena;
 
     // Constructor completo
-    public Usuario(String idUsuario, String nombre, String correo, String rol) {
+    public Usuario(String idUsuario, String nombre, String correo, String rol, String contrasena) {
         if (idUsuario == null || idUsuario.trim().isEmpty()) {
             throw new IllegalArgumentException("El ID de usuario no puede estar vacío.");
         }
@@ -16,17 +17,18 @@ public class Usuario {
         if (correo == null || !correo.contains("@")) {
             throw new IllegalArgumentException("Debe ingresar un correo electrónico válido.");
         }
-        
+
         this.idUsuario = idUsuario.trim();
         this.nombre = nombre.trim();
         this.correo = correo.trim();
         this.rol = (rol != null && !rol.trim().isEmpty()) ? rol.trim().toUpperCase() : "VOLUNTARIO";
         this.activo = true;
+        setContrasena(contrasena);
     }
 
     // Sobrecarga de constructor (Rol "VOLUNTARIO" por defecto)
-    public Usuario(String idUsuario, String nombre, String correo) {
-        this(idUsuario, nombre, correo, "VOLUNTARIO");
+    public Usuario(String idUsuario, String nombre, String correo, String contrasena) {
+        this(idUsuario, nombre, correo, "VOLUNTARIO", contrasena);
     }
 
     // Getters y Setters
@@ -34,14 +36,16 @@ public class Usuario {
         return idUsuario;
     }
 
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public String getNombre() {
         return nombre;
     }
 
     public void setNombre(String nombre) {
-        if (nombre != null && !nombre.trim().isEmpty()) {
-            this.nombre = nombre.trim();
-        }
+        this.nombre = nombre;
     }
 
     public String getCorreo() {
@@ -49,11 +53,7 @@ public class Usuario {
     }
 
     public void setCorreo(String correo) {
-        if (correo != null && correo.contains("@")) {
-            this.correo = correo.trim();
-        } else {
-            throw new IllegalArgumentException("Correo no válido.");
-        }
+        this.correo = correo;
     }
 
     public String getRol() {
@@ -61,9 +61,7 @@ public class Usuario {
     }
 
     public void setRol(String rol) {
-        if (rol != null && !rol.trim().isEmpty()) {
-            this.rol = rol.trim().toUpperCase();
-        }
+        this.rol = rol;
     }
 
     public boolean isActivo() {
@@ -74,15 +72,30 @@ public class Usuario {
         this.activo = activo;
     }
 
-    // Método para mostrar resumen
-    public String obtenerResumen() {
-        String estadoStr = activo ? "ACTIVO" : "INACTIVO";
-        return String.format("[%s] %s | Rol: %s | Correo: %s | Estado: %s",
-                idUsuario, nombre, rol, correo, estadoStr);
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        if (contrasena == null || contrasena.trim().length() < 6) {
+            throw new IllegalArgumentException("La contraseña debe tener al menos 6 caracteres.");
+        }
+        this.contrasena = contrasena.trim();
+    }
+
+    // Método para validar el acceso en inicio de sesión
+    public boolean validarContrasena(String intento) {
+        return this.contrasena != null && this.contrasena.equals(intento);
     }
 
     @Override
     public String toString() {
-        return obtenerResumen();
+        return "Usuario{" +
+                "idUsuario='" + idUsuario + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", rol='" + rol + '\'' +
+                ", activo=" + activo +
+                '}';
     }
 }
