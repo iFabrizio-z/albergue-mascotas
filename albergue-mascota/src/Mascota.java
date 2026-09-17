@@ -1,4 +1,8 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public class Mascota {
+    private int idMascota;
     private String raza;
     private int edad;
     private String genero;
@@ -6,12 +10,10 @@ public class Mascota {
     private double tamaño;
     private String estadoAdopcion;
     private String nombre;
+    private List<HistorialClinico> historialClinico;
 
-    public Mascota(){
-        
-    }
-
-    public Mascota(String nombre, String raza, int edad, String genero, double peso, double tamaño) {
+    public Mascota(int idMascota, String nombre, String raza, int edad, String genero, double peso, double tamaño) {
+        this.idMascota = idMascota;
         this.nombre = nombre;
         this.raza = raza;
         setEdad(edad);
@@ -19,7 +21,17 @@ public class Mascota {
         this.peso = peso;
         this.tamaño = tamaño;
         setEstadoAdopcion("refugiado");
+        this.historialClinico = new ArrayList<>();
     }
+
+    public int getIdMascota(){
+        return idMascota;
+    }
+
+    public void setIdMascota(int idMascota){
+        this.idMascota = idMascota;
+    }
+
 
     public String getNombre(){
         return nombre;
@@ -40,7 +52,7 @@ public class Mascota {
     public int getEdad() {
         return edad;
     }
-
+    
     public boolean setEdad(int edad) {
         if (edad >= 0 && edad <= 12) {
             this.edad = edad;
@@ -68,7 +80,6 @@ public class Mascota {
         }
 }
     
-
     public double getPeso() {
         return peso;
     }
@@ -103,8 +114,34 @@ public class Mascota {
         }
     
     }
-    
 
-    
+    public List<HistorialClinico> getHistorialClinico(){
+        return historialClinico;
+    }
+
+    public void agregarHistorialMedico(HistorialClinico registro){
+        historialClinico.add(registro);
+    }
+
+	@Override
+	public String toString() {
+		return "============ FICHA MASCOTA ============" + 
+                "\n ID de mascota: "+ idMascota +
+                "\n Nombre: " + nombre +
+                "\n Raza: " + raza + 
+                "\n Edad: " + edad + 
+                "\n Genero: " + genero +
+				"\n Peso: " + peso + 
+                "\n Tamaño: " + tamaño + 
+                "\n Estado: " + estadoAdopcion +
+                "=======================================";
+
+    }
 
 }
+    
+    
+
+    
+
+
