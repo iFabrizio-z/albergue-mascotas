@@ -74,6 +74,8 @@ public class App {
                    }
                    break;
                 case 5:
+                    sistema.agregarHistorialPorId(scanner);
+                    break;
                 
                 
                  
