@@ -23,5 +23,6 @@ public class Usuario {
 
     public boolean autenticar(String usuarioIngresado, String contrasenaIngresada) {
         return this.usuario.equals(usuarioIngresado) && this.contrasena.equals(contrasenaIngresada);
+        
     }
 }
