@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -6,6 +7,8 @@ public class App {
         int opcion = 0;
         SistemaAlbergueMascota sistema = new SistemaAlbergueMascota();
         
+        Mascota mascota = null;
+        SolicitudAdopcion solicitud = null;
 
         do {
             System.out.println("\n-------SISTEMA ALBERGUE MASCOTAS-------");
@@ -15,19 +18,43 @@ public class App {
             System.out.println("4. Evaluar solicitud pendiente");
             System.out.println("5. Agregar historial clínico por id de mascota");
             System.out.println("6. Mostrar historial clínico por id de mascota");
-            System.out.println("7. Salir");
-            System.out.print("Seleccione una opción: ");
+            System.out.println("7. Filtrar mascotas por estado");
+            System.out.println("8. Seleccione una opción: ");
+            System.out.println("9. Salir");
+            
 
             opcion = scanner.nextInt();
             scanner.nextLine(); 
 
             switch (opcion) {
                 case 1:
-                    
+                    mascota = sistema.registrarMascota(scanner);
+                    break;
 
                     
                 case 2:
-                    
+                    System.out.println("\n-------BUSCAR MASCOTA-------");
+    System.out.println("1. Buscar por ID");
+    System.out.println("2. Buscar por nombre");
+    System.out.print("Seleccione una opción: ");
+    int opcionBusqueda = scanner.nextInt();
+    scanner.nextLine();
+
+    Mascota mascotaEncontrada = null;
+    if (opcionBusqueda == 1) {
+        System.out.print("Ingrese el ID de la mascota: ");
+        int idBuscar = scanner.nextInt();
+        scanner.nextLine();
+        mascotaEncontrada = sistema.buscarMascotaPorId(idBuscar);
+    } else if (opcionBusqueda == 2) {
+        System.out.print("Ingrese el nombre de la mascota: ");
+        String nombreBuscar = scanner.nextLine();
+        mascotaEncontrada = sistema.buscarMascotaPorNombre(nombreBuscar);
+    }
+
+    System.out.println(mascotaEncontrada != null ? mascotaEncontrada : "Mascota no encontrada.");
+    break;
+
                 case 3:
                     // TUVISTE QUE HABER REGISTRADO UNA MASCOTA PRIMERO
                     if (mascota != null) {
@@ -86,6 +113,15 @@ public class App {
                     break;
 
                 case 7:
+                     System.out.print("Ingrese el estado a filtrar (adoptado, refugiado, tratamiento): ");
+                     String estadoFiltro = scanner.nextLine();
+                     List<Mascota> filtradas = sistema.filtrarPorEstado(estadoFiltro);
+                     if (filtradas.isEmpty()) {
+                         System.out.println("No hay mascotas con ese estado.");
+                     } else {
+                         filtradas.forEach(System.out::println);
+                     }
+                     break;
 
                 case 8:
                     System.out.println("Saliendo del sistema...");
@@ -95,7 +131,7 @@ public class App {
                 default:
                     System.out.println("Opción incorrecta, intente de nuevo.");
             }
-        } while (opcion != 8);
+        } while (opcion != 7);
 
         scanner.close();
     }

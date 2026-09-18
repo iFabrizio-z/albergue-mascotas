@@ -66,5 +66,59 @@ public class SistemaAlbergueMascota {
     }
 
     
-    
+    public Mascota registrarMascota(Scanner scanner) {
+    System.out.println("\n-------REGISTRAR MASCOTA-------");
+    System.out.print("Ingrese el id de la mascota: ");
+    int id = scanner.nextInt();
+    scanner.nextLine();
+
+    System.out.print("Ingrese el nombre: ");
+    String nombre = scanner.nextLine();
+
+    System.out.print("Ingrese la raza: ");
+    String raza = scanner.nextLine();
+
+    System.out.print("Ingrese la edad: ");
+    int edad = scanner.nextInt();
+
+    scanner.nextLine();
+    System.out.print("Ingrese el género (Macho/Hembra): ");
+    String genero = scanner.nextLine();
+
+    System.out.print("Ingrese el peso: ");
+    double peso = scanner.nextDouble();
+
+    System.out.print("Ingrese el tamaño: ");
+    double tamaño = scanner.nextDouble();
+    scanner.nextLine();
+
+    Mascota nuevaMascota = new Mascota(id, nombre, raza, edad, genero, peso, tamaño);
+    mascotas.add(nuevaMascota);
+    System.out.println("Mascota registrada correctamente.");
+    return nuevaMascota;
+}
+
+public Mascota buscarMascotaPorId(int id) {
+    return mascotas.stream()
+                    .filter(m -> m.getIdMascota() == id)
+                    .findFirst()
+                    .orElse(null);
+}
+
+public Mascota buscarMascotaPorNombre(String nombre) {
+    return mascotas.stream()
+                    .filter(m -> m.getNombre().equalsIgnoreCase(nombre))
+                    .findFirst()
+                    .orElse(null);
+}
+
+public List<Mascota> filtrarPorEstado(String estado) {
+    List<Mascota> resultado = new ArrayList<>();
+    for (Mascota m : mascotas) {
+        if (m.getEstadoAdopcion().equalsIgnoreCase(estado)) {
+            resultado.add(m);
+        }
+    }
+    return resultado;
+}
 }
