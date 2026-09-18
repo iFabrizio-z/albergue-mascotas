@@ -1,42 +1,65 @@
-public class SolicitudAdopcion{
-    private String nombreAdoptante;
-    private String telefono;
-    private Mascota mascota; 
-    private String estado; // Iniciará como "Pendiente"
+import java.time.LocalDate;
 
-    //Constructores (para crear la solicitud)
-    public SolicitudAdopcion(String nombreAdoptante, String telefono, Mascota mascota) {
+public class SolicitudAdopcion {
+    
+    // Atributos de control 
+    private int idSolicitud;
+    private LocalDate fechaSolicitud;
+    private String estado; 
+
+    // Formulario (Información Personal)
+    private String nombreAdoptante;
+    private String apellidosAdoptante;
+    private String dni;
+    private String direccion;
+    private String email;
+    private String telefono;
+
+    // Atributo de la mascota
+    private Mascota mascota;
+
+    // Constructor
+    public SolicitudAdopcion(int idSolicitud, String nombreAdoptante, String apellidosAdoptante, 
+                             String dni, String direccion, String email, String telefono, Mascota mascota) {
+        this.idSolicitud = idSolicitud;
+        this.fechaSolicitud = LocalDate.now(); 
+        this.estado = "Pendiente"; 
+        
         this.nombreAdoptante = nombreAdoptante;
+        this.apellidosAdoptante = apellidosAdoptante;
+        this.dni = dni;
+        this.direccion = direccion;
+        this.email = email;
         this.telefono = telefono;
         this.mascota = mascota;
-        this.estado = "Pendiente"; 
     }
 
-    //Método para cambiar el estado de la solicitud
-    public void evaluar(boolean aprobada) {
-        if (aprobada) {
-            this.estado = "Aprobada";
-            System.out.println("Solicitud aprobada.");
-        } else {
-            this.estado = "Rechazada";
-            System.out.println("Solicitud rechazada.");
-        }
+    // Setter exclusivo para que el Sistema cambie el estado
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
-    //Getters (Métodos para obtener los datos) 
-    public String getNombreAdoptante() {
-        return nombreAdoptante;
-    }
+    // Getters
+    public int getIdSolicitud() { return idSolicitud; }
+    public LocalDate getFechaSolicitud() { return fechaSolicitud; }
+    public String getEstado() { return estado; }
+    public String getNombreAdoptante() { return nombreAdoptante; }
+    public String getApellidosAdoptante() { return apellidosAdoptante; }
+    public String getDni() { return dni; }
+    public String getDireccion() { return direccion; }
+    public String getEmail() { return email; }
+    public String getTelefono() { return telefono; }
+    public Mascota getMascota() { return mascota; }
 
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public Mascota getMascota() {
-        return mascota;
-    }
-
-    public String getEstado() {
-        return estado;
+    @Override
+    public String toString() {
+        return String.format("============SOLICITUD DE ADOPCIÓN [%d]============", idSolicitud) +
+                "\nFecha registrada: " + fechaSolicitud +
+                "\nEstado: " + estado +
+                "\nAdoptante: " + nombreAdoptante + " " + apellidosAdoptante +
+                "\nDNI: " + dni +
+                "\nTeléfono/Móvil: " + telefono +
+                "\nMascota solicitada: " + (mascota != null ? mascota.getNombre() : "Ninguna");
     }
 }
+
