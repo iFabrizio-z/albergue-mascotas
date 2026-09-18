@@ -1,6 +1,6 @@
 import java.util.List;
 import java.util.Scanner;
-
+import java.util.InputMismatchException;
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -34,26 +34,38 @@ public class App {
                     
                 case 2:
                     System.out.println("\n-------BUSCAR MASCOTA-------");
-    System.out.println("1. Buscar por ID");
-    System.out.println("2. Buscar por nombre");
-    System.out.print("Seleccione una opción: ");
-    int opcionBusqueda = scanner.nextInt();
-    scanner.nextLine();
+                    System.out.println("1. Buscar por ID");
+                    System.out.println("2. Buscar por nombre");
+                    System.out.print("Seleccione una opción: ");
 
-    Mascota mascotaEncontrada = null;
-    if (opcionBusqueda == 1) {
-        System.out.print("Ingrese el ID de la mascota: ");
-        int idBuscar = scanner.nextInt();
+                    try {
+                        int opcionBusqueda = scanner.nextInt();
+                        scanner.nextLine();
+
+                        Mascota mascotaEncontrada = null;
+
+                        if (opcionBusqueda == 1) {
+                           System.out.print("Ingrese el ID de la mascota: ");
+                            int idBuscar = scanner.nextInt();
+                            scanner.nextLine();
+                            mascotaEncontrada = sistema.buscarMascotaPorId(idBuscar);
+                        } else if (opcionBusqueda == 2) {
+                            System.out.print("Ingrese el nombre de la mascota: ");
+                            String nombreBuscar = scanner.nextLine();
+                            mascotaEncontrada = sistema.buscarMascotaPorNombre(nombreBuscar);
+                        } else {
+                            System.out.println("Opción no válida.");
+                            break;
+        }
+
+        System.out.println(mascotaEncontrada != null ? mascotaEncontrada : "Mascota no encontrada.");
+
+    } catch (InputMismatchException e) {
+        System.out.println("Entrada inválida, debe ingresar un número.");
         scanner.nextLine();
-        mascotaEncontrada = sistema.buscarMascotaPorId(idBuscar);
-    } else if (opcionBusqueda == 2) {
-        System.out.print("Ingrese el nombre de la mascota: ");
-        String nombreBuscar = scanner.nextLine();
-        mascotaEncontrada = sistema.buscarMascotaPorNombre(nombreBuscar);
     }
-
-    System.out.println(mascotaEncontrada != null ? mascotaEncontrada : "Mascota no encontrada.");
     break;
+                    
 
                 case 3:
                     // TUVISTE QUE HABER REGISTRADO UNA MASCOTA PRIMERO
