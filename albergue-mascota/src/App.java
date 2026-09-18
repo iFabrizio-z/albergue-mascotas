@@ -16,7 +16,9 @@ public class App {
             System.out.println("4. Evaluar solicitud pendiente");
             System.out.println("5. Agregar historial clínico por id de mascota");
             System.out.println("6. Mostrar historial clínico por id de mascota");
-            System.out.println("7. Salir");
+            System.out.println("7. Registrar Donación");
+            System.out.println("8. Listar Donaciones");
+            System.out.println("9. Salir");
             System.out.print("Seleccione una opción: ");
 
             opcion = scanner.nextInt();
@@ -32,12 +34,10 @@ public class App {
                     break;
                     
                 case 3:
-                    //Todo el bloque se reemplaza por esta línea
                     sistema.crearSolicitudAdopcion(scanner);
                     break;
                     
                 case 4:
-                    
                     sistema.evaluarSolicitudPorId(scanner);
                     break;
                     
@@ -50,13 +50,21 @@ public class App {
                     break;
 
                 case 7:
+                    sistema.registrarDonacion(scanner);
+                    break;
+
+                case 8:
+                    sistema.listarDonaciones();
+                    break;
+
+                case 9:
                     System.out.println("Saliendo del sistema...");
                     break;
 
                 default:
                     System.out.println("Opción incorrecta, intente de nuevo.");
             }
-        } while (opcion != 7);
+        } while (opcion != 9);
 
         scanner.close();
     }

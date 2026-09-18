@@ -8,6 +8,7 @@ public class SistemaAlbergueMascota {
 
     List<Mascota> mascotas = new ArrayList<>();
     List<SolicitudAdopcion> solicitudes = new ArrayList<>();
+    List<Donacion> donaciones = new ArrayList<>(); // Nueva lista para donaciones
 
     public void agregarHistorialPorId(Scanner scanner){
 
@@ -140,5 +141,94 @@ public class SistemaAlbergueMascota {
         } else {
             System.out.println("ID de solicitud incorrecto");
         }
+    }
+
+    // MÉTODOS DE DONACIONES
+// MÉTODOS DE DONACIONES CON VALIDACIÓN DE NÚMEROS
+    public void registrarDonacion(Scanner scanner) {
+        System.out.println("\n------- REGISTRAR DONACIÓN -------");
+        System.out.print("Ingrese el nombre del donante: ");
+        String donante = scanner.nextLine();
+
+        System.out.println("Seleccione el tipo de donación:");
+        System.out.println("1. Efectivo");
+        System.out.println("2. Comida para mascotas (Kg)");
+        System.out.print("Opción: ");
+        
+        int tipo = 0;
+        try {
+            tipo = scanner.nextInt();
+            scanner.nextLine();
+        } catch (Exception e) {
+            System.out.println("Error: Debe ingresar un número válido.");
+            scanner.nextLine(); // Limpiar el buffer
+            return;
+        }
+
+        int nuevoId = donaciones.size() + 1;
+
+        if (tipo == 1) {
+            System.out.print("Ingrese el monto en efectivo (S/): ");
+            try {
+                double monto = scanner.nextDouble();
+                scanner.nextLine();
+
+                if (monto > 0) {
+                    Donacion donacion = new Donacion(nuevoId, donante, monto);
+                    donaciones.add(donacion);
+                    System.out.println("Donación en efectivo registrada exitosamente.");
+                } else {
+                    System.out.println("El monto ingresado debe ser mayor a 0.");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: No se pueden ingresar letras en el monto. Debe ingresar un valor numérico.");
+                scanner.nextLine(); // Limpiar entrada incorrecta
+            }
+
+        } else if (tipo == 2) {
+            System.out.print("Ingrese la cantidad de comida en kilogramos (Kg): ");
+            try {
+                double cantidad = scanner.nextDouble();
+                scanner.nextLine();
+
+                if (cantidad > 0) {
+                    Donacion donacion = new Donacion(nuevoId, donante, cantidad, true);
+                    donaciones.add(donacion);
+                    System.out.println("Donación de comida registrada exitosamente.");
+                } else {
+                    System.out.println("La cantidad ingresada debe ser mayor a 0.");
+                }
+            } catch (Exception e) {
+                System.out.println("Error: No se pueden ingresar letras en los Kg. Debe ingresar un valor numérico.");
+                scanner.nextLine(); // Limpiar entrada incorrecta
+            }
+
+        } else {
+            System.out.println("Tipo de donación no válido.");
+        }
+    }
+
+    public void listarDonaciones() {
+        System.out.println("\n------- HISTORIAL DE DONACIONES -------");
+        if (donaciones.isEmpty()) {
+            System.out.println("No hay donaciones registradas en el sistema.");
+            return;
+        }
+
+        double totalEfectivo = 0;
+        double totalComida = 0;
+
+        for (Donacion d : donaciones) {
+            System.out.println(d);
+            if (d.getTipoDonacion().equalsIgnoreCase("Efectivo")) {
+                totalEfectivo += d.getMontoEfectivo();
+            } else {
+                totalComida += d.getCantidadComidaKg();
+            }
+        }
+
+        System.out.println("\n--- RESUMEN TOTAL ---");
+        System.out.printf("Total recaudado en Efectivo: S/ %.2f\n", totalEfectivo);
+        System.out.printf("Total recaudado en Comida: %.2f Kg\n", totalComida);
     }
 }
