@@ -10,60 +10,57 @@ public class SistemaAlbergueMascota {
     List<SolicitudAdopcion> solicitudes = new ArrayList<>();
     List<Donacion> donaciones = new ArrayList<>(); // Nueva lista para donaciones
 
-    public void agregarHistorialPorId(Scanner scanner){
-
-        System.out.println("Ingrese el id de mascota: ");
-        int idBuscar = scanner.nextInt();
+    public Mascota registrarMascota(Scanner scanner) {
+        System.out.println("\n-------REGISTRAR MASCOTA-------");
+        System.out.print("Ingrese el id de la mascota: ");
+        int id = scanner.nextInt();
         scanner.nextLine();
 
-        Mascota mascota = mascotas.stream().filter(e-> e.getIdMascota() == idBuscar).findFirst().orElse(null);
+        System.out.print("Ingrese el nombre: ");
+        String nombre = scanner.nextLine();
 
-        if(mascota != null){
-            System.out.println("Ingrese el procedimiento (vacunación o cirugía): ");
-            String procedimiento = scanner.nextLine();
+        System.out.print("Ingrese la raza: ");
+        String raza = scanner.nextLine();
 
-            System.out.println("Ingrese el tratamiento: ");
-            String tratamiento = scanner.nextLine();
+        System.out.print("Ingrese la edad: ");
+        int edad = scanner.nextInt();
 
-            System.out.println("Ingrese el diagnóstico: ");
-            String diagnostico = scanner.nextLine();
+        scanner.nextLine();
+        System.out.print("Ingrese el género (Macho/Hembra): ");
+        String genero = scanner.nextLine();
 
-            System.out.println("Ingrese el nombre del veterinario: ");
-            String nombreVeterinario = scanner.nextLine();
+        System.out.print("Ingrese el peso: ");
+        double peso = scanner.nextDouble();
 
-            int nuevoIndice = mascotas.size() + 1;
+        System.out.print("Ingrese el tamaño: ");
+        double tamaño = scanner.nextDouble();
+        scanner.nextLine();
 
-            HistorialClinico historial = new HistorialClinico(nuevoIndice, procedimiento, diagnostico, tratamiento, nombreVeterinario);
-            mascota.agregarHistorialMedico(historial);
-            System.out.println("El registro del historial fue exitoso...");
-        }
-        else{
-            System.out.println("ID de mascota incorrecto");
-        }
-
+        Mascota nuevaMascota = new Mascota(id, nombre, raza, edad, genero, peso, tamaño);
+        mascotas.add(nuevaMascota);
+        System.out.println("Mascota registrada correctamente.");
+        return nuevaMascota;
     }
 
-    public void mostrarHistorialPorId(Scanner scanner){
-        System.out.println("Ingresa el id de la mascota para buscar historial: ");
-        int idBuscar = scanner.nextInt();
+    public void buscarMascotaPorId(Scanner scanner) {
+        System.out.println("=========BUSCAR MASCOTA POR ID=========");
+        System.out.println("Ingrese el id a buscar: ");
+        int idBuscado = scanner.nextInt();
         scanner.nextLine();
+        Mascota mascota = mascotas.stream()
+                        .filter(m -> m.getIdMascota() == idBuscado)
+                        .findFirst()
+                        .orElse(null);
 
-        Mascota mascota = mascotas.stream().filter(e-> e.getIdMascota() == idBuscar)
-                                            .findFirst()
-                                            .orElse(null);
-                                        
         if(mascota != null){
-            
-            mascota.getHistorialClinico().forEach(e -> System.out.println(e));
-            
+            System.out.println(mascota.toString());
         }
 
         else{
-            
-            System.out.println("ID de mascota incorrecto");
-
+            System.out.println("No encontrado");
         }
     }
+
     //Solicitud de adopción
     public void crearSolicitudAdopcion(Scanner scanner) {
         System.out.println("Ingrese el id de la mascota que desean adoptar: ");
@@ -140,6 +137,61 @@ public class SistemaAlbergueMascota {
             }
         } else {
             System.out.println("ID de solicitud incorrecto");
+        }
+    }
+
+    public void agregarHistorialPorId(Scanner scanner){
+
+        System.out.println("Ingrese el id de mascota: ");
+        int idBuscar = scanner.nextInt();
+        scanner.nextLine();
+
+        Mascota mascota = mascotas.stream().filter(e-> e.getIdMascota() == idBuscar).findFirst().orElse(null);
+
+        if(mascota != null){
+            System.out.println("Ingrese el procedimiento (vacunación o cirugía): ");
+            String procedimiento = scanner.nextLine();
+
+            System.out.println("Ingrese el tratamiento: ");
+            String tratamiento = scanner.nextLine();
+
+            System.out.println("Ingrese el diagnóstico: ");
+            String diagnostico = scanner.nextLine();
+
+            System.out.println("Ingrese el nombre del veterinario: ");
+            String nombreVeterinario = scanner.nextLine();
+
+            int nuevoIndice = mascotas.size();
+
+            HistorialClinico historial = new HistorialClinico(nuevoIndice, procedimiento, diagnostico, tratamiento, nombreVeterinario);
+            mascota.agregarHistorialMedico(historial);
+            System.out.println("El registro del historial fue exitoso...");
+        }
+        else{
+            System.out.println("ID de mascota incorrecto");
+        }
+
+    }
+
+    public void mostrarHistorialPorId(Scanner scanner){
+        System.out.println("Ingresa el id de la mascota para buscar historial: ");
+        int idBuscar = scanner.nextInt();
+        scanner.nextLine();
+
+        Mascota mascota = mascotas.stream().filter(e-> e.getIdMascota() == idBuscar)
+                                            .findFirst()
+                                            .orElse(null);
+                                        
+        if(mascota != null){
+            
+            mascota.getHistorialClinico().forEach(e -> System.out.println(e));
+            
+        }
+
+        else{
+            
+            System.out.println("ID de mascota incorrecto");
+
         }
     }
 
@@ -231,4 +283,7 @@ public class SistemaAlbergueMascota {
         System.out.printf("Total recaudado en Efectivo: S/ %.2f\n", totalEfectivo);
         System.out.printf("Total recaudado en Comida: %.2f Kg\n", totalComida);
     }
+    
+
+
 }

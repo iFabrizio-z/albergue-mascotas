@@ -38,22 +38,12 @@ public class HistorialClinico {
     }
     @Override
     public String toString() {
-        return String.format("============ATENCIÓN MÉDICA [%d]============", idHistorial) +
+        return String.format("============ATENCIÓN MÉDICA [%03d]============", idHistorial) +
                             "\nFecha registrada: " + fechaAtencion + 
-                            "\nProcedimiento" + tipoProcedimiento +
+                            "\nProcedimiento: " + tipoProcedimiento +
                             "\nTratamiento: " + tratamientoMedico +
                             "\nDiagnóstico: " + diagnosticoMedico +
                             "\nVeterinario: " + nombreVeterinario;
     }
-
-    
-
-    
-
-
-
-    
-
-    
 
 }

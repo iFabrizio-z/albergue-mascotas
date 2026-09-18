@@ -20,7 +20,7 @@ public class SolicitudAdopcion {
 
     // Constructor
     public SolicitudAdopcion(int idSolicitud, String nombreAdoptante, String apellidosAdoptante, 
-                             String dni, String direccion, String email, String telefono, Mascota mascota) {
+                            String dni, String direccion, String email, String telefono, Mascota mascota) {
         this.idSolicitud = idSolicitud;
         this.fechaSolicitud = LocalDate.now(); 
         this.estado = "Pendiente"; 
