@@ -1,4 +1,4 @@
-public class Usuario {
+public class Usuario implements Autenticable {
 
     // Atributos
     private String usuario;
@@ -12,7 +12,7 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    //Getters
+    // Getters
     public String getUsuario() {
         return usuario;
     }
@@ -26,18 +26,14 @@ public class Usuario {
     }
 
     /**
-
-    * Verifica si el usuario y la contraseña son correctos.
-    *
-    * @param usuarioIngresado usuario ingresado.
-    * @param contrasenaIngresada contraseña ingresada.
-    * @return true si los datos son correctos, false si no.
-    
-    */
+     * Verifica si el usuario y la contraseña son correctos.
+     *
+     * @param usuarioIngresado usuario ingresado.
+     * @param contrasenaIngresada contraseña ingresada.
+     * @return true si los datos son correctos, false si no.
+     */
+    @Override
     public boolean autenticar(String usuarioIngresado, String contrasenaIngresada) {
         return this.usuario.equals(usuarioIngresado) && this.contrasena.equals(contrasenaIngresada);
     }
-
-    
-    
 }
