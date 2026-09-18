@@ -4,8 +4,9 @@ public class App {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
-        SistemaAlbergueMascota sistema = new SistemaAlbergueMascota();
         
+        // Instancia principal que controla todo el programa
+        SistemaAlbergueMascota sistema = new SistemaAlbergueMascota();
 
         do {
             System.out.println("\n-------SISTEMA ALBERGUE MASCOTAS-------");
@@ -15,7 +16,9 @@ public class App {
             System.out.println("4. Evaluar solicitud pendiente");
             System.out.println("5. Agregar historial clínico por id de mascota");
             System.out.println("6. Mostrar historial clínico por id de mascota");
-            System.out.println("7. Salir");
+            System.out.println("7. Registrar Donación");
+            System.out.println("8. Listar Donaciones");
+            System.out.println("9. Salir");
             System.out.print("Seleccione una opción: ");
 
             opcion = scanner.nextInt();
@@ -23,79 +26,45 @@ public class App {
 
             switch (opcion) {
                 case 1:
-                    
-
+                    //Aquí va la lógica para registrar la mascota
+                    break;
                     
                 case 2:
+                    //Aquí va la lógica para mostrar las mascotas
+                    break;
                     
                 case 3:
-                    // TUVISTE QUE HABER REGISTRADO UNA MASCOTA PRIMERO
-                    if (mascota != null) {
-                        System.out.println("\n-------NUEVA SOLICITUD DE ADOPCIÓN-------");
-                        System.out.print("Nombre del adoptante: ");
-                        String nombreAdoptante = scanner.nextLine();
-                        
-                        System.out.print("Teléfono de contacto: ");
-                        String telefono = scanner.nextLine();
-
-                        // Aquí usamos el constructor de la clase que tú creaste
-                        solicitud = new SolicitudAdopcion(nombreAdoptante, telefono, mascota);
-                        System.out.println("\n¡Solicitud creada exitosamente! Estado actual: " + solicitud.getEstado());
-                    } else {
-                        System.out.println("Error: No puedes crear una solicitud si no hay una mascota registrada.");
-                    }
+                    sistema.crearSolicitudAdopcion(scanner);
                     break;
-                
-                  
                     
                 case 4:
-                   if (solicitud != null) {
-                       System.out.println("\n-------EVALUAR SOLICITUD-------");
-                       System.out.println("Adoptante: " + solicitud.getNombreAdoptante());
-                       System.out.println("Teléfono: " + solicitud.getTelefono());
-                       System.out.println("Mascota pedida: " + solicitud.getMascota().getNombre());
-                       System.out.println("Estado actual: " + solicitud.getEstado());
-                        
-                       System.out.print("\n¿Aprobar solicitud? (1 para Sí, 2 para No): ");
-                       int decision = scanner.nextInt();
-                       scanner.nextLine();
-
-                       // Usamos tu método evaluar
-                       if (decision == 1) {
-                           solicitud.evaluar(true);
-                           mascota.setEstadoAdopcion("Adoptado"); // Actualizamos a la mascota también
-                       } else if (decision == 2) {
-                            solicitud.evaluar(false);
-                       } else {
-                            System.out.println("Opción no válida.");
-                       }
-                   } else {
-                       System.out.println("No hay ninguna solicitud pendiente para evaluar.");
-                   }
-                   break;
+                    sistema.evaluarSolicitudPorId(scanner);
+                    break;
+                    
                 case 5:
                     sistema.agregarHistorialPorId(scanner);
                     break;
-                
-                
-                 
 
                 case 6:
-
                     sistema.mostrarHistorialPorId(scanner);
                     break;
 
                 case 7:
-
-                case 8:
-                    System.out.println("Saliendo del sistema...");
+                    sistema.registrarDonacion(scanner);
                     break;
 
+                case 8:
+                    sistema.listarDonaciones();
+                    break;
+
+                case 9:
+                    System.out.println("Saliendo del sistema...");
+                    break;
 
                 default:
                     System.out.println("Opción incorrecta, intente de nuevo.");
             }
-        } while (opcion != 8);
+        } while (opcion != 9);
 
         scanner.close();
     }
