@@ -134,7 +134,7 @@ public class Mascota {
 				"\n Peso: " + peso + 
                 "\n Tamaño: " + tamaño + 
                 "\n Estado: " + estadoAdopcion +
-                "=======================================";
+                "\n=======================================";
 
     }
 
