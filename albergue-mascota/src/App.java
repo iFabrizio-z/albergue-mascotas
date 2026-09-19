@@ -1,14 +1,17 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 public class App {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
-        
+
         // Instancia principal que controla todo el programa
         SistemaAlbergueMascota sistema = new SistemaAlbergueMascota();
-            
-        
+
+        // Llamada al método de inicio de sesión antes de entrar al menú
+        sistema.iniciarSesion(scanner);
+
         do {
             System.out.println("\n-------SISTEMA ALBERGUE MASCOTAS-------");
             System.out.println("1. Registrar Mascota");
@@ -22,57 +25,55 @@ public class App {
             System.out.println("9. Salir");
             System.out.print("Seleccione una opción: ");
 
-            opcion = scanner.nextInt();
-            scanner.nextLine(); 
-            try{
+            try {
+                opcion = scanner.nextInt();
+                scanner.nextLine();
+
                 switch (opcion) {
                     case 1:
                         sistema.registrarMascota(scanner);
                         break;
-                    
+
                     case 2:
                         sistema.buscarMascotaPorId(scanner);
                         break;
-                        
-                
+
                     case 3:
                         sistema.crearSolicitudAdopcion(scanner);
                         break;
-                        
+
                     case 4:
                         sistema.evaluarSolicitudPorId(scanner);
                         break;
-                        
+
                     case 5:
                         sistema.agregarHistorialPorId(scanner);
                         break;
-                
+
                     case 6:
                         sistema.mostrarHistorialPorId(scanner);
                         break;
-                
+
                     case 7:
                         sistema.registrarDonacion(scanner);
                         break;
-                
+
                     case 8:
                         sistema.listarDonaciones();
                         break;
-                
+
                     case 9:
                         System.out.println("Saliendo del sistema...");
                         break;
-                
-                    default:
-                        System.out.println("Opción incorrecta, intente de nuevo.");
-                }
-            }catch(InputMismatchException e){
-                System.out.println("Solo números enteros");
-                scanner.nextLine();
-                opcion = 0;
-            }
 
-            
+                    default:
+                        System.out.println("Opción no válida. Intente nuevamente.");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Debe ingresar un número entero.");
+                scanner.nextLine();
+            }
         } while (opcion != 9);
 
         scanner.close();

@@ -283,7 +283,26 @@ public class SistemaAlbergueMascota {
         System.out.printf("Total recaudado en Efectivo: S/ %.2f\n", totalEfectivo);
         System.out.printf("Total recaudado en Comida: %.2f Kg\n", totalComida);
     }
-    
 
+    public void iniciarSesion(Scanner scanner) {
+        Usuario admin = new Usuario("admin", "1234", "Administrador");
+        boolean autenticado = false;
+
+        while (!autenticado) {
+            System.out.println("=== INICIO DE SESIÓN ===");
+            System.out.print("Ingrese usuario: ");
+            String us = scanner.nextLine();
+
+            System.out.print("Ingrese contraseña: ");
+            String pass = scanner.nextLine();
+
+            if (admin.autenticar(us, pass)) {
+                System.out.println("\nBienvenido, " + admin.getNombre() + "!");
+                autenticado = true;
+            } else {
+                System.out.println("\nUsuario o contraseña incorrectos. Intente nuevamente.\n");
+            }
+        }
+    }
 
 }
