@@ -332,5 +332,5 @@ Proyecto desarrollado con fines académicos para aplicar conceptos de **Programa
 
 ---
 
-**Sistema de Albergue de Mascotas 🐾**
+**Sistema de Albergue de Mascotas **
 
