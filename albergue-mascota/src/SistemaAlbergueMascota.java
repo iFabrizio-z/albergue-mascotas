@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class SistemaAlbergueMascota {
 
     List<Mascota> mascotas = new ArrayList<>();
+    List<Adoptante> adoptante = new ArrayList<>();
     List<SolicitudAdopcion> solicitudes = new ArrayList<>();
     List<Donacion> donaciones = new ArrayList<>(); // Nueva lista para donaciones
 
@@ -61,7 +62,64 @@ public class SistemaAlbergueMascota {
         }
     }
 
-    //Solicitud de adopción
+// REGISTRAR ADOPCION Y ADOPTANTE
+
+    //Buscar adoptante por su dni
+    public Adoptante buscarAdoptante(String dni) {
+
+        return adoptante.stream()
+                .filter(a -> a.getDni().equals(dni))
+                .findFirst()
+                .orElse(null);
+    }
+
+
+    public Adoptante registrarAdoptante(Scanner scanner) {
+        System.out.print("Ingrese el DNI: ");
+        String dni = scanner.nextLine();
+
+        // Primero buscamos si ya existe
+        Adoptante adoptanteExistente = buscarAdoptante(dni);
+
+        if (adoptanteExistente != null) {
+
+            System.out.println("El adoptante ya se encuentra registrado.");
+
+            return adoptanteExistente;
+        }
+
+        System.out.print("Ingrese el nombre: ");
+        String nombre = scanner.nextLine();
+
+        System.out.print("Ingrese los apellidos: ");
+        String apellidos = scanner.nextLine();
+
+        System.out.print("Ingrese la dirección: ");
+        String direccion = scanner.nextLine();
+
+        System.out.print("Ingrese el email: ");
+        String email = scanner.nextLine();
+
+        System.out.print("Ingrese el teléfono móvil: ");
+        String telefono = scanner.nextLine();
+
+        Adoptante nuevoAdoptante = new Adoptante(
+                dni,
+                nombre,
+                apellidos,
+                direccion,
+                email,
+                telefono
+        );
+
+        adoptante.add(nuevoAdoptante);
+
+        System.out.println("Adoptante registrado correctamente.");
+
+        return nuevoAdoptante;
+    }
+
+    
     public void crearSolicitudAdopcion(Scanner scanner) {
         System.out.println("Ingrese el id de la mascota que desean adoptar: ");
         int idBuscar = scanner.nextInt();
@@ -71,30 +129,21 @@ public class SistemaAlbergueMascota {
         Mascota mascota = mascotas.stream().filter(e -> e.getIdMascota() == idBuscar).findFirst().orElse(null);
 
         if (mascota != null) {
-            System.out.println("Ingrese el nombre del adoptante: ");
-            String nombre = scanner.nextLine();
+            //Llama al método para registrar adoptante
+            Adoptante adoptante = registrarAdoptante(scanner);
+            // Generar ID de solicitud
+            int nuevoId = solicitudes.size() + 1;
 
-            System.out.println("Ingrese los apellidos: ");
-            String apellidos = scanner.nextLine();
+            SolicitudAdopcion nuevaSolicitud =
+                new SolicitudAdopcion(
+                        
+                        mascota                        
+                );
 
-            System.out.println("Ingrese el DNI: ");
-            String dni = scanner.nextLine();
-
-            System.out.println("Ingrese la dirección: ");
-            String direccion = scanner.nextLine();
-
-            System.out.println("Ingrese el email: ");
-            String email = scanner.nextLine();
-
-            System.out.println("Ingrese el teléfono móvil: ");
-            String telefono = scanner.nextLine();
-
-            int nuevoIndice = solicitudes.size() + 1; // Genera el ID automáticamente
-
-            // Instancia el objeto y lo guarda en la lista
-            SolicitudAdopcion nuevaSolicitud = new SolicitudAdopcion(nuevoIndice, nombre, apellidos, dni, direccion, email, telefono, mascota);
             solicitudes.add(nuevaSolicitud);
-            
+
+            System.out.println("\nSolicitud registrada correctamente.");
+            System.out.println("ID de solicitud: " + nuevoId);
             System.out.println("El registro de la solicitud fue exitoso...");
         } else {
             System.out.println("ID de mascota incorrecto");
