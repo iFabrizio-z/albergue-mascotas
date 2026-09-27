@@ -20,7 +20,7 @@ El sistema permite:
 * Consultar el historial y totales de donaciones.
 * Proteger el acceso mediante un inicio de sesión.
 
-## 🛠️ Tecnologías utilizadas
+## Tecnologías utilizadas
 
 * **Java**
 * **Java Collections Framework**
