@@ -73,7 +73,7 @@ Se encarga de:
 
 ### `Adoptante`
 
-Representa a un adoptante que busca adoptar a una mascota del albergue.
+Representa a un persona que busca adoptar a una mascota del albergue.
 
 Incluye los siguientes datos:
 * Nombre
