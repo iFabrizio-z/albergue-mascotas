@@ -1,65 +1,112 @@
 import java.time.LocalDate;
 
 public class SolicitudAdopcion {
-    
-    // Atributos de control 
+
+    // Atributos
     private int idSolicitud;
     private LocalDate fechaSolicitud;
-    private String estado; 
+    private String estado;
 
-    // Formulario (Información Personal)
-    private String nombreAdoptante;
-    private String apellidosAdoptante;
-    private String dni;
-    private String direccion;
-    private String email;
-    private String telefono;
-
-    // Atributo de la mascota
+    private Adoptante adoptante;
     private Mascota mascota;
 
-    // Constructor
-    public SolicitudAdopcion(int idSolicitud, String nombreAdoptante, String apellidosAdoptante, 
-                            String dni, String direccion, String email, String telefono, Mascota mascota) {
+    // Método constructor
+    public SolicitudAdopcion(int idSolicitud, Adoptante adoptante,
+                             Mascota mascota) {
+
         this.idSolicitud = idSolicitud;
-        this.fechaSolicitud = LocalDate.now(); 
-        this.estado = "Pendiente"; 
-        
-        this.nombreAdoptante = nombreAdoptante;
-        this.apellidosAdoptante = apellidosAdoptante;
-        this.dni = dni;
-        this.direccion = direccion;
-        this.email = email;
-        this.telefono = telefono;
-        this.mascota = mascota;
+        this.fechaSolicitud = LocalDate.now();
+        this.estado = "Pendiente";
+
+        setAdoptante(adoptante);
+        setMascota(mascota);
     }
 
-    // Setter exclusivo para que el Sistema cambie el estado
+    // Setters
+
+    /**
+     * Establece el estado de la solicitud.
+     *
+     * @param estado estado de la solicitud, no puede estar vacío.
+     * @throws IllegalArgumentException si el estado está vacío.
+     */
     public void setEstado(String estado) {
+        if (estado.isBlank()) {
+            throw new IllegalArgumentException(
+                    "El estado no puede estar vacío");
+        }
+
         this.estado = estado;
     }
 
-    // Getters
-    public int getIdSolicitud() { return idSolicitud; }
-    public LocalDate getFechaSolicitud() { return fechaSolicitud; }
-    public String getEstado() { return estado; }
-    public String getNombreAdoptante() { return nombreAdoptante; }
-    public String getApellidosAdoptante() { return apellidosAdoptante; }
-    public String getDni() { return dni; }
-    public String getDireccion() { return direccion; }
-    public String getEmail() { return email; }
-    public String getTelefono() { return telefono; }
-    public Mascota getMascota() { return mascota; }
+    /**
+     * Establece el adoptante de la solicitud.
+     *
+     * @param adoptante adoptante de la solicitud, no puede ser nulo.
+     * @throws IllegalArgumentException si el adoptante es nulo.
+     */
+    public void setAdoptante(Adoptante adoptante) {
+        if (adoptante == null) {
+            throw new IllegalArgumentException(
+                    "El adoptante no puede ser nulo");
+        }
 
+        this.adoptante = adoptante;
+    }
+
+    /**
+     * Establece la mascota de la solicitud.
+     *
+     * @param mascota mascota de la solicitud, no puede ser nula.
+     * @throws IllegalArgumentException si la mascota es nula.
+     */
+    public void setMascota(Mascota mascota) {
+        if (mascota == null) {
+            throw new IllegalArgumentException(
+                    "La mascota no puede ser nula");
+        }
+
+        this.mascota = mascota;
+    }
+
+    // Getters
+
+    public int getIdSolicitud() {
+        return idSolicitud;
+    }
+
+    public LocalDate getFechaSolicitud() {
+        return fechaSolicitud;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public Adoptante getAdoptante() {
+        return adoptante;
+    }
+
+    public Mascota getMascota() {
+        return mascota;
+    }
+
+    /**
+     * Devuelve la información de la solicitud.
+     *
+     * @return información de la solicitud en formato de texto.
+     */
     @Override
     public String toString() {
-        return String.format("============SOLICITUD DE ADOPCIÓN [%d]============", idSolicitud) +
+        return String.format(
+                "============ SOLICITUD DE ADOPCIÓN [%d] ============",
+                idSolicitud) +
                 "\nFecha registrada: " + fechaSolicitud +
                 "\nEstado: " + estado +
-                "\nAdoptante: " + nombreAdoptante + " " + apellidosAdoptante +
-                "\nDNI: " + dni +
-                "\nTeléfono/Móvil: " + telefono +
-                "\nMascota solicitada: " + (mascota != null ? mascota.getNombre() : "Ninguna");
+                "\nAdoptante: " + adoptante.getNombre() + " "
+                + adoptante.getApellidos() +
+                "\nDNI: " + adoptante.getDni() +
+                "\nTeléfono/Móvil: " + adoptante.getTelefono() +
+                "\nMascota solicitada: " + mascota.getNombre();
     }
 }
-
