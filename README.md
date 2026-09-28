@@ -40,6 +40,7 @@ El sistema permite:
 albergue-mascota/
 │
 ├── src/
+│   ├── Adoptante.java
 │   ├── App.java
 │   ├── Donacion.java
 │   ├── HistorialClinico.java
@@ -69,6 +70,18 @@ Se encarga de:
 * Solicitar el inicio de sesión.
 * Mostrar el menú principal.
 * Gestionar las opciones seleccionadas por el usuario.
+
+### `Adoptante`
+
+Representa a un adoptante que busca adoptar a una mascota del albergue.
+
+Incluye los siguientes datos:
+* Nombre
+* Apellidos
+* DNI
+* Dirección
+* Email
+* Teléfono
 
 ### `Mascota`
 
