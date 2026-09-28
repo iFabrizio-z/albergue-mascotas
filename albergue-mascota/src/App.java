@@ -12,6 +12,7 @@ public class App {
         // Llamada al método de inicio de sesión antes de entrar al menú
         sistema.iniciarSesion(scanner);
 
+        //Menú con las operaciones que puede realizar el sistema
         do {
             System.out.println("\n-------SISTEMA ALBERGUE MASCOTAS-------");
             System.out.println("1. Registrar Mascota");
@@ -73,6 +74,7 @@ public class App {
             } catch (InputMismatchException e) {
                 System.out.println("Error: Debe ingresar un número entero.");
                 scanner.nextLine();
+                
             }
         } while (opcion != 9);
 
