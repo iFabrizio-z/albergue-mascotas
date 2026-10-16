@@ -2,13 +2,148 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializer;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.LocalDate;
+import java.util.Objects;
 
-public class SistemaAlbergueMascota {
+public class SistemaAlbergueMascota{
 
     List<Mascota> mascotas = new ArrayList<>();
     List<Adoptante> adoptantes = new ArrayList<>();
     List<SolicitudAdopcion> solicitudes = new ArrayList<>();
     List<Donacion> donaciones = new ArrayList<>();
+
+    public SistemaAlbergueMascota() {
+    this.mascotas = new ArrayList<>();
+    this.adoptantes = new ArrayList<>();
+    this.solicitudes = new ArrayList<>();
+    this.donaciones = new ArrayList<>();
+    }
+
+    /**
+     * Configura Gson para guardar objetos JSON legibles y manejar LocalDate.
+     *
+     * @return instancia de Gson configurada para el albergue.
+     */
+    private static Gson crearGson() {
+        return new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(
+                        LocalDate.class,
+                        (JsonSerializer<LocalDate>) (fecha, tipo, contexto) ->
+                                fecha == null
+                                        ? null
+                                        : new com.google.gson.JsonPrimitive(
+                                                fecha.toString())
+                )
+                .registerTypeAdapter(
+                        LocalDate.class,
+                        (JsonDeserializer<LocalDate>) (json, tipo, contexto) ->
+                                json == null || json.isJsonNull()
+                                        ? null
+                                        : LocalDate.parse(json.getAsString())
+                )
+                .create();
+    }
+    
+    /**
+     * Guarda las mascotas, adoptantes, solicitudes y donaciones en JSON.
+     */
+    public void guardarDatos() {
+        Path archivo = Path.of("albergue.json");
+        Gson gson = crearGson();
+    
+        try (Writer escritor = Files.newBufferedWriter(archivo)) {
+            gson.toJson(this, escritor);
+            System.out.println("Datos guardados correctamente.");
+        } catch (IOException e) {
+            System.err.println("Error al guardar: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Recupera el sistema desde albergue.json.
+     *
+     * @return sistema cargado o un sistema nuevo si el archivo no existe
+     *         o no se puede leer.
+     */
+    public static SistemaAlbergueMascota cargarDatos() {
+        Path archivo = Path.of("albergue.json");
+    
+        if (!Files.exists(archivo)) {
+            System.out.println("No existe albergue.json. Se inicia vacío.");
+            return new SistemaAlbergueMascota();
+        }
+    
+        try (Reader lector = Files.newBufferedReader(archivo)) {
+            Gson gson = crearGson();
+        
+            SistemaAlbergueMascota sistema =
+                    gson.fromJson(lector, SistemaAlbergueMascota.class);
+        
+            if (sistema == null) {
+                return new SistemaAlbergueMascota();
+            }
+        
+            sistema.reconectarSolicitudes();
+            System.out.println("Datos cargados correctamente.");
+            return sistema;
+        
+        } catch (IOException | JsonParseException e) {
+            System.err.println("Error al cargar JSON: " + e.getMessage());
+            return new SistemaAlbergueMascota();
+        }
+    }
+    
+    /**
+     * Reconecta las solicitudes con las mascotas y los adoptantes
+     * que pertenecen a las listas principales del sistema.
+     */
+    private void reconectarSolicitudes() {
+        if (solicitudes == null || mascotas == null || adoptantes == null) {
+            return;
+        }
+    
+        for (SolicitudAdopcion solicitud : solicitudes) {
+            if (solicitud == null) {
+                continue;
+            }
+        
+            if (solicitud.getMascota() != null) {
+                String id = solicitud.getMascota().getIdMascota();
+            
+                for (Mascota mascota : mascotas) {
+                    if (mascota != null
+                            && Objects.equals(mascota.getIdMascota(), id)) {
+                        solicitud.setMascota(mascota);
+                        break;
+                    }
+                }
+            }
+        
+            if (solicitud.getAdoptante() != null) {
+                String dni = solicitud.getAdoptante().getDni();
+            
+                for (Adoptante adoptante : adoptantes) {
+                    if (adoptante != null
+                            && Objects.equals(adoptante.getDni(), dni)) {
+                        solicitud.setAdoptante(adoptante);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
 
     /**
      * Registra una nueva mascota utilizando los datos ingresados por el usuario.
@@ -22,12 +157,31 @@ public class SistemaAlbergueMascota {
         while (true) {
             try {
                 System.out.print("Ingrese el id de la mascota: ");
-                nuevaMascota.setIdMascota(scanner.nextLine());
+                String idIngresado = scanner.nextLine().trim();
+            
+                // Verificar si el ID ya está registrado
+                boolean idExiste = false;
+            
+                for (Mascota mascota : mascotas) {
+                    if (mascota.getIdMascota().equalsIgnoreCase(idIngresado)) {
+                        idExiste = true;
+                        break;
+                    }
+                }
+            
+                if (idExiste) {
+                    System.out.println("Error: ya existe una mascota con ese ID. Intente otro.");
+                    continue;
+                }
+            
+                nuevaMascota.setIdMascota(idIngresado);
                 break;
+            
             } catch (IllegalArgumentException e) {
                 System.out.println("Error: " + e.getMessage());
             }
         }
+
 
         while (true) {
             try {

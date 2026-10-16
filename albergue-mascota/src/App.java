@@ -2,19 +2,19 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcion = 0;
 
-        // Instancia principal que controla todo el programa
-        SistemaAlbergueMascota sistema = new SistemaAlbergueMascota();
+        // Cargar los datos guardados del albergue
+        SistemaAlbergueMascota sistema = SistemaAlbergueMascota.cargarDatos();
 
-        // Llamada al método de inicio de sesión antes de entrar al menú
-        sistema.iniciarSesion(scanner);
+        // Inicio de sesión del administrador
+        sistema.iniciarSesion(scanner); // Para probar el sistema usar -> Usuario: admin - Password:1234
 
-        //Menú con las operaciones que puede realizar el sistema
         do {
-            System.out.println("\n-------SISTEMA ALBERGUE MASCOTAS-------");
+            System.out.println("\n------- SISTEMA ALBERGUE MASCOTAS -------");
             System.out.println("1. Registrar Mascota");
             System.out.println("2. Ver Datos de Mascota por Id");
             System.out.println("3. Crear solicitud de adopción");
@@ -68,14 +68,20 @@ public class App {
                         break;
 
                     default:
-                        System.out.println("Opción no válida. Intente nuevamente.");
-                        break;
+                        System.out.println(
+                                "Opción incorrecta, intente de nuevo."
+                        );
                 }
+
             } catch (InputMismatchException e) {
-                System.out.println("Error: Debe ingresar un número entero.");
+                System.out.println("Solo se permiten números enteros.");
                 scanner.nextLine();
-                
+                opcion = 0;
             }
+
+            // Guardar los datos en albergue.json.
+            sistema.guardarDatos();
+
         } while (opcion != 9);
 
         scanner.close();

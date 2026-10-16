@@ -1,6 +1,7 @@
 import java.time.LocalDate;
 
-public class Donacion {
+
+public class Donacion{
 
     // Atributos
 
@@ -10,6 +11,7 @@ public class Donacion {
     private double montoEfectivo;
     private double cantidadComidaKg;
     private LocalDate fecha;
+    
 
     /**
      * Constructor para registrar una donación en efectivo.

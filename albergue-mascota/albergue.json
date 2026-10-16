@@ -1,0 +1,221 @@
+{
+  "mascotas": [
+    {
+      "idMascota": "M001",
+      "raza": "Labrador",
+      "edad": 3,
+      "genero": "Hembra",
+      "peso": 22.5,
+      "tamaño": 55.0,
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Luna",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-10-16",
+          "tipoProcedimiento": "Vacunacion",
+          "diagnosticoMedico": "Buen estado de salud",
+          "tratamientoMedico": "Vacuna antirrabica",
+          "nombreVeterinario": "Dr. Carlos Perez"
+        }
+      ]
+    },
+    {
+      "idMascota": "M002",
+      "raza": "Pastor Aleman",
+      "edad": 5,
+      "genero": "Macho",
+      "peso": 30.0,
+      "tamaño": 65.0,
+      "estadoAdopcion": "Tratamiento",
+      "nombre": "Max",
+      "historialClinico": []
+    },
+    {
+      "idMascota": "M003",
+      "raza": "Siames",
+      "edad": 2,
+      "genero": "Macho",
+      "peso": 4.5,
+      "tamaño": 25.0,
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Michi",
+      "historialClinico": []
+    },
+    {
+      "idMascota": "M004",
+      "raza": "Golden Retriever",
+      "edad": 1,
+      "genero": "Hembra",
+      "peso": 18.0,
+      "tamaño": 48.0,
+      "estadoAdopcion": "Adoptado",
+      "nombre": "Nala",
+      "historialClinico": []
+    },
+    {
+      "idMascota": "M005",
+      "raza": "Doberman",
+      "edad": 5,
+      "genero": "Macho",
+      "peso": 35.0,
+      "tamaño": 69.0,
+      "estadoAdopcion": "Adoptado",
+      "nombre": "Bobby",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-10-16",
+          "tipoProcedimiento": "Vacunacion",
+          "diagnosticoMedico": "Mascota en buen estado de salud",
+          "tratamientoMedico": "Vacuna antipulgas",
+          "nombreVeterinario": "Dr. Carlos Perez"
+        }
+      ]
+    }
+  ],
+  "adoptantes": [
+    {
+      "nombre": "Ana",
+      "apellidos": "Garcia Lopez",
+      "dni": "12345678",
+      "direccion": "Av. Los Olivos 123",
+      "email": "ana@ejemplo.com",
+      "telefono": "900111222"
+    },
+    {
+      "nombre": "Luis",
+      "apellidos": "Ramirez Torres",
+      "dni": "87654321",
+      "direccion": "Jr. Las Flores 456",
+      "email": "luis@ejemplo.com",
+      "telefono": "900333444"
+    },
+    {
+      "nombre": "Mariano",
+      "apellidos": "Bolivar",
+      "dni": "11111111",
+      "direccion": "Av. Brasil",
+      "email": "mariano@ejemplo.com",
+      "telefono": "911123459"
+    }
+  ],
+  "solicitudes": [
+    {
+      "idSolicitud": 1,
+      "fechaSolicitud": "2026-10-16",
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Ana",
+        "apellidos": "Garcia Lopez",
+        "dni": "12345678",
+        "direccion": "Av. Los Olivos 123",
+        "email": "ana@ejemplo.com",
+        "telefono": "900111222"
+      },
+      "mascota": {
+        "idMascota": "M001",
+        "raza": "Labrador",
+        "edad": 3,
+        "genero": "Hembra",
+        "peso": 22.5,
+        "tamaño": 55.0,
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Luna",
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-10-16",
+            "tipoProcedimiento": "Vacunacion",
+            "diagnosticoMedico": "Buen estado de salud",
+            "tratamientoMedico": "Vacuna antirrabica",
+            "nombreVeterinario": "Dr. Carlos Perez"
+          }
+        ]
+      }
+    },
+    {
+      "idSolicitud": 2,
+      "fechaSolicitud": "2026-10-16",
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Luis",
+        "apellidos": "Ramirez Torres",
+        "dni": "87654321",
+        "direccion": "Jr. Las Flores 456",
+        "email": "luis@ejemplo.com",
+        "telefono": "900333444"
+      },
+      "mascota": {
+        "idMascota": "M003",
+        "raza": "Siames",
+        "edad": 2,
+        "genero": "Macho",
+        "peso": 4.5,
+        "tamaño": 25.0,
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Michi",
+        "historialClinico": []
+      }
+    },
+    {
+      "idSolicitud": 3,
+      "fechaSolicitud": "2026-10-16",
+      "estado": "Aprobada",
+      "adoptante": {
+        "nombre": "Mariano",
+        "apellidos": "Bolivar",
+        "dni": "11111111",
+        "direccion": "Av. Brasil",
+        "email": "mariano@ejemplo.com",
+        "telefono": "911123459"
+      },
+      "mascota": {
+        "idMascota": "M005",
+        "raza": "Doberman",
+        "edad": 5,
+        "genero": "Macho",
+        "peso": 35.0,
+        "tamaño": 69.0,
+        "estadoAdopcion": "Adoptado",
+        "nombre": "Bobby",
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-10-16",
+            "tipoProcedimiento": "Vacunacion",
+            "diagnosticoMedico": "Mascota en buen estado de salud",
+            "tratamientoMedico": "Vacuna antipulgas",
+            "nombreVeterinario": "Dr. Carlos Perez"
+          }
+        ]
+      }
+    }
+  ],
+  "donaciones": [
+    {
+      "idDonacion": 1,
+      "donante": "Maria Torres",
+      "tipoDonacion": "Efectivo",
+      "montoEfectivo": 150.0,
+      "cantidadComidaKg": 0.0,
+      "fecha": "2026-10-16"
+    },
+    {
+      "idDonacion": 2,
+      "donante": "Carlos Mendoza",
+      "tipoDonacion": "Comida",
+      "montoEfectivo": 0.0,
+      "cantidadComidaKg": 25.0,
+      "fecha": "2026-10-16"
+    },
+    {
+      "idDonacion": 3,
+      "donante": "Piero",
+      "tipoDonacion": "Efectivo",
+      "montoEfectivo": 500.0,
+      "cantidadComidaKg": 0.0,
+      "fecha": "2026-10-16"
+    }
+  ]
+}
