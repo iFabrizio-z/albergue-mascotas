@@ -1,7 +1,9 @@
 import java.util.List;
 import java.util.ArrayList;
 
-public class Mascota {
+
+
+public class Mascota{
 
     // Atributos
 

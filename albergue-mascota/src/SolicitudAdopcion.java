@@ -1,14 +1,15 @@
 import java.time.LocalDate;
 
-public class SolicitudAdopcion {
+public class SolicitudAdopcion{
 
     // Atributos
     private int idSolicitud;
     private LocalDate fechaSolicitud;
     private String estado;
-
     private Adoptante adoptante;
     private Mascota mascota;
+
+    
 
     // Método constructor
     public SolicitudAdopcion(int idSolicitud, Adoptante adoptante,

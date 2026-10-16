@@ -1,4 +1,4 @@
-public class Adoptante {
+public class Adoptante{
 
     // Atributos
 

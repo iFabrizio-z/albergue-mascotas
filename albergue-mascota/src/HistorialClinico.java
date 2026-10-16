@@ -1,6 +1,6 @@
 import java.time.LocalDate;
 
-public class HistorialClinico {
+public class HistorialClinico{
 
     // Atributos privados
     private int idHistorial;
@@ -15,6 +15,7 @@ public class HistorialClinico {
      */
     public HistorialClinico() {
     }
+
 
     /**
      * Crea un nuevo registro de historial clínico.
