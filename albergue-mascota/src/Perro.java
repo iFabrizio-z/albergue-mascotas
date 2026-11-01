@@ -1,34 +1,46 @@
 public class Perro extends Mascota {
 
-    // Nuevos atributos específicos de Perro
+    // Atributos específicos del perro
     private String nivelEntrenamiento;
     private boolean conviveConOtrosPerros;
 
-    // Constructor vacío
+    // Constructor vacío 
     public Perro() {
-        super(); // Llama al constructor vacío de la clase padre (Mascota)
+        super();
     }
 
-    // Constructor con todos los parámetros (los heredados + los nuevos)
-    public Perro(String idMascota, String nombre, String raza, int edad, String genero, 
-                 double peso, double tamaño, String nivelEntrenamiento, boolean conviveConOtrosPerros) {
-        
-        // super() envía los datos comunes a la clase padre Mascota
-        super(idMascota, nombre, raza, edad, genero, peso, tamaño);
-        
-        this.nivelEntrenamiento = nivelEntrenamiento;
+    // Constructor con parámetros
+    public Perro(int idMascota, String raza, int edad,
+                 String genero, double peso, String tamaño,
+                 String estadoAdopcion, String nombre,
+                 String nivelEntrenamiento,
+                 boolean conviveConOtrosPerros) {
+
+        super(idMascota, raza, edad, genero, peso,
+              tamaño, estadoAdopcion, nombre);
+
+        setNivelEntrenamiento(nivelEntrenamiento);
         this.conviveConOtrosPerros = conviveConOtrosPerros;
     }
 
-    // Getters y Setters de los nuevos atributos
+    // Getter y setter del nivel de entrenamiento
     public String getNivelEntrenamiento() {
         return nivelEntrenamiento;
     }
 
     public void setNivelEntrenamiento(String nivelEntrenamiento) {
+        if (nivelEntrenamiento == null ||
+            (!nivelEntrenamiento.equalsIgnoreCase("Básico") &&
+             !nivelEntrenamiento.equalsIgnoreCase("Intermedio") &&
+             !nivelEntrenamiento.equalsIgnoreCase("Avanzado"))) {
+            throw new IllegalArgumentException(
+                "El nivel debe ser Básico, Intermedio o Avanzado."
+            );
+        }
         this.nivelEntrenamiento = nivelEntrenamiento;
     }
 
+    // Getter y setter de convivencia
     public boolean isConviveConOtrosPerros() {
         return conviveConOtrosPerros;
     }
@@ -37,22 +49,18 @@ public class Perro extends Mascota {
         this.conviveConOtrosPerros = conviveConOtrosPerros;
     }
 
-    // Sobreescribimos el toString para incluir los nuevos datos
+    // Sobrescritura del método de Mascota
     @Override
-    public String toString() {
-        String convive = conviveConOtrosPerros ? "Sí" : "No";
-        
-        return "============ FICHA MASCOTA (PERRO) ============" +
-                "\nID de mascota: " + getIdMascota() +
-                "\nNombre: " + getNombre() +
-                "\nRaza: " + getRaza() +
-                "\nEdad: " + getEdad() + " años" +
-                "\nGenero: " + getGenero() +
-                "\nPeso: " + getPeso() + " kg" +
-                "\nTamaño: " + getTamaño() + " m" +
-                "\nNivel de Entrenamiento: " + nivelEntrenamiento +
-                "\nConvive con otros perros: " + convive +
-                "\nEstado: " + getEstadoAdopcion() +
-                "\n===============================================";
+    public void mostrarDatosMascota() {
+
+        // Mostrar los atributos heredados
+        super.mostrarDatosMascota();
+
+        // Mostrar los atributos propios de Perro
+        System.out.println("Nivel de entrenamiento: " + nivelEntrenamiento);
+        System.out.println("Convive con otros perros: " +
+                (conviveConOtrosPerros ? "Sí" : "No"));
+
+        System.out.println("=============================================");
     }
 }
