@@ -584,6 +584,18 @@ public class SistemaAlbergueMascota{
     }
 
     /**
+     * Agrega una donación a la lista de donaciones del sistema.
+    * Verifica que la donación no sea nula antes de almacenarla.
+    *
+    * @param nuevaDonacion objeto de tipo Donacion que se desea agregar.
+    */
+    public void agregarDonacion(Donacion donacion) {
+        if (donacion != null) {
+            donaciones.add(donacion);
+        }
+    }
+
+    /**
      * Registra una nueva donación utilizando los datos ingresados por el usuario.
      * La donación puede corresponder a dinero o alimentos.
      *
@@ -625,10 +637,9 @@ public class SistemaAlbergueMascota{
 
                 if (monto > 0) {
 
-                    Donacion donacion =
-                            new Donacion(nuevoId, donante, monto);
+                    Donacion donacion = new Efectivo(nuevoId, donante, monto);
 
-                    donaciones.add(donacion);
+                    agregarDonacion(donacion);
 
                     System.out.println("Donación en efectivo registrada exitosamente.");
 
@@ -646,14 +657,13 @@ public class SistemaAlbergueMascota{
             System.out.print("Ingrese la cantidad de comida en kilogramos (Kg): ");
 
             try {
-                double cantidad = scanner.nextDouble();
+                Double cantidad = scanner.nextDouble();
                 scanner.nextLine();
 
                 if (cantidad > 0) {
 
-                    Donacion donacion = new Donacion(nuevoId,donante,cantidad,true);
-
-                    donaciones.add(donacion);
+                    Donacion donacion = new Comida(nuevoId, donante, cantidad);
+                    agregarDonacion(donacion);
 
                     System.out.println("Donación de comida registrada exitosamente.");
 
@@ -685,25 +695,32 @@ public class SistemaAlbergueMascota{
             return;
         }
 
-        double totalEfectivo = 0;
-        double totalComida = 0;
+        
 
-        for (Donacion d : donaciones) {
+        System.out.println("\n--- LISTA DE DONACIONES ---");
 
-            System.out.println(d);
+        for(Donacion donacion : donaciones){
+            donacion.mostrarDetalle();
+            System.out.println();
+        }
 
-            if (d.getTipoDonacion().equalsIgnoreCase("Efectivo")) {
+        
+        // Variables para almacenar el total de efectivo y comida
+        Double totalEfectivo = 0.0;
+        Double totalComida = 0.0;
 
-                totalEfectivo += d.getMontoEfectivo();
-
-            } else {
-
-                totalComida += d.getCantidadComidaKg();
+        for(Donacion donacion : donaciones){
+            if(donacion instanceof Comida){
+                Comida comida = (Comida) donacion;
+                totalComida += comida.getCantidadComidaKg();
+            }
+            else if(donacion instanceof Efectivo){
+                Efectivo efectivo = (Efectivo) donacion;
+                totalEfectivo += efectivo.getMontoEfectivo();
             }
         }
 
-        System.out.println("\n--- RESUMEN TOTAL ---");
-
+        System.out.println();
         System.out.printf("Total recaudado en Efectivo: S/ %.2f\n",totalEfectivo);
 
         System.out.printf("Total recaudado en Comida: %.2f Kg\n",totalComida);
