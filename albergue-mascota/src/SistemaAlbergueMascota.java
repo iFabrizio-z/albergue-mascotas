@@ -152,7 +152,8 @@ public class SistemaAlbergueMascota{
      */
     public void registrarMascota(Scanner scanner) {
 
-        Mascota nuevaMascota = new Mascota();
+        // CAMBIO 1: Instanciar Perro en lugar de Mascota
+        Perro nuevaMascota = new Perro();
 
         while (true) {
             try {
@@ -181,7 +182,6 @@ public class SistemaAlbergueMascota{
                 System.out.println("Error: " + e.getMessage());
             }
         }
-
 
         while (true) {
             try {
@@ -273,13 +273,31 @@ public class SistemaAlbergueMascota{
             }
         }
 
+        // CAMBIO 2: Pedir los atributos específicos de la clase hija (Perro)
+        System.out.print("Ingrese el nivel de entrenamiento (Básico/Intermedio/Avanzado): ");
+        nuevaMascota.setNivelEntrenamiento(scanner.nextLine());
+
+        while (true) {
+            try {
+                System.out.print("¿Convive con otros perros? (true/false): ");
+                boolean convive = scanner.nextBoolean();
+                scanner.nextLine(); // Limpiar el buffer
+                
+                nuevaMascota.setConviveConOtrosPerros(convive);
+                break;
+                
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Debe escribir 'true' o 'false'.");
+                scanner.nextLine(); // Limpiar la entrada incorrecta
+            }
+        }
+
         nuevaMascota.setEstadoAdopcion("refugiado");
 
         mascotas.add(nuevaMascota);
 
-        System.out.println("Mascota registrada correctamente.");
+        System.out.println("Perro registrado correctamente.");
     }
-
     /**
      * Busca una mascota registrada mediante su identificador y muestra
      * la información correspondiente por consola.
