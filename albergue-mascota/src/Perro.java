@@ -10,7 +10,7 @@ public class Perro extends Mascota {
     }
 
     // Constructor con parámetros
-    public Perro(int idMascota, String raza, int edad,
+    public Perro(String idMascota, String raza, int edad,
                  String genero, double peso, String tamaño,
                  String estadoAdopcion, String nombre,
                  String nivelEntrenamiento,
@@ -20,7 +20,7 @@ public class Perro extends Mascota {
               tamaño, estadoAdopcion, nombre);
 
         setNivelEntrenamiento(nivelEntrenamiento);
-        this.conviveConOtrosPerros = conviveConOtrosPerros;
+        setConviveConOtrosPerros(conviveConOtrosPerros);
     }
 
     // Getter y setter del nivel de entrenamiento
@@ -30,11 +30,11 @@ public class Perro extends Mascota {
 
     public void setNivelEntrenamiento(String nivelEntrenamiento) {
         if (nivelEntrenamiento == null ||
-            (!nivelEntrenamiento.equalsIgnoreCase("Básico") &&
+            (!nivelEntrenamiento.equalsIgnoreCase("Basico") &&
              !nivelEntrenamiento.equalsIgnoreCase("Intermedio") &&
              !nivelEntrenamiento.equalsIgnoreCase("Avanzado"))) {
             throw new IllegalArgumentException(
-                "El nivel debe ser Básico, Intermedio o Avanzado."
+                "El nivel debe ser Basico, Intermedio o Avanzado"
             );
         }
         this.nivelEntrenamiento = nivelEntrenamiento;
