@@ -15,7 +15,7 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class SistemaAlbergueMascota{
+public class SistemaAlbergueMascota {
 
     List<Mascota> mascotas = new ArrayList<>();
     List<Adoptante> adoptantes = new ArrayList<>();
@@ -23,16 +23,15 @@ public class SistemaAlbergueMascota{
     List<Donacion> donaciones = new ArrayList<>();
 
     public SistemaAlbergueMascota() {
-    this.mascotas = new ArrayList<>();
-    this.adoptantes = new ArrayList<>();
-    this.solicitudes = new ArrayList<>();
-    this.donaciones = new ArrayList<>();
+        this.mascotas = new ArrayList<>();
+        this.adoptantes = new ArrayList<>();
+        this.solicitudes = new ArrayList<>();
+        this.donaciones = new ArrayList<>();
     }
 
     /**
-     * Configura Gson para guardar objetos JSON legibles y manejar LocalDate.
-     *
-     * @return instancia de Gson configurada para el albergue.
+     * Configura Gson con adaptadores polimórficos para Perro, Efectivo y Comida,
+     * además de gestionar LocalDate correctamente[cite: 13].
      */
     private static Gson crearGson() {
         return new GsonBuilder()
@@ -72,9 +71,6 @@ public class SistemaAlbergueMascota{
     
     /**
      * Recupera el sistema desde albergue.json.
-     *
-     * @return sistema cargado o un sistema nuevo si el archivo no existe
-     *         o no se puede leer.
      */
     public static SistemaAlbergueMascota cargarDatos() {
         Path archivo = Path.of("albergue.json");
@@ -119,11 +115,11 @@ public class SistemaAlbergueMascota{
             }
         
             if (solicitud.getMascota() != null) {
-                String id = solicitud.getMascota().getIdMascota();
+                int id = solicitud.getMascota().getIdMascota();
             
                 for (Mascota mascota : mascotas) {
                     if (mascota != null
-                            && Objects.equals(mascota.getIdMascota(), id)) {
+                            && mascota.getIdMascota() == id) {
                         solicitud.setMascota(mascota);
                         break;
                     }
@@ -147,20 +143,13 @@ public class SistemaAlbergueMascota{
 
     /**
      * Registra una nueva mascota utilizando los datos ingresados por el usuario.
-     *
-     * @param scanner objeto Scanner utilizado para leer los datos ingresados por consola.
      */
-        public void registrarMascota(Scanner scanner) {
-
+    public void registrarMascota(Scanner scanner) {
         try {
             int nuevoId = mascotas.size() + 1;
-
-            // Crear un objeto de tipo Perro
             Perro nuevoPerro = new Perro();
 
             System.out.println("\n===== REGISTRO DE MASCOTA =====");
-
-            // Datos heredados de Mascota
             nuevoPerro.setIdMascota(nuevoId);
 
             System.out.print("Ingrese el nombre: ");
@@ -185,7 +174,6 @@ public class SistemaAlbergueMascota{
 
             nuevoPerro.setEstadoAdopcion("Refugiado");
 
-            // Datos propios de Perro
             System.out.print("Ingrese el nivel de entrenamiento (Básico/Intermedio/Avanzado): ");
             nuevoPerro.setNivelEntrenamiento(scanner.nextLine());
 
@@ -193,7 +181,6 @@ public class SistemaAlbergueMascota{
             nuevoPerro.setConviveConOtrosPerros(scanner.nextBoolean());
             scanner.nextLine();
 
-            // Agregar el perro a la lista de Mascota
             mascotas.add(nuevoPerro);
 
             System.out.println("\n¡Perro registrado correctamente!");
@@ -202,42 +189,29 @@ public class SistemaAlbergueMascota{
         } catch (InputMismatchException e) {
             System.out.println("Error: ingresó un dato con formato incorrecto.");
             scanner.nextLine();
-
         } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }   
 
     /**
-     * Busca una mascota registrada mediante su identificador y muestra
-     * la información correspondiente por consola.
-     *
-     * @param scanner objeto Scanner utilizado para leer el identificador de la mascota.
+     * Busca una mascota registrada mediante su identificador.
      */
     public void buscarMascotaPorId(Scanner scanner) {
-
         System.out.println("\n===== BUSCAR MASCOTA POR ID =====");
-
         try {
             System.out.print("Ingrese el ID de la mascota: ");
             int idBuscado = scanner.nextInt();
             scanner.nextLine();
 
             for (Mascota mascota : mascotas) {
-
                 if (mascota.getIdMascota() == idBuscado) {
-
                     System.out.println("\n¡Mascota encontrada!");
-
-                    // Se aplica polimorfismo
                     mascota.mostrarDatosMascota();
-
                     return;
                 }
             }
-
             System.out.println("No se encontró una mascota con ese ID.");
-
         } catch (InputMismatchException e) {
             System.out.println("Error: debe ingresar un número entero.");
             scanner.nextLine();
@@ -246,12 +220,8 @@ public class SistemaAlbergueMascota{
 
     /**
      * Busca un adoptante registrado mediante su DNI.
-     *
-     * @param dni DNI del adoptante que se desea buscar.
-     * @return el adoptante encontrado o null si no existe un adoptante con ese DNI.
      */
     public Adoptante buscarAdoptante(String dni) {
-
         return adoptantes.stream()
                 .filter(a -> a.getDni().equals(dni))
                 .findFirst()
@@ -259,21 +229,15 @@ public class SistemaAlbergueMascota{
     }
 
     /**
-     * Registra un nuevo adoptante a partir de los datos ingresados por el usuario.
-     * Si el adoptante ya se encuentra registrado, se utiliza el registro existente.
-     *
-     * @param scanner objeto Scanner utilizado para leer los datos ingresados por consola.
-     * @return el adoptante registrado o el adoptante que ya se encontraba registrado.
+     * Registra un nuevo adoptante.
      */
     public Adoptante registrarAdoptante(Scanner scanner) {
-
         while (true) {
             try {
                 System.out.print("Ingrese el DNI: ");
                 String dni = scanner.nextLine();
 
                 Adoptante adoptanteExistente = buscarAdoptante(dni);
-
                 if (adoptanteExistente != null) {
                     System.out.println("El adoptante ya se encuentra registrado.");
                     return adoptanteExistente;
@@ -294,13 +258,10 @@ public class SistemaAlbergueMascota{
                 System.out.print("Ingrese el teléfono móvil: ");
                 String telefono = scanner.nextLine();
 
-                Adoptante nuevoAdoptante = new Adoptante(nombre,apellidos,dni,direccion,email,telefono);
-
+                Adoptante nuevoAdoptante = new Adoptante(nombre, apellidos, dni, direccion, email, telefono);
                 adoptantes.add(nuevoAdoptante);
 
-                System.out.println(
-                        "Adoptante registrado correctamente.");
-
+                System.out.println("Adoptante registrado correctamente.");
                 return nuevoAdoptante;
 
             } catch (IllegalArgumentException e) {
@@ -310,15 +271,10 @@ public class SistemaAlbergueMascota{
     }
 
     /**
-     * Crea una nueva solicitud de adopción utilizando los datos ingresados
-     * por el usuario y la mascota seleccionada.
-     *
-     * @param scanner objeto Scanner utilizado para leer los datos de la solicitud.
+     * Crea una nueva solicitud de adopción.
      */
     public void crearSolicitudAdopcion(Scanner scanner) {
-
         System.out.print("Ingrese el ID de la mascota que desean adoptar: ");
-
         int idBuscar = scanner.nextInt();
         scanner.nextLine();
 
@@ -338,12 +294,9 @@ public class SistemaAlbergueMascota{
         }
 
         Adoptante adoptante = registrarAdoptante(scanner);
-
         int nuevoIndice = solicitudes.size() + 1;
 
-        SolicitudAdopcion nuevaSolicitud =
-                new SolicitudAdopcion(nuevoIndice, adoptante, mascota);
-
+        SolicitudAdopcion nuevaSolicitud = new SolicitudAdopcion(nuevoIndice, adoptante, mascota);
         solicitudes.add(nuevaSolicitud);
 
         System.out.println("\nEl registro de la solicitud fue exitoso...");
@@ -352,15 +305,10 @@ public class SistemaAlbergueMascota{
     
     /**
      * Permite evaluar una solicitud de adopción mediante su identificador.
-     * La solicitud puede ser aprobada o rechazada según la opción seleccionada.
-     *
-     * @param scanner objeto Scanner utilizado para leer el identificador y la evaluación.
      */
     public void evaluarSolicitudPorId(Scanner scanner) {
-
         try {
             System.out.print("Ingresa el id de la solicitud para evaluarla: ");
-
             int idBuscar = scanner.nextInt();
             scanner.nextLine();
 
@@ -380,29 +328,20 @@ public class SistemaAlbergueMascota{
             }
 
             System.out.println(solicitud.toString());
-
-            System.out.print("\n¿Aprobar solicitud de adopción? " + "(1: Aprobar, 2: Rechazar): ");
+            System.out.print("\n¿Aprobar solicitud de adopción? (1: Aprobar, 2: Rechazar): ");
 
             int decision = scanner.nextInt();
             scanner.nextLine();
 
             if (decision == 1) {
-
                 solicitud.setEstado("Aprobada");
-
                 if (solicitud.getMascota() != null) {
-                    solicitud.getMascota()
-                            .setEstadoAdopcion("Adoptado");
+                    solicitud.getMascota().setEstadoAdopcion("Adoptado");
                 }
-
                 System.out.println("Solicitud aprobada con éxito. Mascota adoptada.");
-
             } else if (decision == 2) {
-
                 solicitud.setEstado("Rechazada");
-
-                System.out.println( "Solicitud rechazada con éxito.");
-
+                System.out.println("Solicitud rechazada con éxito.");
             } else {
                 System.out.println("Opción no válida.");
             }
@@ -414,12 +353,9 @@ public class SistemaAlbergueMascota{
     }
 
     /**
-     * Agrega un registro al historial clínico de una mascota utilizando su identificador.
-     *
-     * @param scanner objeto Scanner utilizado para leer el identificador y los datos del historial clínico.
+     * Agrega un registro al historial clínico de una mascota.
      */
     public void agregarHistorialPorId(Scanner scanner) {
-
         System.out.print("Ingrese el ID de mascota: ");
         int idBuscar = scanner.nextInt();
         scanner.nextLine();
@@ -435,75 +371,49 @@ public class SistemaAlbergueMascota{
         }
 
         String procedimiento;
-
         while (true) {
             System.out.print("Ingrese el procedimiento: ");
             procedimiento = scanner.nextLine();
-
-            if (!procedimiento.isBlank()) {
-                break;
-            }
-
+            if (!procedimiento.isBlank()) break;
             System.out.println("Error: El procedimiento no puede estar vacío.");
         }
 
         String diagnostico;
-
         while (true) {
             System.out.print("Ingrese el diagnóstico: ");
             diagnostico = scanner.nextLine();
-
-            if (!diagnostico.isBlank()) {
-                break;
-            }
-
+            if (!diagnostico.isBlank()) break;
             System.out.println("Error: El diagnóstico no puede estar vacío.");
         }
 
         String tratamiento;
-
         while (true) {
             System.out.print("Ingrese el tratamiento: ");
             tratamiento = scanner.nextLine();
-
-            if (!tratamiento.isBlank()) {
-                break;
-            }
-
+            if (!tratamiento.isBlank()) break;
             System.out.println("Error: El tratamiento no puede estar vacío.");
         }
 
         String veterinario;
-
         while (true) {
             System.out.print("Ingrese el nombre del veterinario: ");
             veterinario = scanner.nextLine();
-
-            if (!veterinario.isBlank()) {
-                break;
-            }
-
+            if (!veterinario.isBlank()) break;
             System.out.println("Error: El nombre del veterinario no puede estar vacío.");
         }
 
         int nuevoIndice = mascota.getHistorialClinico().size() + 1;
-
-        HistorialClinico historial = new HistorialClinico(nuevoIndice,procedimiento,diagnostico,tratamiento,veterinario);
-
+        HistorialClinico historial = new HistorialClinico(nuevoIndice, procedimiento, diagnostico, tratamiento, veterinario);
         mascota.agregarHistorialMedico(historial);
 
         System.out.println("\n¡El registro del historial fue exitoso!");
     }   
 
     /**
-     * Muestra el historial de una mascota a partir de su identificador.
-     *
-     * @param scanner objeto Scanner utilizado para leer el identificador de la mascota.
+     * Muestra el historial de una mascota a partir de su ID.
      */
     public void mostrarHistorialPorId(Scanner scanner) {
-
         System.out.print("Ingresa el ID de la mascota para buscar su historial: ");
-
         int idBuscar = scanner.nextInt();
         scanner.nextLine();
 
@@ -523,19 +433,13 @@ public class SistemaAlbergueMascota{
         }
 
         System.out.println("\n===== HISTORIAL CLÍNICO =====");
-
-        mascota.getHistorialClinico()
-                .forEach(e -> System.out.println(e));
-
+        mascota.getHistorialClinico().forEach(e -> System.out.println(e));
         System.out.println("=============================");
     }   
 
     /**
-     * Agrega una donación a la lista de donaciones del sistema.
-    * Verifica que la donación no sea nula antes de almacenarla.
-    *
-    * @param nuevaDonacion objeto de tipo Donacion que se desea agregar.
-    */
+     * Agrega una donación a la lista.
+     */
     public void agregarDonacion(Donacion donacion) {
         if (donacion != null) {
             donaciones.add(donacion);
@@ -543,15 +447,10 @@ public class SistemaAlbergueMascota{
     }
 
     /**
-     * Registra una nueva donación utilizando los datos ingresados por el usuario.
-     * La donación puede corresponder a dinero o alimentos.
-     *
-     * @param scanner objeto Scanner utilizado para leer los datos de la donación.
+     * Registra una nueva donación.
      */
     public void registrarDonacion(Scanner scanner) {
-
         System.out.println("\n------- REGISTRAR DONACIÓN -------");
-
         System.out.print("Ingrese el nombre del donante: ");
         String donante = scanner.nextLine();
 
@@ -561,11 +460,9 @@ public class SistemaAlbergueMascota{
         System.out.print("Opción: ");
 
         int tipo;
-
         try {
             tipo = scanner.nextInt();
             scanner.nextLine();
-
         } catch (InputMismatchException e) {
             System.out.println("Error: Debe ingresar un número válido.");
             scanner.nextLine();
@@ -575,120 +472,89 @@ public class SistemaAlbergueMascota{
         int nuevoId = donaciones.size() + 1;
 
         if (tipo == 1) {
-
             System.out.print("Ingrese el monto en efectivo (S/): ");
-
             try {
                 double monto = scanner.nextDouble();
                 scanner.nextLine();
 
                 if (monto > 0) {
-
                     Donacion donacion = new Efectivo(nuevoId, donante, monto);
-
                     agregarDonacion(donacion);
-
                     System.out.println("Donación en efectivo registrada exitosamente.");
-
                 } else {
                     System.out.println("El monto ingresado debe ser mayor a 0.");
                 }
-
             } catch (InputMismatchException e) {
                 System.out.println("Error: Debe ingresar un valor numérico.");
                 scanner.nextLine();
             }
-
         } else if (tipo == 2) {
-
             System.out.print("Ingrese la cantidad de comida en kilogramos (Kg): ");
-
             try {
                 Double cantidad = scanner.nextDouble();
                 scanner.nextLine();
 
                 if (cantidad > 0) {
-
                     Donacion donacion = new Comida(nuevoId, donante, cantidad);
                     agregarDonacion(donacion);
-
                     System.out.println("Donación de comida registrada exitosamente.");
-
                 } else {
                     System.out.println("La cantidad ingresada debe ser mayor a 0.");
                 }
-
             } catch (InputMismatchException e) {
                 System.out.println("Error: Debe ingresar un valor numérico.");
                 scanner.nextLine();
             }
-
         } else {
             System.out.println("Tipo de donación no válido.");
         }
     }
 
     /**
-     * Muestra todas las donaciones registradas y calcula los totales
-     * de dinero y comida recibidos.
+     * Muestra todas las donaciones registradas y los totales.
      */
     public void listarDonaciones() {
-
-        System.out.println(
-                "\n------- HISTORIAL DE DONACIONES -------");
+        System.out.println("\n------- HISTORIAL DE DONACIONES -------");
 
         if (donaciones.isEmpty()) {
             System.out.println("No hay donaciones registradas en el sistema.");
             return;
         }
 
-        
-
         System.out.println("\n--- LISTA DE DONACIONES ---");
-
-        for(Donacion donacion : donaciones){
+        for (Donacion donacion : donaciones) {
             donacion.mostrarDetalle();
             System.out.println();
         }
 
-        
-        // Variables para almacenar el total de efectivo y comida
         Double totalEfectivo = 0.0;
         Double totalComida = 0.0;
 
-        for(Donacion donacion : donaciones){
-            if(donacion instanceof Comida){
+        for (Donacion donacion : donaciones) {
+            if (donacion instanceof Comida) {
                 Comida comida = (Comida) donacion;
                 totalComida += comida.getCantidadComidaKg();
-            }
-            else if(donacion instanceof Efectivo){
+            } else if (donacion instanceof Efectivo) {
                 Efectivo efectivo = (Efectivo) donacion;
                 totalEfectivo += efectivo.getMontoEfectivo();
             }
         }
 
         System.out.println();
-        System.out.printf("Total recaudado en Efectivo: S/ %.2f\n",totalEfectivo);
-
-        System.out.printf("Total recaudado en Comida: %.2f Kg\n",totalComida);
+        System.out.printf("Total recaudado en Efectivo: S/ %.2f\n", totalEfectivo);
+        System.out.printf("Total recaudado en Comida: %.2f Kg\n", totalComida);
     }
 
     /**
-     * Permite iniciar sesión en el sistema utilizando las credenciales
-     * del usuario administrador.
-     *
-     * @param scanner objeto Scanner utilizado para leer las credenciales.
+     * Permite iniciar sesión utilizando el contrato de la interfaz Autenticable[cite: 1, 13].
      */
     public void iniciarSesion(Scanner scanner) {
-
-        Usuario admin = new Usuario("admin", "1234", "Administrador");
+        Autenticable admin = new Usuario("admin", "1234", "Administrador");
 
         boolean autenticado = false;
 
         while (!autenticado) {
-
             System.out.println("=== INICIO DE SESIÓN ===");
-
             System.out.print("Ingrese usuario: ");
             String us = scanner.nextLine();
 
@@ -696,14 +562,10 @@ public class SistemaAlbergueMascota{
             String pass = scanner.nextLine();
 
             if (admin.autenticar(us, pass)) {
-
-                System.out.println("\nBienvenido, " + admin.getNombre() + "!");
-
+                System.out.println("\nBienvenido al sistema!");
                 autenticado = true;
-
             } else {
-
-                System.out.println("\nUsuario o contraseña incorrectos. " + "Intente nuevamente.\n");
+                System.out.println("\nUsuario o contraseña incorrectos. Intente nuevamente.\n");
             }
         }
     }
