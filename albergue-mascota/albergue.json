@@ -1,3 +1,4 @@
+
 {
   "mascotas": [
     {
@@ -9,6 +10,8 @@
       "tamaño": 55.0,
       "estadoAdopcion": "Refugiado",
       "nombre": "Luna",
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -18,7 +21,8 @@
           "tratamientoMedico": "Vacuna antirrabica",
           "nombreVeterinario": "Dr. Carlos Perez"
         }
-      ]
+      ],
+      "tipo": "Perro"
     },
     {
       "idMascota": "M002",
@@ -29,18 +33,24 @@
       "tamaño": 65.0,
       "estadoAdopcion": "Tratamiento",
       "nombre": "Max",
-      "historialClinico": []
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": true,
+      "historialClinico": [],
+      "tipo": "Perro"
     },
     {
       "idMascota": "M003",
-      "raza": "Siames",
+      "raza": "Beagle",
       "edad": 2,
       "genero": "Macho",
-      "peso": 4.5,
-      "tamaño": 25.0,
+      "peso": 12.0,
+      "tamaño": 38.0,
       "estadoAdopcion": "Refugiado",
-      "nombre": "Michi",
-      "historialClinico": []
+      "nombre": "Toby",
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": true,
+      "historialClinico": [],
+      "tipo": "Perro"
     },
     {
       "idMascota": "M004",
@@ -51,7 +61,10 @@
       "tamaño": 48.0,
       "estadoAdopcion": "Adoptado",
       "nombre": "Nala",
-      "historialClinico": []
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
+      "historialClinico": [],
+      "tipo": "Perro"
     },
     {
       "idMascota": "M005",
@@ -62,6 +75,8 @@
       "tamaño": 69.0,
       "estadoAdopcion": "Adoptado",
       "nombre": "Bobby",
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": false,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -71,7 +86,8 @@
           "tratamientoMedico": "Vacuna antipulgas",
           "nombreVeterinario": "Dr. Carlos Perez"
         }
-      ]
+      ],
+      "tipo": "Perro"
     }
   ],
   "adoptantes": [
@@ -103,7 +119,7 @@
   "solicitudes": [
     {
       "idSolicitud": 1,
-      "fechaSolicitud": "2026-10-16",
+      "fecha": "2026-10-16",
       "estado": "Pendiente",
       "adoptante": {
         "nombre": "Ana",
@@ -122,21 +138,15 @@
         "tamaño": 55.0,
         "estadoAdopcion": "Refugiado",
         "nombre": "Luna",
-        "historialClinico": [
-          {
-            "idHistorial": 1,
-            "fechaAtencion": "2026-10-16",
-            "tipoProcedimiento": "Vacunacion",
-            "diagnosticoMedico": "Buen estado de salud",
-            "tratamientoMedico": "Vacuna antirrabica",
-            "nombreVeterinario": "Dr. Carlos Perez"
-          }
-        ]
+        "nivelEntrenamiento": "Intermedio",
+        "conviveConOtrosPerros": true,
+        "historialClinico": [],
+        "tipo": "Perro"
       }
     },
     {
       "idSolicitud": 2,
-      "fechaSolicitud": "2026-10-16",
+      "fecha": "2026-10-16",
       "estado": "Pendiente",
       "adoptante": {
         "nombre": "Luis",
@@ -148,19 +158,22 @@
       },
       "mascota": {
         "idMascota": "M003",
-        "raza": "Siames",
+        "raza": "Beagle",
         "edad": 2,
         "genero": "Macho",
-        "peso": 4.5,
-        "tamaño": 25.0,
+        "peso": 12.0,
+        "tamaño": 38.0,
         "estadoAdopcion": "Refugiado",
-        "nombre": "Michi",
-        "historialClinico": []
+        "nombre": "Toby",
+        "nivelEntrenamiento": "Basico",
+        "conviveConOtrosPerros": true,
+        "historialClinico": [],
+        "tipo": "Perro"
       }
     },
     {
       "idSolicitud": 3,
-      "fechaSolicitud": "2026-10-16",
+      "fecha": "2026-10-16",
       "estado": "Aprobada",
       "adoptante": {
         "nombre": "Mariano",
@@ -179,16 +192,10 @@
         "tamaño": 69.0,
         "estadoAdopcion": "Adoptado",
         "nombre": "Bobby",
-        "historialClinico": [
-          {
-            "idHistorial": 1,
-            "fechaAtencion": "2026-10-16",
-            "tipoProcedimiento": "Vacunacion",
-            "diagnosticoMedico": "Mascota en buen estado de salud",
-            "tratamientoMedico": "Vacuna antipulgas",
-            "nombreVeterinario": "Dr. Carlos Perez"
-          }
-        ]
+        "nivelEntrenamiento": "Avanzado",
+        "conviveConOtrosPerros": false,
+        "historialClinico": [],
+        "tipo": "Perro"
       }
     }
   ],
@@ -196,26 +203,23 @@
     {
       "idDonacion": 1,
       "donante": "Maria Torres",
-      "tipoDonacion": "Efectivo",
+      "fecha": "2026-10-16",
       "montoEfectivo": 150.0,
-      "cantidadComidaKg": 0.0,
-      "fecha": "2026-10-16"
+      "tipo": "Efectivo"
     },
     {
       "idDonacion": 2,
       "donante": "Carlos Mendoza",
-      "tipoDonacion": "Comida",
-      "montoEfectivo": 0.0,
+      "fecha": "2026-10-16",
       "cantidadComidaKg": 25.0,
-      "fecha": "2026-10-16"
+      "tipo": "Comida"
     },
     {
       "idDonacion": 3,
       "donante": "Piero",
-      "tipoDonacion": "Efectivo",
+      "fecha": "2026-10-16",
       "montoEfectivo": 500.0,
-      "cantidadComidaKg": 0.0,
-      "fecha": "2026-10-16"
+      "tipo": "Efectivo"
     }
   ]
 }
