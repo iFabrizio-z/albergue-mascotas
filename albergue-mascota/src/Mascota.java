@@ -4,7 +4,7 @@ import java.util.List;
 public abstract class Mascota {
 
     // Atributos
-    private int idMascota;
+    private String idMascota;
     private String raza;
     private int edad;
     private String genero;
@@ -20,14 +20,13 @@ public abstract class Mascota {
     }
 
     // Constructor con parámetros
-    public Mascota(int idMascota, String raza, int edad,
+    public Mascota(String idMascota, String raza, int edad,
                    String genero, double peso, String tamaño,
                    String estadoAdopcion, String nombre) {
 
-        this.idMascota = idMascota;
-        this.raza = raza;
-        this.nombre = nombre;
-
+        setIdMascota(idMascota);
+        setRaza(raza);
+        setNombre(nombre);
         setEdad(edad);
         setGenero(genero);
         setPeso(peso);
@@ -37,13 +36,13 @@ public abstract class Mascota {
 
     // Getters y setters
 
-    public int getIdMascota() {
+    public String getIdMascota() {
         return idMascota;
     }
 
-    public void setIdMascota(int idMascota) {
-        if (idMascota <= 0) {
-            throw new IllegalArgumentException("El ID debe ser positivo.");
+    public void setIdMascota(String idMascota) {
+        if (idMascota == null) {
+            throw new IllegalArgumentException("ID de mascota inválido.");
         }
         this.idMascota = idMascota;
     }
@@ -134,6 +133,9 @@ public abstract class Mascota {
     }
 
     public List<HistorialClinico> getHistorialClinico() {
+        if (historialClinico == null) {
+            historialClinico = new ArrayList<>();
+        }
         return historialClinico;
     }
 
@@ -142,7 +144,8 @@ public abstract class Mascota {
         if (historial == null) {
             throw new IllegalArgumentException("El historial no puede ser nulo.");
         }
-        historialClinico.add(historial);
+
+        getHistorialClinico().add(historial);
     }
 
     // Mostrar datos generales de la mascota
