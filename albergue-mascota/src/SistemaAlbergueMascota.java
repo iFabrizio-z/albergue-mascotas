@@ -150,154 +150,64 @@ public class SistemaAlbergueMascota{
      *
      * @param scanner objeto Scanner utilizado para leer los datos ingresados por consola.
      */
-    public void registrarMascota(Scanner scanner) {
+        public void registrarMascota(Scanner scanner) {
 
-        // CAMBIO 1: Instanciar Perro en lugar de Mascota
-        Perro nuevaMascota = new Perro();
+        try {
+            int nuevoId = mascotas.size() + 1;
 
-        while (true) {
-            try {
-                System.out.print("Ingrese el id de la mascota: ");
-                String idIngresado = scanner.nextLine().trim();
-            
-                // Verificar si el ID ya está registrado
-                boolean idExiste = false;
-            
-                for (Mascota mascota : mascotas) {
-                    if (mascota.getIdMascota().equalsIgnoreCase(idIngresado)) {
-                        idExiste = true;
-                        break;
-                    }
-                }
-            
-                if (idExiste) {
-                    System.out.println("Error: ya existe una mascota con ese ID. Intente otro.");
-                    continue;
-                }
-            
-                nuevaMascota.setIdMascota(idIngresado);
-                break;
-            
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
+            // Crear un objeto de tipo Perro
+            Perro nuevoPerro = new Perro();
+
+            System.out.println("\n===== REGISTRO DE MASCOTA =====");
+
+            // Datos heredados de Mascota
+            nuevoPerro.setIdMascota(nuevoId);
+
+            System.out.print("Ingrese el nombre: ");
+            nuevoPerro.setNombre(scanner.nextLine());
+
+            System.out.print("Ingrese la raza: ");
+            nuevoPerro.setRaza(scanner.nextLine());
+
+            System.out.print("Ingrese la edad: ");
+            nuevoPerro.setEdad(scanner.nextInt());
+            scanner.nextLine();
+
+            System.out.print("Ingrese el género (Macho/Hembra): ");
+            nuevoPerro.setGenero(scanner.nextLine());
+
+            System.out.print("Ingrese el peso en kg: ");
+            nuevoPerro.setPeso(scanner.nextDouble());
+            scanner.nextLine();
+
+            System.out.print("Ingrese el tamaño: ");
+            nuevoPerro.setTamaño(scanner.nextLine());
+
+            nuevoPerro.setEstadoAdopcion("Refugiado");
+
+            // Datos propios de Perro
+            System.out.print("Ingrese el nivel de entrenamiento (Básico/Intermedio/Avanzado): ");
+            nuevoPerro.setNivelEntrenamiento(scanner.nextLine());
+
+            System.out.print("¿Convive con otros perros? (true/false): ");
+            nuevoPerro.setConviveConOtrosPerros(scanner.nextBoolean());
+            scanner.nextLine();
+
+            // Agregar el perro a la lista de Mascota
+            mascotas.add(nuevoPerro);
+
+            System.out.println("\n¡Perro registrado correctamente!");
+            nuevoPerro.mostrarDatosMascota();
+
+        } catch (InputMismatchException e) {
+            System.out.println("Error: ingresó un dato con formato incorrecto.");
+            scanner.nextLine();
+
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
         }
+    }   
 
-        while (true) {
-            try {
-                System.out.print("Ingrese el nombre: ");
-                nuevaMascota.setNombre(scanner.nextLine());
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-        }
-
-        while (true) {
-            try {
-                System.out.print("Ingrese la raza: ");
-                nuevaMascota.setRaza(scanner.nextLine());
-                break;
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-        }
-
-        while (true) {
-            try {
-                System.out.print("Ingrese la edad: ");
-                int edad = scanner.nextInt();
-                scanner.nextLine();
-
-                if (nuevaMascota.setEdad(edad)) {
-                    break;
-                }
-
-                System.out.println("Error: La edad debe estar entre 0 y 12 años.");
-
-            } catch (InputMismatchException e) {
-                System.out.println("Error: Debe ingresar un número entero.");
-                scanner.nextLine();
-            }
-        }
-
-        while (true) {
-            try {
-                System.out.print("Ingrese el género (Macho/Hembra): ");
-                String genero = scanner.nextLine();
-
-                if (nuevaMascota.setGenero(genero)) {
-                    break;
-                }
-
-                System.out.println("Error: El género debe ser Macho o Hembra.");
-
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-        }
-
-        while (true) {
-            try {
-                System.out.print("Ingrese el peso: ");
-                double peso = scanner.nextDouble();
-                scanner.nextLine();
-
-                nuevaMascota.setPeso(peso);
-                break;
-
-            } catch (InputMismatchException e) {
-                System.out.println("Error: Debe ingresar un número.");
-                scanner.nextLine();
-
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-        }
-
-        while (true) {
-            try {
-                System.out.print("Ingrese el tamaño: ");
-                double tamaño = scanner.nextDouble();
-                scanner.nextLine();
-
-                nuevaMascota.setTamaño(tamaño);
-                break;
-
-            } catch (InputMismatchException e) {
-                System.out.println("Error: Debe ingresar un número.");
-                scanner.nextLine();
-
-            } catch (IllegalArgumentException e) {
-                System.out.println("Error: " + e.getMessage());
-            }
-        }
-
-        // CAMBIO 2: Pedir los atributos específicos de la clase hija (Perro)
-        System.out.print("Ingrese el nivel de entrenamiento (Básico/Intermedio/Avanzado): ");
-        nuevaMascota.setNivelEntrenamiento(scanner.nextLine());
-
-        while (true) {
-            try {
-                System.out.print("¿Convive con otros perros? (true/false): ");
-                boolean convive = scanner.nextBoolean();
-                scanner.nextLine(); // Limpiar el buffer
-                
-                nuevaMascota.setConviveConOtrosPerros(convive);
-                break;
-                
-            } catch (InputMismatchException e) {
-                System.out.println("Error: Debe escribir 'true' o 'false'.");
-                scanner.nextLine(); // Limpiar la entrada incorrecta
-            }
-        }
-
-        nuevaMascota.setEstadoAdopcion("refugiado");
-
-        mascotas.add(nuevaMascota);
-
-        System.out.println("Perro registrado correctamente.");
-    }
     /**
      * Busca una mascota registrada mediante su identificador y muestra
      * la información correspondiente por consola.
@@ -306,22 +216,33 @@ public class SistemaAlbergueMascota{
      */
     public void buscarMascotaPorId(Scanner scanner) {
 
-        System.out.println("=========BUSCAR MASCOTA POR ID=========");
+        System.out.println("\n===== BUSCAR MASCOTA POR ID =====");
 
-        System.out.print("Ingrese el id a buscar: ");
-        String idBuscado = scanner.nextLine();
+        try {
+            System.out.print("Ingrese el ID de la mascota: ");
+            int idBuscado = scanner.nextInt();
+            scanner.nextLine();
 
-        Mascota mascota = mascotas.stream()
-                .filter(m -> m.getIdMascota().equals(idBuscado))
-                .findFirst()
-                .orElse(null);
+            for (Mascota mascota : mascotas) {
 
-        if (mascota != null) {
-            System.out.println(mascota.toString());
-        } else {
-            System.out.println("No encontrado");
+                if (mascota.getIdMascota() == idBuscado) {
+
+                    System.out.println("\n¡Mascota encontrada!");
+
+                    // Se aplica polimorfismo
+                    mascota.mostrarDatosMascota();
+
+                    return;
+                }
+            }
+
+            System.out.println("No se encontró una mascota con ese ID.");
+
+        } catch (InputMismatchException e) {
+            System.out.println("Error: debe ingresar un número entero.");
+            scanner.nextLine();
         }
-    }
+    }      
 
     /**
      * Busca un adoptante registrado mediante su DNI.
@@ -396,16 +317,18 @@ public class SistemaAlbergueMascota{
      */
     public void crearSolicitudAdopcion(Scanner scanner) {
 
-        System.out.print("Ingrese el id de la mascota que desean adoptar: ");
-        String idBuscar = scanner.nextLine();
+        System.out.print("Ingrese el ID de la mascota que desean adoptar: ");
+
+        int idBuscar = scanner.nextInt();
+        scanner.nextLine();
 
         Mascota mascota = mascotas.stream()
-                .filter(e -> e.getIdMascota().equals(idBuscar))
+                .filter(e -> e.getIdMascota() == idBuscar)
                 .findFirst()
                 .orElse(null);
 
         if (mascota == null) {
-            System.out.println("ID de mascota incorrecto");
+            System.out.println("ID de mascota incorrecto.");
             return;
         }
 
@@ -418,14 +341,15 @@ public class SistemaAlbergueMascota{
 
         int nuevoIndice = solicitudes.size() + 1;
 
-        SolicitudAdopcion nuevaSolicitud = new SolicitudAdopcion(nuevoIndice,adoptante,mascota);
+        SolicitudAdopcion nuevaSolicitud =
+                new SolicitudAdopcion(nuevoIndice, adoptante, mascota);
 
         solicitudes.add(nuevaSolicitud);
 
-        System.out.println("El registro de la solicitud fue exitoso...");
+        System.out.println("\nEl registro de la solicitud fue exitoso...");
         System.out.println("ID de solicitud registrado: " + nuevoIndice);
-    }
-
+    }   
+    
     /**
      * Permite evaluar una solicitud de adopción mediante su identificador.
      * La solicitud puede ser aprobada o rechazada según la opción seleccionada.
@@ -496,16 +420,17 @@ public class SistemaAlbergueMascota{
      */
     public void agregarHistorialPorId(Scanner scanner) {
 
-        System.out.print("Ingrese el id de mascota: ");
-        String idBuscar = scanner.nextLine();
+        System.out.print("Ingrese el ID de mascota: ");
+        int idBuscar = scanner.nextInt();
+        scanner.nextLine();
 
         Mascota mascota = mascotas.stream()
-                .filter(e -> e.getIdMascota().equals(idBuscar))
+                .filter(e -> e.getIdMascota() == idBuscar)
                 .findFirst()
                 .orElse(null);
 
         if (mascota == null) {
-            System.out.println("ID de mascota incorrecto");
+            System.out.println("ID de mascota incorrecto.");
             return;
         }
 
@@ -561,15 +486,14 @@ public class SistemaAlbergueMascota{
             System.out.println("Error: El nombre del veterinario no puede estar vacío.");
         }
 
-        int nuevoIndice =
-                mascota.getHistorialClinico().size() + 1;
+        int nuevoIndice = mascota.getHistorialClinico().size() + 1;
 
         HistorialClinico historial = new HistorialClinico(nuevoIndice,procedimiento,diagnostico,tratamiento,veterinario);
 
         mascota.agregarHistorialMedico(historial);
 
-        System.out.println("El registro del historial fue exitoso...");
-    }
+        System.out.println("\n¡El registro del historial fue exitoso!");
+    }   
 
     /**
      * Muestra el historial de una mascota a partir de su identificador.
@@ -578,28 +502,33 @@ public class SistemaAlbergueMascota{
      */
     public void mostrarHistorialPorId(Scanner scanner) {
 
-        System.out.print("Ingresa el id de la mascota para buscar historial: ");
+        System.out.print("Ingresa el ID de la mascota para buscar su historial: ");
 
-        String idBuscar = scanner.nextLine();
+        int idBuscar = scanner.nextInt();
+        scanner.nextLine();
 
         Mascota mascota = mascotas.stream()
-                .filter(e -> e.getIdMascota().equals(idBuscar))
+                .filter(e -> e.getIdMascota() == idBuscar)
                 .findFirst()
                 .orElse(null);
 
         if (mascota == null) {
-            System.out.println("ID de mascota incorrecto");
+            System.out.println("ID de mascota incorrecto.");
             return;
         }
 
         if (mascota.getHistorialClinico().isEmpty()) {
-            System.out.println( "La mascota no tiene historial clínico registrado.");
+            System.out.println("La mascota no tiene historial clínico registrado.");
             return;
         }
 
+        System.out.println("\n===== HISTORIAL CLÍNICO =====");
+
         mascota.getHistorialClinico()
                 .forEach(e -> System.out.println(e));
-    }
+
+        System.out.println("=============================");
+    }   
 
     /**
      * Agrega una donación a la lista de donaciones del sistema.
