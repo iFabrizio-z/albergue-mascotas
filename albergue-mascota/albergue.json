@@ -1,16 +1,16 @@
 {
   "mascotas": [
     {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
       "idMascota": "M001",
       "raza": "Labrador",
       "edad": 3,
       "genero": "Hembra",
       "peso": 22.5,
-      "tamaño": 55.0,
+      "tamaño": "55.0",
       "estadoAdopcion": "Refugiado",
       "nombre": "Luna",
-      "nivelEntrenamiento": "Intermedio",
-      "conviveConOtrosPerros": true,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -24,58 +24,58 @@
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": true,
       "idMascota": "M002",
       "raza": "Pastor Aleman",
       "edad": 5,
       "genero": "Macho",
       "peso": 30.0,
-      "tamaño": 65.0,
+      "tamaño": "65.0",
       "estadoAdopcion": "Tratamiento",
       "nombre": "Max",
-      "nivelEntrenamiento": "Avanzado",
-      "conviveConOtrosPerros": true,
       "historialClinico": [],
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": true,
       "idMascota": "M003",
       "raza": "Beagle",
       "edad": 2,
       "genero": "Macho",
       "peso": 12.0,
-      "tamaño": 38.0,
+      "tamaño": "38.0",
       "estadoAdopcion": "Refugiado",
       "nombre": "Toby",
-      "nivelEntrenamiento": "Basico",
-      "conviveConOtrosPerros": true,
       "historialClinico": [],
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
       "idMascota": "M004",
       "raza": "Golden Retriever",
       "edad": 1,
       "genero": "Hembra",
       "peso": 18.0,
-      "tamaño": 48.0,
+      "tamaño": "48.0",
       "estadoAdopcion": "Adoptado",
       "nombre": "Nala",
-      "nivelEntrenamiento": "Intermedio",
-      "conviveConOtrosPerros": true,
       "historialClinico": [],
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": false,
       "idMascota": "M005",
       "raza": "Doberman",
       "edad": 5,
       "genero": "Macho",
       "peso": 35.0,
-      "tamaño": 69.0,
+      "tamaño": "69.0",
       "estadoAdopcion": "Adoptado",
       "nombre": "Bobby",
-      "nivelEntrenamiento": "Avanzado",
-      "conviveConOtrosPerros": false,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -118,7 +118,6 @@
   "solicitudes": [
     {
       "idSolicitud": 1,
-      "fecha": "2026-10-16",
       "estado": "Pendiente",
       "adoptante": {
         "nombre": "Ana",
@@ -129,23 +128,31 @@
         "telefono": "900111222"
       },
       "mascota": {
+        "nivelEntrenamiento": "Intermedio",
+        "conviveConOtrosPerros": true,
         "idMascota": "M001",
         "raza": "Labrador",
         "edad": 3,
         "genero": "Hembra",
         "peso": 22.5,
-        "tamaño": 55.0,
+        "tamaño": "55.0",
         "estadoAdopcion": "Refugiado",
         "nombre": "Luna",
-        "nivelEntrenamiento": "Intermedio",
-        "conviveConOtrosPerros": true,
-        "historialClinico": [],
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-10-16",
+            "tipoProcedimiento": "Vacunacion",
+            "diagnosticoMedico": "Buen estado de salud",
+            "tratamientoMedico": "Vacuna antirrabica",
+            "nombreVeterinario": "Dr. Carlos Perez"
+          }
+        ],
         "tipo": "Perro"
       }
     },
     {
       "idSolicitud": 2,
-      "fecha": "2026-10-16",
       "estado": "Pendiente",
       "adoptante": {
         "nombre": "Luis",
@@ -156,23 +163,22 @@
         "telefono": "900333444"
       },
       "mascota": {
+        "nivelEntrenamiento": "Basico",
+        "conviveConOtrosPerros": true,
         "idMascota": "M003",
         "raza": "Beagle",
         "edad": 2,
         "genero": "Macho",
         "peso": 12.0,
-        "tamaño": 38.0,
+        "tamaño": "38.0",
         "estadoAdopcion": "Refugiado",
         "nombre": "Toby",
-        "nivelEntrenamiento": "Basico",
-        "conviveConOtrosPerros": true,
         "historialClinico": [],
         "tipo": "Perro"
       }
     },
     {
       "idSolicitud": 3,
-      "fecha": "2026-10-16",
       "estado": "Aprobada",
       "adoptante": {
         "nombre": "Mariano",
@@ -183,41 +189,50 @@
         "telefono": "911123459"
       },
       "mascota": {
+        "nivelEntrenamiento": "Avanzado",
+        "conviveConOtrosPerros": false,
         "idMascota": "M005",
         "raza": "Doberman",
         "edad": 5,
         "genero": "Macho",
         "peso": 35.0,
-        "tamaño": 69.0,
+        "tamaño": "69.0",
         "estadoAdopcion": "Adoptado",
         "nombre": "Bobby",
-        "nivelEntrenamiento": "Avanzado",
-        "conviveConOtrosPerros": false,
-        "historialClinico": [],
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-10-16",
+            "tipoProcedimiento": "Vacunacion",
+            "diagnosticoMedico": "Mascota en buen estado de salud",
+            "tratamientoMedico": "Vacuna antipulgas",
+            "nombreVeterinario": "Dr. Carlos Perez"
+          }
+        ],
         "tipo": "Perro"
       }
     }
   ],
   "donaciones": [
     {
+      "montoEfectivo": 150.0,
       "idDonacion": 1,
       "donante": "Maria Torres",
       "fecha": "2026-10-16",
-      "montoEfectivo": 150.0,
       "tipo": "Efectivo"
     },
     {
+      "cantidadComidaKg": 25.0,
       "idDonacion": 2,
       "donante": "Carlos Mendoza",
       "fecha": "2026-10-16",
-      "cantidadComidaKg": 25.0,
       "tipo": "Comida"
     },
     {
+      "montoEfectivo": 500.0,
       "idDonacion": 3,
       "donante": "Piero",
       "fecha": "2026-10-16",
-      "montoEfectivo": 500.0,
       "tipo": "Efectivo"
     }
   ]
