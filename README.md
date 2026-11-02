@@ -42,9 +42,13 @@ albergue-mascota/
 ├── src/
 │   ├── Adoptante.java
 │   ├── App.java
+│   ├── Autenticable.java
+│   ├── Comida.java
 │   ├── Donacion.java
+│   ├── Efectivo.java
 │   ├── HistorialClinico.java
 │   ├── Mascota.java
+│   ├── Perro.java
 │   ├── SistemaAlbergueMascota.java
 │   ├── SolicitudAdopcion.java
 │   └── Usuario.java
@@ -55,6 +59,7 @@ albergue-mascota/
 ├── .vscode/
 │   └── settings.json
 │
+├── albergue.json
 └── README.md
 ```
 
