@@ -157,7 +157,7 @@ public abstract class Mascota {
         System.out.println("Edad: " + edad + " años");
         System.out.println("Género: " + genero);
         System.out.println("Peso: " + peso + " kg");
-        System.out.println("Tamaño: " + tamaño);
+        System.out.println("Tamaño: " + tamaño + " cm");
         System.out.println("Estado de adopción: " + estadoAdopcion);
         System.out.println("=============================================");
     }
