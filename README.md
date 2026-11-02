@@ -1,11 +1,12 @@
-#  Sistema de Albergue de Mascotas
+# Sistema de Albergue de Mascotas
 
 Sistema desarrollado en **Java** para la gestión básica de un albergue de mascotas.
+
 El proyecto permite administrar mascotas, solicitudes de adopción, historiales clínicos y donaciones mediante una aplicación de consola.
 
 ## Descripción
 
-El **Sistema de Albergue de Mascotas** busca facilitar la administración de la información de las mascotas que se encuentran en un albergue.
+El **Sistema de Albergue de Mascotas** busca facilitar la administración y organización de la información de las mascotas que se encuentran en un albergue.
 
 El sistema permite:
 
@@ -17,24 +18,27 @@ El sistema permite:
 * Registrar historiales clínicos.
 * Consultar el historial clínico de una mascota.
 * Registrar donaciones en efectivo o comida.
-* Consultar el historial y totales de donaciones.
-* Proteger el acceso mediante un inicio de sesión.
+* Consultar el historial y los totales de donaciones.
+* Proteger el acceso mediante un sistema de inicio de sesión.
+* Guardar y recuperar la información mediante archivos JSON.
 
 ## Tecnologías utilizadas
 
 * **Java**
 * **Java Collections Framework**
-
   * `ArrayList`
   * `List`
 * **Java Streams**
 * **Java Time API**
-
   * `LocalDate`
+* **Gson**
+  * Serialización y deserialización de objetos.
+* **JSON**
+  * Almacenamiento de información.
 * **Visual Studio Code**
 * **JDK**
 
-##  Estructura del proyecto
+## Estructura del proyecto
 
 ```text
 albergue-mascota/
@@ -78,9 +82,10 @@ Se encarga de:
 
 ### `Adoptante`
 
-Representa a un persona que busca adoptar a una mascota del albergue.
+Representa a una persona interesada en adoptar una mascota del albergue.
 
 Incluye los siguientes datos:
+
 * Nombre
 * Apellidos
 * DNI
@@ -147,7 +152,7 @@ Incluye:
 
 ### `Donacion`
 
-Permite registrar donaciones realizadas al albergue.
+Permite registrar las donaciones realizadas al albergue.
 
 El sistema admite dos tipos:
 
@@ -164,6 +169,14 @@ Gestiona la autenticación del usuario administrador mediante:
 * Contraseña
 * Nombre
 
+### `Autenticable`
+
+Es una interfaz que establece el contrato para implementar el proceso de autenticación del usuario.
+
+### `Perro`
+
+Es una clase derivada de `Mascota` que incorpora características específicas de los perros, como su nivel de entrenamiento y convivencia con otros perros.
+
 ## Inicio de sesión
 
 Para ingresar al sistema se utiliza un usuario administrador.
@@ -175,7 +188,7 @@ Usuario: admin
 Contraseña: 1234
 ```
 
-> Estas credenciales están definidas directamente en el código y se utilizan únicamente para el funcionamiento actual del proyecto.
+> Estas credenciales están definidas directamente en el código y se utilizan para el funcionamiento actual del proyecto.
 
 ## Funcionalidades
 
@@ -214,16 +227,9 @@ Permite consultar los datos de una mascota utilizando su ID.
 
 ### 3. Crear solicitud de adopción
 
-Permite registrar una solicitud asociada a una mascota existente.
+Permite registrar una solicitud asociada a una mascota existente y a un adoptante previamente registrado.
 
-Se solicita información del adoptante como:
-
-* Nombre
-* Apellidos
-* DNI
-* Dirección
-* Email
-* Teléfono
+Se solicita el DNI del adoptante para identificarlo y vincularlo con la solicitud.
 
 La solicitud se crea inicialmente con estado **Pendiente**.
 
@@ -285,6 +291,7 @@ Se necesita tener instalado:
 
 * **JDK**
 * **Visual Studio Code** (opcional)
+* **Biblioteca Gson**
 
 ### Desde Visual Studio Code
 
@@ -295,31 +302,34 @@ albergue-mascota
 ```
 
 2. Abrir la carpeta `src`.
-3. Ejecutar `App.java`.
-4. Ingresar las credenciales:
+3. Verificar que la biblioteca Gson esté correctamente configurada.
+4. Ejecutar `App.java`.
+5. Ingresar las credenciales:
 
 ```text
 Usuario: admin
 Contraseña: 1234
 ```
 
-5. Utilizar el menú de opciones.
+6. Utilizar el menú de opciones.
 
 ### Desde la terminal
 
 Ubicándose dentro de la carpeta del proyecto:
 
 ```bash
-javac -d bin src/*.java
+javac -d bin -cp "ruta/a/gson.jar" src/*.java
 ```
 
 Luego ejecutar:
 
 ```bash
-java -cp bin App
+java -cp "bin;ruta/a/gson.jar" App
 ```
 
-##  Conceptos de programación utilizados
+En Linux o macOS, reemplazar el punto y coma del classpath por dos puntos.
+
+## Conceptos de programación utilizados
 
 El proyecto aplica diferentes conceptos de **Programación Orientada a Objetos (POO)**:
 
@@ -328,27 +338,36 @@ El proyecto aplica diferentes conceptos de **Programación Orientada a Objetos (
 * Atributos privados.
 * Constructores.
 * Métodos `getter` y `setter`.
-* Composición entre objetos.
+* Herencia.
+* Polimorfismo.
+* Interfaces.
+* Asociaciones entre objetos.
 * Sobrecarga de constructores.
 * Colecciones mediante `ArrayList`.
 * Búsqueda mediante Java Streams.
 * Manejo de excepciones.
 * Validación de datos.
 * Uso de fechas con `LocalDate`.
+* Serialización y deserialización mediante Gson.
 
 ## Almacenamiento de información
 
-Actualmente, la información se mantiene **en memoria** utilizando listas (`ArrayList`).
+El sistema utiliza listas (`ArrayList`) para administrar la información en memoria durante la ejecución del programa.
 
-Por esta razón, los registros creados durante la ejecución se pierden cuando el programa se cierra.
+Además, implementa persistencia de datos mediante la biblioteca **Gson**, que permite convertir los objetos Java a formato JSON y recuperar posteriormente la información almacenada.
 
-El proyecto no utiliza actualmente una base de datos.
+Los datos se guardan en el archivo:
+
+```text
+albergue.json
+```
+
+Este mecanismo permite conservar la información de mascotas, adoptantes, solicitudes de adopción, historiales clínicos y donaciones entre diferentes ejecuciones del programa, sin necesidad de utilizar una base de datos externa.
 
 ## Proyecto académico
 
-Proyecto desarrollado con fines académicos para aplicar conceptos de **Programación Orientada a Objetos y desarrollo de sistemas en Java**.
+Proyecto desarrollado con fines académicos para aplicar conceptos de **Programación Orientada a Objetos y desarrollo de sistemas en Java**, mediante la implementación de un sistema de gestión para un albergue de mascotas.
 
 ---
 
-**Sistema de Albergue de Mascotas **
-
+**Sistema de Albergue de Mascotas**
