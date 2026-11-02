@@ -152,14 +152,12 @@ Incluye:
 
 ### `Donacion`
 
-Permite registrar las donaciones realizadas al albergue.
+Permite representar las donaciones realizadas al albergue. Es la clase padre de dos clases derivadas que representan los diferentes tipos de donaciones:
 
-El sistema admite dos tipos:
+- **`Efectivo`:** clase hija de `Donacion` que representa las donaciones monetarias, registradas en soles.
+- **`Comida`:** clase hija de `Donacion` que representa las donaciones de alimentos para mascotas, registradas en kilogramos.
 
-* **Efectivo**
-* **Comida para mascotas**
-
-En el caso de dinero se registra el monto en soles, mientras que las donaciones de comida se registran en kilogramos.
+Ambas clases heredan los atributos y comportamientos comunes de `Donacion`, pero permiten diferenciar el tipo de donación recibida.
 
 ### `Usuario`
 
