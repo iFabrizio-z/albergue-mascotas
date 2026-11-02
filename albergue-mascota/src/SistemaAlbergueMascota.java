@@ -24,8 +24,8 @@ public class SistemaAlbergueMascota {
     List<SolicitudAdopcion> solicitudes = new ArrayList<>();
     List<Donacion> donaciones = new ArrayList<>();
 
-    // Controla si se debe omitir el siguiente guardado.
-    private boolean omitirSiguienteGuardado = false;
+    // Controla si se modificaron los datos del sistema.
+    private transient boolean datosModificados = false;
 
     public SistemaAlbergueMascota() {
         this.mascotas = new ArrayList<>();
@@ -120,9 +120,8 @@ public class SistemaAlbergueMascota {
      */
     public void guardarDatos() {
 
-        // Si la solicitud no se registró, se omite este guardado.
-        if (omitirSiguienteGuardado) {
-            omitirSiguienteGuardado = false;
+        // Solo guarda cuando existen modificaciones.
+        if (!datosModificados) {
             return;
         }
 
@@ -132,6 +131,9 @@ public class SistemaAlbergueMascota {
         try (Writer escritor = Files.newBufferedWriter(archivo)) {
             gson.toJson(this, escritor);
             System.out.println("Datos guardados correctamente.");
+
+            datosModificados = false;
+
         } catch (IOException e) {
             System.err.println("Error al guardar: " + e.getMessage());
         }
@@ -357,6 +359,7 @@ public class SistemaAlbergueMascota {
         }
 
         mascotas.add(nuevoPerro);
+        datosModificados = true;
 
         System.out.println("\n¡Perro registrado correctamente!");
         nuevoPerro.mostrarDatosMascota();
@@ -525,6 +528,7 @@ public class SistemaAlbergueMascota {
                 nombre, apellidos, dni, direccion, email, telefono);
 
         adoptantes.add(nuevoAdoptante);
+        datosModificados = true;
 
         System.out.println("Adoptante registrado correctamente.");
 
@@ -546,9 +550,6 @@ public class SistemaAlbergueMascota {
      */
     public void crearSolicitudAdopcion(Scanner scanner) {
 
-        // Al iniciar el método, se permite guardar normalmente.
-        omitirSiguienteGuardado = false;
-
         System.out.print("Ingrese el ID de la mascota que desean adoptar: ");
         String idBuscar = scanner.nextLine().trim();
 
@@ -559,17 +560,11 @@ public class SistemaAlbergueMascota {
 
         if (mascota == null) {
             System.out.println("ID de mascota incorrecto.");
-
-            // Evita guardar cuando el ID es incorrecto.
-            omitirSiguienteGuardado = true;
             return;
         }
 
         if (mascota.getEstadoAdopcion().equalsIgnoreCase("Adoptado")) {
             System.out.println("La mascota ya fue adoptada.");
-
-            // Evita guardar cuando la mascota ya fue adoptada.
-            omitirSiguienteGuardado = true;
             return;
         }
 
@@ -580,6 +575,7 @@ public class SistemaAlbergueMascota {
                 nuevoIndice, adoptante, mascota);
 
         solicitudes.add(nuevaSolicitud);
+        datosModificados = true;
 
         System.out.println("\nEl registro de la solicitud fue exitoso...");
         System.out.println("ID de solicitud registrado: " + nuevoIndice);
@@ -622,10 +618,14 @@ public class SistemaAlbergueMascota {
                     solicitud.getMascota().setEstadoAdopcion("Adoptado");
                 }
 
+                datosModificados = true;
+
                 System.out.println("Solicitud aprobada con éxito. Mascota adoptada.");
 
             } else if (decision == 2) {
                 solicitud.setEstado("Rechazada");
+                datosModificados = true;
+
                 System.out.println("Solicitud rechazada con éxito.");
 
             } else {
@@ -709,6 +709,7 @@ public class SistemaAlbergueMascota {
                 nuevoIndice, procedimiento, diagnostico, tratamiento, veterinario);
 
         mascota.agregarHistorialMedico(historial);
+        datosModificados = true;
 
         System.out.println("\n¡El registro del historial fue exitoso!");
     }
@@ -746,6 +747,7 @@ public class SistemaAlbergueMascota {
     public void agregarDonacion(Donacion donacion) {
         if (donacion != null) {
             donaciones.add(donacion);
+            datosModificados = true;
         }
     }
 
