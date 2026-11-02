@@ -87,6 +87,20 @@
         }
       ],
       "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "basico",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M006",
+      "raza": "Doberman",
+      "edad": 1,
+      "genero": "Macho",
+      "peso": 15.0,
+      "tamaño": "80",
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Rocky",
+      "historialClinico": [],
+      "tipo": "Perro"
     }
   ],
   "adoptantes": [
@@ -211,6 +225,33 @@
         ],
         "tipo": "Perro"
       }
+    },
+    {
+      "idSolicitud": 4,
+      "fechaSolicitud": "2026-11-01",
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Ana",
+        "apellidos": "Garcia Lopez",
+        "dni": "12345678",
+        "direccion": "Av. Los Olivos 123",
+        "email": "ana@ejemplo.com",
+        "telefono": "900111222"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "basico",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M006",
+        "raza": "Doberman",
+        "edad": 1,
+        "genero": "Macho",
+        "peso": 15.0,
+        "tamaño": "80",
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Rocky",
+        "historialClinico": [],
+        "tipo": "Perro"
+      }
     }
   ],
   "donaciones": [
@@ -233,6 +274,13 @@
       "idDonacion": 3,
       "donante": "Piero",
       "fecha": "2026-10-16",
+      "tipo": "Efectivo"
+    },
+    {
+      "montoEfectivo": 180.0,
+      "idDonacion": 4,
+      "donante": "Ignacio",
+      "fecha": "2026-11-01",
       "tipo": "Efectivo"
     }
   ]
