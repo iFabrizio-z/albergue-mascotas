@@ -34,7 +34,7 @@ public class Comida extends Donacion {
                     "Fecha: %s\n" +
                     "Donante: %s\n" +
                     "Tipo: Comida\n" +
-                    "Cantidad: S/ %.2f\n" +
+                    "Cantidad: %.2f kg\n" +
                     "=======================================",
                     getIdDonacion(), getFecha(), getDonante(), getCantidadComidaKg());
 
