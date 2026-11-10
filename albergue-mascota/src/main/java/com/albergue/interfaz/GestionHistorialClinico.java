@@ -4,20 +4,65 @@
  */
 package com.albergue.interfaz;
 
-/**
- *
- * @author Fabricioo
- */
-public class GestionHistorialClinico extends javax.swing.JDialog {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GestionHistorialClinico.class.getName());
+import com.albergue.modelo.Mascota;
+import com.albergue.sistema.SistemaAlbergue;
+import com.albergue.persistencia.PersistenciaDatos;
 
-    /**
-     * Creates new form GestionHistorialClinico
-     */
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import com.albergue.modelo.HistorialClinico;
+
+public class GestionHistorialClinico extends javax.swing.JDialog {
+
+    private static final java.util.logging.Logger logger
+            = java.util.logging.Logger.getLogger(GestionHistorialClinico.class.getName());
+
+    private SistemaAlbergue sistema;
+    private boolean modoEdicion = false;
+    private String idMascotaEnEdicion;
+    private int idHistorialEnEdicion;
+
+    private final DateTimeFormatter formatoFecha
+            = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
     public GestionHistorialClinico(java.awt.Frame parent, boolean modal) {
+        this(parent, modal, cargarSistema());
+    }
+
+    public GestionHistorialClinico(
+            java.awt.Frame parent,
+            boolean modal,
+            SistemaAlbergue sistema) {
+
         super(parent, modal);
+
+        this.sistema = sistema;
+
         initComponents();
+        configurarVentana();
+        cargarProcedimientos();
+        cargarLogo();
+        configurarPlaceHolder();
+        cargarMascotas();
+        cargarHistoriales();
+        configurarEventos();
+    }
+
+    private static SistemaAlbergue cargarSistema() {
+        try {
+            return PersistenciaDatos.cargarDatos();
+        } catch (Exception ex) {
+            logger.log(java.util.logging.Level.SEVERE,
+                    "Error al cargar los datos del albergue", ex);
+            return null;
+        }
     }
 
     /**
@@ -29,21 +74,620 @@ public class GestionHistorialClinico extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblHistTitulo = new javax.swing.JLabel();
+        pnlHistFormulario = new javax.swing.JPanel();
+        lblHistMascota = new javax.swing.JLabel();
+        lblHistVeterinario = new javax.swing.JLabel();
+        lblHistFecha = new javax.swing.JLabel();
+        lblHistDiagnostico = new javax.swing.JLabel();
+        lblHistTratamiento = new javax.swing.JLabel();
+        cmbHistMascota = new javax.swing.JComboBox<>();
+        txtHistFecha = new javax.swing.JTextField();
+        txtHistVeterinario = new javax.swing.JTextField();
+        txtHistDiagnostico = new javax.swing.JTextField();
+        txtHistTratamiento = new javax.swing.JTextField();
+        btnHistGuardar = new javax.swing.JButton();
+        btnHistGuardar1 = new javax.swing.JButton();
+        btnHistCancelar = new javax.swing.JButton();
+        lblHistProcedimiento = new javax.swing.JLabel();
+        cmbHistProcedimiento = new javax.swing.JComboBox<>();
+        pnlHistTabla = new javax.swing.JPanel();
+        txtHistBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblHistRegistros = new javax.swing.JTable();
+        btnHistVerDetalle = new javax.swing.JButton();
+        btnHistEditar = new javax.swing.JButton();
+        btnHistActualizar = new javax.swing.JButton();
+        btnHistEliminar = new javax.swing.JButton();
+        btnHistSiguiente = new javax.swing.JButton();
+        btnHistAnterior = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestión de Historial Clínico");
+        setBackground(new java.awt.Color(244, 246, 249));
+
+        lblHistTitulo.setBackground(new java.awt.Color(36, 75, 112));
+        lblHistTitulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lblHistTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblHistTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHistTitulo.setText("Gestión de Historial Clínico");
+        lblHistTitulo.setAlignmentX(15.0F);
+        lblHistTitulo.setAlignmentY(35.0F);
+        lblHistTitulo.setOpaque(true);
+        lblHistTitulo.setPreferredSize(new java.awt.Dimension(830, 35));
+
+        pnlHistFormulario.setBackground(new java.awt.Color(255, 255, 255));
+        pnlHistFormulario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registrar Historial", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18))); // NOI18N
+        pnlHistFormulario.setPreferredSize(new java.awt.Dimension(330, 420));
+
+        lblHistMascota.setBackground(new java.awt.Color(255, 255, 255));
+        lblHistMascota.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblHistMascota.setForeground(new java.awt.Color(38, 52, 69));
+        lblHistMascota.setText("Mascota:");
+
+        lblHistVeterinario.setBackground(new java.awt.Color(255, 255, 255));
+        lblHistVeterinario.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblHistVeterinario.setForeground(new java.awt.Color(38, 52, 69));
+        lblHistVeterinario.setText("Veterinario:");
+
+        lblHistFecha.setBackground(new java.awt.Color(255, 255, 255));
+        lblHistFecha.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblHistFecha.setForeground(new java.awt.Color(38, 52, 69));
+        lblHistFecha.setText("Fecha de atención:");
+
+        lblHistDiagnostico.setBackground(new java.awt.Color(255, 255, 255));
+        lblHistDiagnostico.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblHistDiagnostico.setForeground(new java.awt.Color(38, 52, 69));
+        lblHistDiagnostico.setText("Diagnostico:");
+
+        lblHistTratamiento.setBackground(new java.awt.Color(255, 255, 255));
+        lblHistTratamiento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblHistTratamiento.setForeground(new java.awt.Color(38, 52, 69));
+        lblHistTratamiento.setText("Tratamiento:");
+
+        cmbHistMascota.setForeground(new java.awt.Color(38, 52, 69));
+        cmbHistMascota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        txtHistFecha.setEditable(false);
+        txtHistFecha.setForeground(new java.awt.Color(38, 52, 69));
+
+        txtHistVeterinario.setForeground(new java.awt.Color(38, 52, 69));
+
+        txtHistDiagnostico.setForeground(new java.awt.Color(38, 52, 69));
+
+        txtHistTratamiento.setForeground(new java.awt.Color(38, 52, 69));
+
+        btnHistGuardar.setBackground(new java.awt.Color(36, 75, 112));
+        btnHistGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistGuardar.setText("Guardar");
+        btnHistGuardar.setFocusable(false);
+
+        btnHistGuardar1.setBackground(new java.awt.Color(229, 231, 235));
+        btnHistGuardar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistGuardar1.setForeground(new java.awt.Color(38, 52, 69));
+        btnHistGuardar1.setText("Limpiar");
+        btnHistGuardar1.setFocusable(false);
+
+        btnHistCancelar.setBackground(new java.awt.Color(229, 231, 235));
+        btnHistCancelar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistCancelar.setForeground(new java.awt.Color(38, 52, 69));
+        btnHistCancelar.setText("Cancelar");
+        btnHistCancelar.setFocusable(false);
+
+        lblHistProcedimiento.setBackground(new java.awt.Color(255, 255, 255));
+        lblHistProcedimiento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblHistProcedimiento.setForeground(new java.awt.Color(38, 52, 69));
+        lblHistProcedimiento.setText("Procedimiento:");
+
+        cmbHistProcedimiento.setForeground(new java.awt.Color(38, 52, 69));
+        cmbHistProcedimiento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout pnlHistFormularioLayout = new javax.swing.GroupLayout(pnlHistFormulario);
+        pnlHistFormulario.setLayout(pnlHistFormularioLayout);
+        pnlHistFormularioLayout.setHorizontalGroup(
+            pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHistFormularioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHistFormularioLayout.createSequentialGroup()
+                        .addComponent(lblHistMascota)
+                        .addGap(18, 18, 18)
+                        .addComponent(cmbHistMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlHistFormularioLayout.createSequentialGroup()
+                        .addComponent(btnHistGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnHistGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnHistCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlHistFormularioLayout.createSequentialGroup()
+                            .addComponent(lblHistVeterinario)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtHistVeterinario))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlHistFormularioLayout.createSequentialGroup()
+                            .addComponent(lblHistFecha)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtHistFecha))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlHistFormularioLayout.createSequentialGroup()
+                            .addComponent(lblHistProcedimiento)
+                            .addGap(18, 18, 18)
+                            .addComponent(cmbHistProcedimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlHistFormularioLayout.createSequentialGroup()
+                            .addComponent(lblHistDiagnostico)
+                            .addGap(18, 18, 18)
+                            .addComponent(txtHistDiagnostico))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlHistFormularioLayout.createSequentialGroup()
+                            .addComponent(lblHistTratamiento)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtHistTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pnlHistFormularioLayout.setVerticalGroup(
+            pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHistFormularioLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHistMascota)
+                    .addComponent(cmbHistMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtHistFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHistFecha))
+                .addGap(27, 27, 27)
+                .addGroup(pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHistVeterinario)
+                    .addComponent(txtHistVeterinario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24)
+                .addGroup(pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHistProcedimiento)
+                    .addComponent(cmbHistProcedimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
+                .addGroup(pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtHistTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblHistTratamiento))
+                .addGap(27, 27, 27)
+                .addGroup(pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHistDiagnostico)
+                    .addComponent(txtHistDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(pnlHistFormularioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnHistGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHistGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHistCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
+        pnlHistTabla.setBackground(new java.awt.Color(255, 255, 255));
+        pnlHistTabla.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Registros Clínicos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18))); // NOI18N
+        pnlHistTabla.setPreferredSize(new java.awt.Dimension(490, 420));
+
+        btnBuscar.setBackground(new java.awt.Color(36, 75, 112));
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setText("Buscar");
+        btnBuscar.setFocusable(false);
+
+        tblHistRegistros.setForeground(new java.awt.Color(38, 52, 69));
+        tblHistRegistros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "N° atención", "Mascota", "Veterinario", "Fecha", "Tratamiento", "Diagnóstico"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblHistRegistros.setSelectionBackground(new java.awt.Color(220, 232, 243));
+        tblHistRegistros.setSelectionForeground(new java.awt.Color(36, 75, 112));
+        jScrollPane1.setViewportView(tblHistRegistros);
+
+        btnHistVerDetalle.setBackground(new java.awt.Color(36, 75, 112));
+        btnHistVerDetalle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistVerDetalle.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistVerDetalle.setText("Ver Detalle");
+        btnHistVerDetalle.setFocusable(false);
+
+        btnHistEditar.setBackground(new java.awt.Color(36, 75, 112));
+        btnHistEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistEditar.setText("Editar");
+        btnHistEditar.setFocusable(false);
+
+        btnHistActualizar.setBackground(new java.awt.Color(36, 75, 112));
+        btnHistActualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistActualizar.setText("Actualizar");
+        btnHistActualizar.setFocusable(false);
+
+        btnHistEliminar.setBackground(new java.awt.Color(220, 53, 69));
+        btnHistEliminar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistEliminar.setText("Eliminar");
+        btnHistEliminar.setFocusable(false);
+
+        btnHistSiguiente.setBackground(new java.awt.Color(229, 231, 235));
+        btnHistSiguiente.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistSiguiente.setForeground(new java.awt.Color(38, 52, 69));
+        btnHistSiguiente.setText("Siguiente");
+        btnHistSiguiente.setFocusable(false);
+
+        btnHistAnterior.setBackground(new java.awt.Color(229, 231, 235));
+        btnHistAnterior.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnHistAnterior.setForeground(new java.awt.Color(38, 52, 69));
+        btnHistAnterior.setText("Anterior");
+        btnHistAnterior.setFocusable(false);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Huellitas System.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+
+        javax.swing.GroupLayout pnlHistTablaLayout = new javax.swing.GroupLayout(pnlHistTabla);
+        pnlHistTabla.setLayout(pnlHistTablaLayout);
+        pnlHistTablaLayout.setHorizontalGroup(
+            pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                        .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                                .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                                        .addComponent(btnHistAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                                        .addComponent(btnHistVerDetalle)
+                                        .addGap(30, 30, 30)
+                                        .addComponent(btnHistEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnHistSiguiente)
+                                    .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                                        .addComponent(btnHistEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnHistActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                        .addComponent(txtHistBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        pnlHistTablaLayout.setVerticalGroup(
+            pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtHistBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2)
+                .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnHistSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHistAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnHistVerDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHistEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHistActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnHistEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblLogo.setText("jLabel2");
+        lblLogo.setPreferredSize(new java.awt.Dimension(65, 65));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(pnlHistFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(pnlHistTabla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblHistTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblHistTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlHistTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlHistFormulario, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * Configuración inicial de la ventana.
+     */
+    private void configurarVentana() {
+
+        setLocationRelativeTo(getParent());
+
+        txtHistFecha.setText(
+                LocalDate.now().format(formatoFecha)
+        );
+    }
+
+    /**
+     * Carga únicamente las mascotas que todavía están en el albergue. Excluye a
+     * las mascotas que ya fueron adoptadas.
+     */
+    private void cargarMascotas() {
+
+        cmbHistMascota.removeAllItems();
+
+        if (sistema == null) {
+            return;
+        }
+
+        List<Mascota> mascotas = sistema.getMascotas();
+
+        for (Mascota mascota : mascotas) {
+
+            if (mascota != null
+                    && !"Adoptado".equalsIgnoreCase(
+                            mascota.getEstadoAdopcion())) {
+
+                String elemento = mascota.getIdMascota()
+                        + " - " + mascota.getNombre();
+
+                cmbHistMascota.addItem(elemento);
+            }
+        }
+
+        cmbHistMascota.setSelectedIndex(-1);
+    }
+
+    private void cargarHistoriales() {
+
+        DefaultTableModel modelo = (DefaultTableModel) tblHistRegistros.getModel();
+
+        modelo.setRowCount(0);
+
+        if (sistema == null) {
+            return;
+        }
+
+        for (Mascota mascota : sistema.getMascotas()) {
+
+            List<HistorialClinico> historiales = sistema.obtenerHistorialPorId(mascota.getIdMascota());
+
+            for (HistorialClinico historial : historiales) {
+
+                String fecha = historial.getFechaAtencion() == null
+                        ? ""
+                        : historial.getFechaAtencion().format(formatoFecha);
+
+                modelo.addRow(new Object[]{
+                    historial.getIdHistorial(),
+                    mascota.getIdMascota() + " - " + mascota.getNombre(),
+                    historial.getNombreVeterinario(),
+                    fecha,
+                    historial.getTratamientoMedico(),
+                    historial.getDiagnosticoMedico()
+                });
+            }
+        }
+    }
+
+    private void cargarProcedimientos() {
+        cmbHistProcedimiento.removeAllItems();
+
+        cmbHistProcedimiento.addItem("Consulta general");
+        cmbHistProcedimiento.addItem("Vacunación");
+        cmbHistProcedimiento.addItem("Desparasitación");
+
+        cmbHistProcedimiento.setSelectedIndex(0);
+    }
+
+    private void cargarLogo() {
+
+        java.net.URL ruta = getClass().getResource(
+                "/imagenes/logo.jpg"
+        );
+
+        if (ruta != null) {
+
+            javax.swing.ImageIcon imagen
+                    = new javax.swing.ImageIcon(ruta);
+
+            java.awt.Image imagenAjustada
+                    = imagen.getImage().getScaledInstance(
+                            65, 65,
+                            java.awt.Image.SCALE_SMOOTH
+                    );
+
+            lblLogo.setIcon(
+                    new javax.swing.ImageIcon(imagenAjustada)
+            );
+
+        } else {
+            System.out.println("No se encontró el logo.");
+        }
+    }
+
+    /**
+     * Configura los eventos de los botones.
+     */
+    private void configurarEventos() {
+
+        btnHistGuardar.addActionListener(e -> registrarHistorial());
+
+        btnHistGuardar1.addActionListener(e -> limpiarFormulario());
+
+        btnHistCancelar.addActionListener(e -> dispose());
+
+        btnBuscar.addActionListener(e -> buscarHistorial());
+
+        txtHistBuscar.addActionListener(e -> buscarHistorial());
+
+        btnHistActualizar.addActionListener(e -> actualizarVista());
+
+        btnHistVerDetalle.addActionListener(e -> verDetalle());
+
+        btnHistSiguiente.addActionListener(e -> seleccionarSiguiente());
+
+        btnHistAnterior.addActionListener(e -> seleccionarAnterior());
+
+        btnHistEditar.addActionListener(e -> editarHistorial());
+
+        btnHistEliminar.addActionListener(e -> eliminarHistorialSeleccionado());
+    }
+
+    private void configurarPlaceHolder() {
+        txtHistBuscar.setText("Buscar por ID o nombre de mascota...");
+        txtHistBuscar.setForeground(java.awt.Color.GRAY);
+
+        txtHistBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+                if (txtHistBuscar.getText().equals(
+                        "Buscar por ID o nombre de mascota...")) {
+                    txtHistBuscar.setText("");
+                    txtHistBuscar.setForeground(java.awt.Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+                if (txtHistBuscar.getText().trim().isEmpty()) {
+                    txtHistBuscar.setText(
+                            "Buscar por ID o nombre de mascota...");
+                    txtHistBuscar.setForeground(java.awt.Color.GRAY);
+                }
+            }
+        });
+    }
+
+    /**
+     * Registra un nuevo historial clínico o actualiza uno existente.
+     */
+    private void registrarHistorial() {
+
+        if (sistema == null) {
+            JOptionPane.showMessageDialog(this,
+                    "No se pudieron cargar los datos del albergue.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!modoEdicion && cmbHistMascota.getSelectedIndex() == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione una mascota.",
+                    "Campo obligatorio",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String veterinario = txtHistVeterinario.getText().trim();
+        String tratamiento = txtHistTratamiento.getText().trim();
+        String diagnostico = txtHistDiagnostico.getText().trim();
+
+        String procedimiento
+                = (String) cmbHistProcedimiento.getSelectedItem();
+
+        if (veterinario.isEmpty()
+                || tratamiento.isEmpty()
+                || diagnostico.isEmpty()
+                || procedimiento == null
+                || procedimiento.trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(this,
+                    "Complete todos los campos del formulario.",
+                    "Campo obligatorio",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+
+            if (modoEdicion) {
+
+                sistema.editarHistorialPorId(
+                        idMascotaEnEdicion,
+                        idHistorialEnEdicion,
+                        procedimiento,
+                        diagnostico,
+                        tratamiento,
+                        veterinario
+                );
+
+                JOptionPane.showMessageDialog(this,
+                        "Historial clínico actualizado correctamente.",
+                        "Edición exitosa",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            } else {
+
+                String mascotaSeleccionada
+                        = cmbHistMascota.getSelectedItem().toString();
+
+                String idMascota
+                        = mascotaSeleccionada.split(" - ", 2)[0];
+
+                sistema.agregarHistorialPorId(
+                        idMascota,
+                        procedimiento,
+                        diagnostico,
+                        tratamiento,
+                        veterinario
+                );
+
+                JOptionPane.showMessageDialog(this,
+                        "El historial clínico se registró correctamente.",
+                        "Registro exitoso",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+
+            cargarHistoriales();
+            limpiarFormulario();
+
+        } catch (Exception ex) {
+
+            logger.log(
+                    java.util.logging.Level.SEVERE,
+                    "Error al guardar el historial clínico",
+                    ex
+            );
+
+            JOptionPane.showMessageDialog(this,
+                    "Ocurrió un error al guardar el historial clínico: "
+                    + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -82,6 +726,424 @@ public class GestionHistorialClinico extends javax.swing.JDialog {
         });
     }
 
+    /**
+     * Limpia los campos del formulario y restablece el estado inicial.
+     */
+    private void limpiarFormulario() {
+
+        cmbHistMascota.setSelectedIndex(-1);
+
+        if (cmbHistProcedimiento.getItemCount() > 0) {
+            cmbHistProcedimiento.setSelectedIndex(0);
+        }
+
+        txtHistVeterinario.setText("");
+        txtHistFecha.setText(
+                LocalDate.now().format(formatoFecha)
+        );
+        txtHistTratamiento.setText("");
+        txtHistDiagnostico.setText("");
+
+        modoEdicion = false;
+        idMascotaEnEdicion = null;
+        idHistorialEnEdicion = 0;
+    }
+
+    /**
+     * Busca registros en la tabla.
+     */
+    private void buscarHistorial() {
+
+        String texto = txtHistBuscar.getText().trim();
+
+        DefaultTableModel modelo
+                = (DefaultTableModel) tblHistRegistros.getModel();
+
+        TableRowSorter<DefaultTableModel> ordenador
+                = new TableRowSorter<>(modelo);
+
+        tblHistRegistros.setRowSorter(ordenador);
+
+        if (texto.isEmpty()) {
+            ordenador.setRowFilter(null);
+        } else {
+            ordenador.setRowFilter(
+                    RowFilter.regexFilter(
+                            "(?i)" + Pattern.quote(texto)
+                    )
+            );
+        }
+    }
+
+    private void actualizarVista() {
+
+        txtHistBuscar.setText("");
+
+        if (tblHistRegistros.getRowSorter() instanceof TableRowSorter) {
+
+            TableRowSorter<?> ordenador
+                    = (TableRowSorter<?>) tblHistRegistros.getRowSorter();
+
+            ordenador.setRowFilter(null);
+        }
+
+        cargarMascotas();
+        cargarHistoriales();
+
+        tblHistRegistros.clearSelection();
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Los registros clínicos se actualizaron.",
+                "Actualizar",
+                JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+
+    /**
+     * Muestra los detalles del registro seleccionado.
+     */
+    private void verDetalle() {
+
+        int filaSeleccionada = tblHistRegistros.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione un historial clínico de la tabla.",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int filaModelo
+                = tblHistRegistros.convertRowIndexToModel(filaSeleccionada);
+
+        String idHistorialTexto
+                = tblHistRegistros.getModel().getValueAt(filaModelo, 0).toString();
+
+        String mascotaTexto
+                = tblHistRegistros.getModel().getValueAt(filaModelo, 1).toString();
+
+        String veterinario
+                = tblHistRegistros.getModel().getValueAt(filaModelo, 2).toString();
+
+        String fecha
+                = tblHistRegistros.getModel().getValueAt(filaModelo, 3).toString();
+
+        String tratamiento
+                = tblHistRegistros.getModel().getValueAt(filaModelo, 4).toString();
+
+        String diagnostico
+                = tblHistRegistros.getModel().getValueAt(filaModelo, 5).toString();
+
+        String idMascota = mascotaTexto.split(" - ", 2)[0];
+
+        int idHistorial = Integer.parseInt(idHistorialTexto);
+
+        String procedimiento = "No especificado";
+
+        Mascota mascota = sistema.buscarMascotaPorId(idMascota);
+
+        if (mascota != null) {
+            for (HistorialClinico historial : mascota.getHistorialClinico()) {
+                if (historial.getIdHistorial() == idHistorial) {
+                    procedimiento = historial.getTipoProcedimiento();
+                    break;
+                }
+            }
+        }
+
+        String detalle
+                = "N° de atención: " + idHistorialTexto
+                + "\nMascota: " + mascotaTexto
+                + "\nProcedimiento: " + procedimiento
+                + "\nVeterinario: " + veterinario
+                + "\nFecha: " + fecha
+                + "\nTratamiento: " + tratamiento
+                + "\nDiagnóstico: " + diagnostico;
+
+        JOptionPane.showMessageDialog(this,
+                detalle,
+                "Detalle del historial clínico",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void seleccionarSiguiente() {
+
+        int totalFilas = tblHistRegistros.getRowCount();
+
+        if (totalFilas == 0) {
+            return;
+        }
+
+        int fila = tblHistRegistros.getSelectedRow();
+
+        if (fila == -1 || fila == totalFilas - 1) {
+            tblHistRegistros.setRowSelectionInterval(0, 0);
+        } else {
+            tblHistRegistros.setRowSelectionInterval(
+                    fila + 1,
+                    fila + 1
+            );
+        }
+    }
+
+    /**
+     * Selecciona el registro anterior de la tabla.
+     */
+    private void seleccionarAnterior() {
+
+        int totalFilas = tblHistRegistros.getRowCount();
+
+        if (totalFilas == 0) {
+            return;
+        }
+
+        int fila = tblHistRegistros.getSelectedRow();
+
+        if (fila > 0) {
+            tblHistRegistros.setRowSelectionInterval(
+                    fila - 1,
+                    fila - 1
+            );
+        } else {
+            tblHistRegistros.setRowSelectionInterval(
+                    totalFilas - 1,
+                    totalFilas - 1
+            );
+        }
+    }
+
+    /**
+     * Editar el historial que se selecciona
+     */
+    private void editarHistorial() {
+
+        int filaSeleccionada = tblHistRegistros.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione un historial clínico de la tabla.",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int filaModelo
+                = tblHistRegistros.convertRowIndexToModel(filaSeleccionada);
+
+        String mascotaTexto
+                = tblHistRegistros.getModel().getValueAt(filaModelo, 1).toString();
+
+        String veterinario
+                = tblHistRegistros.getModel().getValueAt(filaModelo, 2).toString();
+
+        String fecha
+                = tblHistRegistros.getModel().getValueAt(filaModelo, 3).toString();
+
+        String tratamiento
+                = tblHistRegistros.getModel().getValueAt(filaModelo, 4).toString();
+
+        String diagnostico
+                = tblHistRegistros.getModel().getValueAt(filaModelo, 5).toString();
+
+        String idMascota = mascotaTexto.split(" - ", 2)[0];
+
+        Mascota mascota = sistema.buscarMascotaPorId(idMascota);
+
+        if (mascota == null) {
+            JOptionPane.showMessageDialog(this,
+                    "No se encontró la mascota seleccionada.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int idHistorial = Integer.parseInt(
+                tblHistRegistros.getModel()
+                        .getValueAt(filaModelo, 0).toString()
+        );
+
+        HistorialClinico historialSeleccionado = null;
+
+        for (HistorialClinico historial : mascota.getHistorialClinico()) {
+            if (historial.getIdHistorial() == idHistorial) {
+                historialSeleccionado = historial;
+                break;
+            }
+        }
+
+        if (historialSeleccionado == null) {
+            JOptionPane.showMessageDialog(this,
+                    "No se encontró el historial clínico seleccionado.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        idMascotaEnEdicion = idMascota;
+        idHistorialEnEdicion = idHistorial;
+        modoEdicion = true;
+
+        cmbHistMascota.setSelectedItem(mascotaTexto);
+        cmbHistProcedimiento.setSelectedItem(
+                historialSeleccionado.getTipoProcedimiento()
+        );
+
+        txtHistVeterinario.setText(veterinario);
+        txtHistFecha.setText(fecha);
+        txtHistTratamiento.setText(tratamiento);
+        txtHistDiagnostico.setText(diagnostico);
+
+        JOptionPane.showMessageDialog(this,
+                "Puede modificar los datos del historial y presionar Guardar.",
+                "Modo edición",
+                JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    /**
+     * Elimina el historial clínico seleccionado.
+     */
+    private void eliminarHistorialSeleccionado() {
+
+        int filaSeleccionada = tblHistRegistros.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Seleccione un historial clínico de la tabla.",
+                    "Selección requerida",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        if (sistema == null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No se pudieron cargar los datos del albergue.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        int filaModelo = tblHistRegistros.convertRowIndexToModel(
+                filaSeleccionada
+        );
+
+        String codigo = tblHistRegistros.getModel()
+                .getValueAt(filaModelo, 0).toString();
+
+        String mascotaTexto = tblHistRegistros.getModel()
+                .getValueAt(filaModelo, 1).toString();
+
+        Mascota mascotaSeleccionada = null;
+
+        for (Mascota mascota : sistema.getMascotas()) {
+
+            String nombreCompleto
+                    = mascota.getIdMascota() + " - " + mascota.getNombre();
+
+            if (mascotaTexto.equals(nombreCompleto)
+                    || mascotaTexto.equals(mascota.getNombre())) {
+
+                mascotaSeleccionada = mascota;
+                break;
+            }
+        }
+
+        if (mascotaSeleccionada == null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No se pudo identificar la mascota.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de eliminar este historial clínico?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        if (confirmacion != JOptionPane.YES_OPTION) {
+            return;
+        }
+
+        try {
+
+            sistema.eliminarHistorialPorId(
+                    mascotaSeleccionada.getIdMascota(),
+                    Integer.parseInt(codigo)
+            );
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "El historial clínico se eliminó correctamente.",
+                    "Eliminación exitosa",
+                    JOptionPane.INFORMATION_MESSAGE
+            );
+
+            modoEdicion = false;
+            idMascotaEnEdicion = null;
+            idHistorialEnEdicion = 0;
+
+            cargarHistoriales();
+            limpiarFormulario();
+
+        } catch (Exception ex) {
+
+            logger.log(
+                    java.util.logging.Level.SEVERE,
+                    "Error al eliminar el historial clínico",
+                    ex
+            );
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No se pudo eliminar el historial: " + ex.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnHistActualizar;
+    private javax.swing.JButton btnHistAnterior;
+    private javax.swing.JButton btnHistCancelar;
+    private javax.swing.JButton btnHistEditar;
+    private javax.swing.JButton btnHistEliminar;
+    private javax.swing.JButton btnHistGuardar;
+    private javax.swing.JButton btnHistGuardar1;
+    private javax.swing.JButton btnHistSiguiente;
+    private javax.swing.JButton btnHistVerDetalle;
+    private javax.swing.JComboBox<String> cmbHistMascota;
+    private javax.swing.JComboBox<String> cmbHistProcedimiento;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblHistDiagnostico;
+    private javax.swing.JLabel lblHistFecha;
+    private javax.swing.JLabel lblHistMascota;
+    private javax.swing.JLabel lblHistProcedimiento;
+    private javax.swing.JLabel lblHistTitulo;
+    private javax.swing.JLabel lblHistTratamiento;
+    private javax.swing.JLabel lblHistVeterinario;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JPanel pnlHistFormulario;
+    private javax.swing.JPanel pnlHistTabla;
+    private javax.swing.JTable tblHistRegistros;
+    private javax.swing.JTextField txtHistBuscar;
+    private javax.swing.JTextField txtHistDiagnostico;
+    private javax.swing.JTextField txtHistFecha;
+    private javax.swing.JTextField txtHistTratamiento;
+    private javax.swing.JTextField txtHistVeterinario;
     // End of variables declaration//GEN-END:variables
 }

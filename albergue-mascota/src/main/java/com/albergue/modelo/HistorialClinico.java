@@ -6,10 +6,6 @@ package com.albergue.modelo;
 import java.time.LocalDate;
 
 
-/**
- *
- * @author Fabricioo
- */
 public class HistorialClinico{
 
     // Atributos privados
@@ -73,6 +69,32 @@ public class HistorialClinico{
     public String getNombreVeterinario() {
         return nombreVeterinario;
     }
+
+    public void setIdHistorial(int idHistorial) {
+        this.idHistorial = idHistorial;
+    }
+
+    public void setFechaAtencion(LocalDate fechaAtencion) {
+        this.fechaAtencion = fechaAtencion;
+    }
+
+    public void setTipoProcedimiento(String tipoProcedimiento) {
+        this.tipoProcedimiento = tipoProcedimiento;
+    }
+
+    public void setDiagnosticoMedico(String diagnosticoMedico) {
+        this.diagnosticoMedico = diagnosticoMedico;
+    }
+
+    public void setTratamientoMedico(String tratamientoMedico) {
+        this.tratamientoMedico = tratamientoMedico;
+    }
+
+    public void setNombreVeterinario(String nombreVeterinario) {
+        this.nombreVeterinario = nombreVeterinario;
+    }
+    
+    
 
     /**
      * Devuelve la información del registro de atención médica.

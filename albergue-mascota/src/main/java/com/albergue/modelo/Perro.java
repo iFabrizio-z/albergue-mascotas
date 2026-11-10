@@ -4,10 +4,6 @@
  */
 package com.albergue.modelo;
 
-/**
- *
- * @author Fabricioo
- */
 public class Perro extends Mascota {
 
     // Atributos específicos del perro

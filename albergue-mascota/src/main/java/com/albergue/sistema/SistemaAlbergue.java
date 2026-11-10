@@ -11,10 +11,6 @@ import java.util.Objects;
 import com.albergue.modelo.*;
 import com.albergue.persistencia.PersistenciaDatos;
 
-/**
- *
- * @author Fabricioo
- */
 public class SistemaAlbergue {
 
     private List<Mascota> mascotas = new ArrayList<>();
@@ -34,7 +30,6 @@ public class SistemaAlbergue {
     // ==========================================
     // CONTROL DE CAMBIOS Y PERSISTENCIA
     // ==========================================
-
     public boolean isDatosModificados() {
         return datosModificados;
     }
@@ -50,7 +45,6 @@ public class SistemaAlbergue {
     // ==========================================
     // LISTAS PARA LA INTERFAZ GRÁFICA
     // ==========================================
-
     public List<Mascota> getMascotas() {
         return new ArrayList<>(mascotas);
     }
@@ -70,7 +64,6 @@ public class SistemaAlbergue {
     // ==========================================
     // RECONEXIÓN DE SOLICITUDES
     // ==========================================
-
     public void reconectarSolicitudes() {
 
         if (solicitudes == null || mascotas == null || adoptantes == null) {
@@ -115,7 +108,6 @@ public class SistemaAlbergue {
     // ==========================================
     // MASCOTAS
     // ==========================================
-
     private int generarNuevoIdMascota() {
 
         int mayorId = 0;
@@ -138,9 +130,9 @@ public class SistemaAlbergue {
     }
 
     /**
-     * Registra una nueva mascota de tipo Perro en el sistema.
-     * Genera automáticamente un identificador único y guarda
-     * los cambios en el archivo de persistencia.
+     * Registra una nueva mascota de tipo Perro en el sistema. Genera
+     * automáticamente un identificador único y guarda los cambios en el archivo
+     * de persistencia.
      *
      * @param nombre nombre de la mascota.
      * @param raza raza de la mascota.
@@ -153,10 +145,9 @@ public class SistemaAlbergue {
      * @return el objeto Perro que fue registrado.
      * @throws IllegalArgumentException si alguno de los datos no es válido.
      */
-
-    public Perro registrarMascota(String nombre,String raza,int edad,String genero,
-                                  double peso, String tamano, String nivelEntrenamiento,
-                                  boolean conviveConOtrosPerros) {
+    public Perro registrarMascota(String nombre, String raza, int edad, String genero,
+            double peso, String tamano, String nivelEntrenamiento,
+            boolean conviveConOtrosPerros) {
 
         Perro nuevoPerro = new Perro();
 
@@ -198,11 +189,9 @@ public class SistemaAlbergue {
     // ==========================================
     // ADOPTANTES
     // ==========================================
-
     /**
-     * Registra los datos de un nuevo adoptante en el sistema.
-     * Comprueba que sus datos sean válidos y que no exista
-     * otro adoptante con el mismo DNI.
+     * Registra los datos de un nuevo adoptante en el sistema. Comprueba que sus
+     * datos sean válidos y que no exista otro adoptante con el mismo DNI.
      *
      * @param dni número de documento de identidad del adoptante
      * @param nombre nombres del adoptante
@@ -213,7 +202,7 @@ public class SistemaAlbergue {
      * @return el adoptante registrado o el que ya existe con ese DNI
      */
     public Adoptante registrarAdoptante(String dni, String nombre, String apellidos,
-                                        String direccion, String email, String telefono) {
+            String direccion, String email, String telefono) {
 
         // Validar DNI.
         Adoptante validacion = new Adoptante();
@@ -232,7 +221,7 @@ public class SistemaAlbergue {
         validacion.setEmail(email);
         validacion.setTelefono(telefono);
 
-        Adoptante nuevoAdoptante = new Adoptante(nombre,apellidos,dni,direccion,email,telefono);
+        Adoptante nuevoAdoptante = new Adoptante(nombre, apellidos, dni, direccion, email, telefono);
 
         adoptantes.add(nuevoAdoptante);
 
@@ -263,7 +252,6 @@ public class SistemaAlbergue {
     // ==========================================
     // SOLICITUDES DE ADOPCIÓN
     // ==========================================
-
     private int generarNuevoIdSolicitud() {
 
         int mayorId = 0;
@@ -279,16 +267,16 @@ public class SistemaAlbergue {
     }
 
     /**
-     * Crea una nueva solicitud de adopción asociando una mascota
-     * disponible con un adoptante previamente registrado.
+     * Crea una nueva solicitud de adopción asociando una mascota disponible con
+     * un adoptante previamente registrado.
      *
      * @param idMascota identificador de la mascota solicitada.
      * @param adoptante adoptante que realiza la solicitud.
      * @return la solicitud de adopción creada.
-     * @throws IllegalArgumentException si la mascota no existe,
-     * si ya fue adoptada o si el adoptante no está registrado.
+     * @throws IllegalArgumentException si la mascota no existe, si ya fue
+     * adoptada o si el adoptante no está registrado.
      */
-    public SolicitudAdopcion crearSolicitudAdopcion(String idMascota,Adoptante adoptante) {
+    public SolicitudAdopcion crearSolicitudAdopcion(String idMascota, Adoptante adoptante) {
 
         Mascota mascota = buscarMascotaPorId(idMascota);
 
@@ -313,8 +301,8 @@ public class SistemaAlbergue {
 
         int nuevoId = generarNuevoIdSolicitud();
 
-        SolicitudAdopcion nuevaSolicitud = new SolicitudAdopcion(nuevoId,adoptanteRegistrado,
-                                                                 mascota);
+        SolicitudAdopcion nuevaSolicitud = new SolicitudAdopcion(nuevoId, adoptanteRegistrado,
+                mascota);
 
         solicitudes.add(nuevaSolicitud);
 
@@ -325,18 +313,18 @@ public class SistemaAlbergue {
     }
 
     /**
-     * Evalúa una solicitud de adopción y actualiza su estado.
-     * Si se aprueba, la mascota pasa al estado "Adoptado".
+     * Evalúa una solicitud de adopción y actualiza su estado. Si se aprueba, la
+     * mascota pasa al estado "Adoptado".
      *
      * @param idBuscar identificador de la solicitud.
      * @param aprobar true para aprobar y false para rechazar.
-     * @throws IllegalArgumentException si la solicitud no existe
-     * o ya fue procesada.
+     * @throws IllegalArgumentException si la solicitud no existe o ya fue
+     * procesada.
      */
-    public void evaluarSolicitudPorId(int idBuscar,boolean aprobar) {
+    public void evaluarSolicitudPorId(int idBuscar, boolean aprobar) {
 
         SolicitudAdopcion solicitud = solicitudes.stream()
-                .filter(s -> s != null&& s.getIdSolicitud() == idBuscar)
+                .filter(s -> s != null && s.getIdSolicitud() == idBuscar)
                 .findFirst()
                 .orElse(null);
 
@@ -346,7 +334,7 @@ public class SistemaAlbergue {
 
         if (!"Pendiente".equals(solicitud.getEstado())) {
             throw new IllegalArgumentException("Esta solicitud ya fue procesada. Estado: "
-                                               + solicitud.getEstado());
+                    + solicitud.getEstado());
         }
 
         if (aprobar) {
@@ -369,7 +357,6 @@ public class SistemaAlbergue {
     // ==========================================
     // HISTORIAL CLÍNICO
     // ==========================================
-
     /**
      * Agrega un nuevo registro al historial clínico de una mascota.
      *
@@ -380,9 +367,9 @@ public class SistemaAlbergue {
      * @param veterinario nombre del veterinario responsable
      * @return el registro clínico agregado
      */
-    public HistorialClinico agregarHistorialPorId(String idMascota,String procedimiento,
-                                                  String diagnostico,String tratamiento,
-                                                  String veterinario) {
+    public HistorialClinico agregarHistorialPorId(String idMascota, String procedimiento,
+            String diagnostico, String tratamiento,
+            String veterinario) {
 
         Mascota mascota = buscarMascotaPorId(idMascota);
 
@@ -391,17 +378,17 @@ public class SistemaAlbergue {
         }
 
         if (procedimiento == null || procedimiento.isBlank()
-            || diagnostico == null || diagnostico.isBlank()
-            || tratamiento == null || tratamiento.isBlank()
-            || veterinario == null || veterinario.isBlank()) {
+                || diagnostico == null || diagnostico.isBlank()
+                || tratamiento == null || tratamiento.isBlank()
+                || veterinario == null || veterinario.isBlank()) {
 
             throw new IllegalArgumentException("Todos los campos del historial son obligatorios");
         }
 
         int nuevoIndice = mascota.getHistorialClinico().size() + 1;
 
-        HistorialClinico historial = new HistorialClinico(nuevoIndice,procedimiento,diagnostico,
-                                                          tratamiento,veterinario);
+        HistorialClinico historial = new HistorialClinico(nuevoIndice, procedimiento, diagnostico,
+                tratamiento, veterinario);
 
         mascota.agregarHistorialMedico(historial);
 
@@ -428,10 +415,88 @@ public class SistemaAlbergue {
         return new ArrayList<>(mascota.getHistorialClinico());
     }
 
+    public void editarHistorialPorId(
+            String idMascota,
+            int idHistorial,
+            String procedimiento,
+            String diagnostico,
+            String tratamiento,
+            String veterinario) {
+
+        Mascota mascota = buscarMascotaPorId(idMascota);
+
+        if (mascota == null) {
+            throw new IllegalArgumentException("No se encontró la mascota.");
+        }
+
+        if (procedimiento == null || procedimiento.isBlank()
+                || diagnostico == null || diagnostico.isBlank()
+                || tratamiento == null || tratamiento.isBlank()
+                || veterinario == null || veterinario.isBlank()) {
+
+            throw new IllegalArgumentException(
+                    "Todos los campos son obligatorios.");
+        }
+
+        HistorialClinico historialEncontrado = null;
+
+        for (HistorialClinico historial : mascota.getHistorialClinico()) {
+            if (historial.getIdHistorial() == idHistorial) {
+                historialEncontrado = historial;
+                break;
+            }
+        }
+
+        if (historialEncontrado == null) {
+            throw new IllegalArgumentException(
+                    "No se encontró el historial seleccionado.");
+        }
+
+        historialEncontrado.setTipoProcedimiento(procedimiento);
+        historialEncontrado.setDiagnosticoMedico(diagnostico);
+        historialEncontrado.setTratamientoMedico(tratamiento);
+        historialEncontrado.setNombreVeterinario(veterinario);
+
+        datosModificados = true;
+        guardarCambios();
+    }
+
+    /**
+     * Elimina un historial clínico de una mascota.
+     */
+    public void eliminarHistorialPorId(String idMascota, int idHistorial) {
+
+        Mascota mascota = buscarMascotaPorId(idMascota);
+
+        if (mascota == null) {
+            throw new IllegalArgumentException(
+                    "No se encontró la mascota indicada.");
+        }
+
+        HistorialClinico historialEncontrado = null;
+
+        for (HistorialClinico historial : mascota.getHistorialClinico()) {
+
+            if (historial.getIdHistorial() == idHistorial) {
+                historialEncontrado = historial;
+                break;
+            }
+        }
+
+        if (historialEncontrado == null) {
+            throw new IllegalArgumentException(
+                    "No se encontró el historial seleccionado.");
+        }
+
+        mascota.getHistorialClinico().remove(historialEncontrado);
+
+        datosModificados = true;
+        guardarCambios();
+    }
+
     // ==========================================
     // DONACIONES
     // ==========================================
-
     public void agregarDonacion(Donacion donacion) {
 
         if (donacion == null) {
@@ -473,7 +538,7 @@ public class SistemaAlbergue {
      * @param cantidadKg cantidad de comida donada en kilogramos
      * @return la donación de comida registrada
      */
-    public Comida registrarDonacionComida(String donante,double cantidadKg) {
+    public Comida registrarDonacionComida(String donante, double cantidadKg) {
 
         if (cantidadKg <= 0) {
             throw new IllegalArgumentException("La cantidad debe ser mayor que cero.");
@@ -481,7 +546,7 @@ public class SistemaAlbergue {
 
         int nuevoId = donaciones.size() + 1;
 
-        Comida donacion = new Comida(nuevoId,donante,cantidadKg);
+        Comida donacion = new Comida(nuevoId, donante, cantidadKg);
 
         agregarDonacion(donacion);
 
@@ -529,7 +594,6 @@ public class SistemaAlbergue {
     // ==========================================
     // INICIO DE SESIÓN
     // ==========================================
-
     /**
      * Verifica las credenciales de acceso del usuario administrador.
      *
@@ -537,9 +601,9 @@ public class SistemaAlbergue {
      * @param contrasena contraseña ingresada
      * @return true si las credenciales son correctas; false en caso contrario
      */
-    public boolean iniciarSesion(String usuario,String contrasena) {
+    public boolean iniciarSesion(String usuario, String contrasena) {
 
-        Autenticable admin = new Usuario("admin","1234","Administrador");
+        Autenticable admin = new Usuario("admin", "1234", "Administrador");
 
         return admin.autenticar(usuario, contrasena);
     }

@@ -6,10 +6,6 @@ package com.albergue.modelo;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Fabricioo
- */
 public abstract class Mascota {
 
     // Atributos
