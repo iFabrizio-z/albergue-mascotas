@@ -18,6 +18,7 @@ public class GestionAdopcion extends javax.swing.JDialog {
     public GestionAdopcion(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        cargarDatos(); 
     }
 
     /**
@@ -29,21 +30,319 @@ public class GestionAdopcion extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        pnlRegistro = new javax.swing.JPanel();
+        lblIdSolicitud = new javax.swing.JLabel();
+        txtIdSolicitud = new javax.swing.JTextField();
+        lblAdoptante = new javax.swing.JLabel();
+        cmbAdoptante = new javax.swing.JComboBox<>();
+        lblMascota = new javax.swing.JLabel();
+        cmbMascota = new javax.swing.JComboBox<>();
+        lblEstado = new javax.swing.JLabel();
+        txtEstado = new javax.swing.JTextField();
+        pnlBotonesRegistro = new javax.swing.JPanel();
+        btnRegistrar = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        pnlRegistros = new javax.swing.JPanel();
+        lblBuscar = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSolicitudes = new javax.swing.JTable();
+        pnlBotonesAccion = new javax.swing.JPanel();
+        btnVerDetalle = new javax.swing.JButton();
+        btnAprobar = new javax.swing.JButton();
+        btnRechazar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Gestión de Adopciones");
+
+        pnlRegistro.setBorder(javax.swing.BorderFactory.createTitledBorder("Registro de Solicitud"));
+
+        lblIdSolicitud.setText("ID Solicitud:");
+
+        lblAdoptante.setText("Adoptante:");
+
+        cmbAdoptante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar..." }));
+        cmbAdoptante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbAdoptanteActionPerformed(evt);
+            }
+        });
+
+        lblMascota.setText("Mascota:");
+
+        cmbMascota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar..." }));
+
+        lblEstado.setText("Estado:");
+
+        txtEstado.setEditable(false);
+        txtEstado.setText("Pendiente");
+
+        pnlBotonesRegistro.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 5));
+
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        pnlBotonesRegistro.add(btnRegistrar);
+
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+        pnlBotonesRegistro.add(btnLimpiar);
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+        pnlBotonesRegistro.add(btnCancelar);
+
+        javax.swing.GroupLayout pnlRegistroLayout = new javax.swing.GroupLayout(pnlRegistro);
+        pnlRegistro.setLayout(pnlRegistroLayout);
+        pnlRegistroLayout.setHorizontalGroup(
+            pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlRegistroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlBotonesRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                    .addGroup(pnlRegistroLayout.createSequentialGroup()
+                        .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIdSolicitud)
+                            .addComponent(lblAdoptante)
+                            .addComponent(lblMascota)
+                            .addComponent(lblEstado))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtIdSolicitud)
+                            .addComponent(cmbAdoptante, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cmbMascota, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtEstado))))
+                .addContainerGap())
+        );
+        pnlRegistroLayout.setVerticalGroup(
+            pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlRegistroLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblIdSolicitud)
+                    .addComponent(txtIdSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblAdoptante)
+                    .addComponent(cmbAdoptante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMascota)
+                    .addComponent(cmbMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblEstado)
+                    .addComponent(txtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlBotonesRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21))
+        );
+
+        pnlRegistros.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Registros"));
+
+        lblBuscar.setText("Buscar:");
+
+        btnBuscar.setText("Buscar");
+
+        tblSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Adoptante", "Mascota", "Estado"
+            }
+        ));
+        jScrollPane1.setViewportView(tblSolicitudes);
+
+        pnlBotonesAccion.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
+
+        btnVerDetalle.setText("Ver detalle");
+        btnVerDetalle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerDetalleActionPerformed(evt);
+            }
+        });
+        pnlBotonesAccion.add(btnVerDetalle);
+
+        btnAprobar.setText("Aprobar");
+        btnAprobar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAprobarActionPerformed(evt);
+            }
+        });
+        pnlBotonesAccion.add(btnAprobar);
+
+        btnRechazar.setText("Rechazar");
+        btnRechazar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRechazarActionPerformed(evt);
+            }
+        });
+        pnlBotonesAccion.add(btnRechazar);
+
+        btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
+        pnlBotonesAccion.add(btnActualizar);
+
+        javax.swing.GroupLayout pnlRegistrosLayout = new javax.swing.GroupLayout(pnlRegistros);
+        pnlRegistros.setLayout(pnlRegistrosLayout);
+        pnlRegistrosLayout.setHorizontalGroup(
+            pnlRegistrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlRegistrosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlRegistrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+                    .addGroup(pnlRegistrosLayout.createSequentialGroup()
+                        .addComponent(lblBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscar))
+                    .addComponent(pnlBotonesAccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        pnlRegistrosLayout.setVerticalGroup(
+            pnlRegistrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlRegistrosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlRegistrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBuscar)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(pnlBotonesAccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pnlRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // Obtenemos los datos escritos en el formulario
+        String id = txtIdSolicitud.getText();
+        String adoptante = cmbAdoptante.getSelectedItem().toString();
+        String mascota = cmbMascota.getSelectedItem().toString();
+        String estado = txtEstado.getText();
+        // Validamos que no haya campos vacíos
+        if (id.isEmpty() || adoptante.equals("Seleccionar...") || mascota.equals("Seleccionar...")) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos requeridos.");
+            return;
+        }
+        // Agregamos directamente a la tabla
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tblSolicitudes.getModel();
+        modelo.addRow(new Object[]{id, adoptante, mascota, estado});
+        javax.swing.JOptionPane.showMessageDialog(this, "Solicitud registrada con éxito.");
+        // Limpiamos el formulario automáticamente
+        txtIdSolicitud.setText("");
+        cmbAdoptante.setSelectedIndex(0);
+        cmbMascota.setSelectedIndex(0);
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        txtIdSolicitud.setText("");
+        cmbAdoptante.setSelectedIndex(0);
+        cmbMascota.setSelectedIndex(0);
+        txtEstado.setText("Pendiente");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose(); // Esto cierra la ventana modal
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnAprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarActionPerformed
+        int fila = tblSolicitudes.getSelectedRow();
+        if (fila == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione una solicitud de la tabla primero.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        // Cambiamos visualmente el estado en la columna 3 (Estado) de la tabla
+        tblSolicitudes.setValueAt("Aprobado", fila, 3);
+        javax.swing.JOptionPane.showMessageDialog(this, "¡La solicitud ha sido APROBADA con éxito!");
+    }//GEN-LAST:event_btnAprobarActionPerformed
+
+    private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarActionPerformed
+        int fila = tblSolicitudes.getSelectedRow();
+        if (fila == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione una solicitud de la tabla primero.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        // Cambiamos visualmente el estado a Rechazado
+        tblSolicitudes.setValueAt("Rechazado", fila, 3);
+        javax.swing.JOptionPane.showMessageDialog(this, "La solicitud ha sido RECHAZADA.");
+    }//GEN-LAST:event_btnRechazarActionPerformed
+
+    private void cmbAdoptanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAdoptanteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbAdoptanteActionPerformed
+
+    private void btnVerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetalleActionPerformed
+        int fila = tblSolicitudes.getSelectedRow();
+        // Validamos que el usuario haya hecho clic en una fila primero
+        if (fila == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione una solicitud de la tabla primero.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }  
+        // Extraemos los datos de la tabla visual
+        String id = tblSolicitudes.getValueAt(fila, 0).toString();
+        String adoptante = tblSolicitudes.getValueAt(fila, 1).toString();
+        String mascota = tblSolicitudes.getValueAt(fila, 2).toString();
+        String estado = tblSolicitudes.getValueAt(fila, 3).toString();
+        // Armamos el diseño del mensaje
+        String mensaje = """
+                         === DETALLES DE LA SOLICITUD ===
+                         
+                         ID Solicitud:\t""" + id + "\n" + "Adoptante:\t" + adoptante + "\n" + "Mascota:\t" + mascota + "\n" + "Estado actual:\t" + estado + "\n\n" + "================================";               
+        javax.swing.JOptionPane.showMessageDialog(this, mensaje, "Ficha de Detalle", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnVerDetalleActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // Por ahora refrescará los selectores. Cuando se integre el JSON, 
+        // aquí también se llamará al método que redibuja la JTable.
+        cargarDatos();
+        javax.swing.JOptionPane.showMessageDialog(this, "Los datos se han sincronizado con los archivos JSON correctamente.", "Actualización Exitosa", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -83,5 +382,45 @@ public class GestionAdopcion extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAprobar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnRechazar;
+    private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnVerDetalle;
+    private javax.swing.JComboBox<String> cmbAdoptante;
+    private javax.swing.JComboBox<String> cmbMascota;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblAdoptante;
+    private javax.swing.JLabel lblBuscar;
+    private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblIdSolicitud;
+    private javax.swing.JLabel lblMascota;
+    private javax.swing.JPanel pnlBotonesAccion;
+    private javax.swing.JPanel pnlBotonesRegistro;
+    private javax.swing.JPanel pnlRegistro;
+    private javax.swing.JPanel pnlRegistros;
+    private javax.swing.JTable tblSolicitudes;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtIdSolicitud;
     // End of variables declaration//GEN-END:variables
+private void cargarDatos() {
+        // Limpiamos los selectores
+        cmbAdoptante.removeAllItems();
+        cmbMascota.removeAllItems();
+        cmbAdoptante.addItem("Seleccionar...");
+        cmbMascota.addItem("Seleccionar...");
+        try {
+            // Simulación temporal para probar la interfaz:
+            cmbAdoptante.addItem("Carlos Mendoza - DNI: 72456123");
+            cmbAdoptante.addItem("Ana Silva - DNI: 45217896");
+            cmbMascota.addItem("M001 - Max (Golden Retriever)");
+            cmbMascota.addItem("M002 - Luna (Mestizo)");    
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar datos.");
+        }
+    }
 }
