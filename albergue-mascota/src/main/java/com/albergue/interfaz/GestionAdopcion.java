@@ -4,6 +4,14 @@
  */
 package com.albergue.interfaz;
 
+import com.albergue.sistema.SistemaAlbergue;
+import com.albergue.modelo.Adoptante;
+import com.albergue.modelo.Mascota;
+import com.albergue.modelo.SolicitudAdopcion;
+import com.albergue.persistencia.PersistenciaDatos;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Fabricioo
@@ -11,14 +19,27 @@ package com.albergue.interfaz;
 public class GestionAdopcion extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GestionAdopcion.class.getName());
+    private SistemaAlbergue sistema;
 
     /**
      * Creates new form GestionAdopcion
      */
-    public GestionAdopcion(java.awt.Frame parent, boolean modal) {
+    public GestionAdopcion(java.awt.Frame parent, boolean modal,
+            SistemaAlbergue sistema) {
+
         super(parent, modal);
+
+        this.sistema = sistema;
+
         initComponents();
-        cargarDatos(); 
+
+        setLocationRelativeTo(parent);
+
+        cargarDatos();
+        cargarSolicitudes();
+        mostrarSiguienteId();
+        configurarPlaceholder();
+        cargarLogo();
     }
 
     /**
@@ -54,14 +75,23 @@ public class GestionAdopcion extends javax.swing.JDialog {
         btnAprobar = new javax.swing.JButton();
         btnRechazar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
+        lblHistTitulo = new javax.swing.JLabel();
+        lblLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gestión de Adopciones");
 
-        pnlRegistro.setBorder(javax.swing.BorderFactory.createTitledBorder("Registro de Solicitud"));
+        pnlRegistro.setBackground(new java.awt.Color(255, 255, 255));
+        pnlRegistro.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Registro de Solicitud", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18))); // NOI18N
 
+        lblIdSolicitud.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblIdSolicitud.setForeground(new java.awt.Color(38, 52, 69));
         lblIdSolicitud.setText("ID Solicitud:");
 
+        txtIdSolicitud.setEditable(false);
+
+        lblAdoptante.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblAdoptante.setForeground(new java.awt.Color(38, 52, 69));
         lblAdoptante.setText("Adoptante:");
 
         cmbAdoptante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar..." }));
@@ -71,10 +101,14 @@ public class GestionAdopcion extends javax.swing.JDialog {
             }
         });
 
+        lblMascota.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblMascota.setForeground(new java.awt.Color(38, 52, 69));
         lblMascota.setText("Mascota:");
 
         cmbMascota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar..." }));
 
+        lblEstado.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        lblEstado.setForeground(new java.awt.Color(38, 52, 69));
         lblEstado.setText("Estado:");
 
         txtEstado.setEditable(false);
@@ -82,6 +116,9 @@ public class GestionAdopcion extends javax.swing.JDialog {
 
         pnlBotonesRegistro.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 15, 5));
 
+        btnRegistrar.setBackground(new java.awt.Color(36, 75, 112));
+        btnRegistrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setText("Registrar");
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +127,9 @@ public class GestionAdopcion extends javax.swing.JDialog {
         });
         pnlBotonesRegistro.add(btnRegistrar);
 
+        btnLimpiar.setBackground(new java.awt.Color(229, 231, 235));
+        btnLimpiar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLimpiar.setForeground(new java.awt.Color(38, 52, 69));
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +138,9 @@ public class GestionAdopcion extends javax.swing.JDialog {
         });
         pnlBotonesRegistro.add(btnLimpiar);
 
+        btnCancelar.setBackground(new java.awt.Color(229, 231, 235));
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(38, 52, 69));
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +156,7 @@ public class GestionAdopcion extends javax.swing.JDialog {
             .addGroup(pnlRegistroLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlBotonesRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+                    .addComponent(pnlBotonesRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlRegistroLayout.createSequentialGroup()
                         .addGroup(pnlRegistroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblIdSolicitud)
@@ -152,11 +195,20 @@ public class GestionAdopcion extends javax.swing.JDialog {
                 .addGap(21, 21, 21))
         );
 
-        pnlRegistros.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Registros"));
+        pnlRegistros.setBackground(new java.awt.Color(255, 255, 255));
+        pnlRegistros.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de Registros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 18))); // NOI18N
 
         lblBuscar.setText("Buscar:");
 
+        btnBuscar.setBackground(new java.awt.Color(36, 75, 112));
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         tblSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -170,6 +222,9 @@ public class GestionAdopcion extends javax.swing.JDialog {
 
         pnlBotonesAccion.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 5));
 
+        btnVerDetalle.setBackground(new java.awt.Color(36, 75, 112));
+        btnVerDetalle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnVerDetalle.setForeground(new java.awt.Color(255, 255, 255));
         btnVerDetalle.setText("Ver detalle");
         btnVerDetalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,6 +233,9 @@ public class GestionAdopcion extends javax.swing.JDialog {
         });
         pnlBotonesAccion.add(btnVerDetalle);
 
+        btnAprobar.setBackground(new java.awt.Color(76, 175, 80));
+        btnAprobar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAprobar.setForeground(new java.awt.Color(255, 255, 255));
         btnAprobar.setText("Aprobar");
         btnAprobar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,6 +244,9 @@ public class GestionAdopcion extends javax.swing.JDialog {
         });
         pnlBotonesAccion.add(btnAprobar);
 
+        btnRechazar.setBackground(new java.awt.Color(220, 53, 69));
+        btnRechazar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRechazar.setForeground(new java.awt.Color(255, 255, 255));
         btnRechazar.setText("Rechazar");
         btnRechazar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +255,9 @@ public class GestionAdopcion extends javax.swing.JDialog {
         });
         pnlBotonesAccion.add(btnRechazar);
 
+        btnActualizar.setBackground(new java.awt.Color(36, 75, 112));
+        btnActualizar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,7 +273,7 @@ public class GestionAdopcion extends javax.swing.JDialog {
             .addGroup(pnlRegistrosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRegistrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
                     .addGroup(pnlRegistrosLayout.createSequentialGroup()
                         .addComponent(lblBuscar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -229,10 +293,23 @@ public class GestionAdopcion extends javax.swing.JDialog {
                     .addComponent(btnBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlBotonesAccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        lblHistTitulo.setBackground(new java.awt.Color(36, 75, 112));
+        lblHistTitulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lblHistTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblHistTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblHistTitulo.setText("Gestión de Solicitudes de Adopción");
+        lblHistTitulo.setAlignmentX(15.0F);
+        lblHistTitulo.setAlignmentY(35.0F);
+        lblHistTitulo.setOpaque(true);
+        lblHistTitulo.setPreferredSize(new java.awt.Dimension(830, 35));
+
+        lblLogo.setText("jLabel2");
+        lblLogo.setPreferredSize(new java.awt.Dimension(65, 65));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -240,17 +317,26 @@ public class GestionAdopcion extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblHistTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(pnlRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblHistTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 423, Short.MAX_VALUE)
                     .addComponent(pnlRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -260,28 +346,56 @@ public class GestionAdopcion extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        // Obtenemos los datos escritos en el formulario
-        String id = txtIdSolicitud.getText();
-        String adoptante = cmbAdoptante.getSelectedItem().toString();
-        String mascota = cmbMascota.getSelectedItem().toString();
-        String estado = txtEstado.getText();
-        // Validamos que no haya campos vacíos
-        if (id.isEmpty() || adoptante.equals("Seleccionar...") || mascota.equals("Seleccionar...")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos requeridos.");
-            return;
+        try {
+
+            if (cmbAdoptante.getSelectedIndex() <= 0
+                    || cmbMascota.getSelectedIndex() <= 0) {
+
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Seleccione un adoptante y una mascota."
+                );
+
+                return;
+            }
+
+            String dni = cmbAdoptante.getSelectedItem()
+                    .toString().split("DNI: ")[1];
+
+            String idMascota = cmbMascota.getSelectedItem()
+                    .toString().split(" - ")[0];
+
+            Adoptante adoptante = sistema.buscarAdoptante(dni);
+
+            SolicitudAdopcion solicitud
+                    = sistema.crearSolicitudAdopcion(idMascota, adoptante);
+
+            cargarSolicitudes();
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Solicitud registrada correctamente.\n"
+                    + "Número de solicitud: " + solicitud.getIdSolicitud()
+            );
+
+            cmbAdoptante.setSelectedIndex(0);
+            cmbMascota.setSelectedIndex(0);
+            txtEstado.setText("Pendiente");
+
+        } catch (IllegalArgumentException e) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    e.getMessage(),
+                    "Error al registrar",
+                    JOptionPane.ERROR_MESSAGE
+            );
         }
-        // Agregamos directamente a la tabla
-        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tblSolicitudes.getModel();
-        modelo.addRow(new Object[]{id, adoptante, mascota, estado});
-        javax.swing.JOptionPane.showMessageDialog(this, "Solicitud registrada con éxito.");
-        // Limpiamos el formulario automáticamente
-        txtIdSolicitud.setText("");
-        cmbAdoptante.setSelectedIndex(0);
-        cmbMascota.setSelectedIndex(0);
+        mostrarSiguienteId();
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        txtIdSolicitud.setText("");
+        mostrarSiguienteId();
         cmbAdoptante.setSelectedIndex(0);
         cmbMascota.setSelectedIndex(0);
         txtEstado.setText("Pendiente");
@@ -291,31 +405,139 @@ public class GestionAdopcion extends javax.swing.JDialog {
         this.dispose(); // Esto cierra la ventana modal
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void btnAprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarActionPerformed
-        int fila = tblSolicitudes.getSelectedRow();
-        if (fila == -1) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione una solicitud de la tabla primero.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        // Cambiamos visualmente el estado en la columna 3 (Estado) de la tabla
-        tblSolicitudes.setValueAt("Aprobado", fila, 3);
-        javax.swing.JOptionPane.showMessageDialog(this, "¡La solicitud ha sido APROBADA con éxito!");
-    }//GEN-LAST:event_btnAprobarActionPerformed
-
-    private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarActionPerformed
-        int fila = tblSolicitudes.getSelectedRow();
-        if (fila == -1) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione una solicitud de la tabla primero.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        // Cambiamos visualmente el estado a Rechazado
-        tblSolicitudes.setValueAt("Rechazado", fila, 3);
-        javax.swing.JOptionPane.showMessageDialog(this, "La solicitud ha sido RECHAZADA.");
-    }//GEN-LAST:event_btnRechazarActionPerformed
-
     private void cmbAdoptanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAdoptanteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbAdoptanteActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if (sistema == null) {
+            return;
+        }
+
+        String busqueda = txtBuscar.getText().trim().toLowerCase();
+
+        if (busqueda.equals("buscar por id, adoptante, mascota o estado...")) {
+            busqueda = "";
+        }
+
+        DefaultTableModel modelo
+                = (DefaultTableModel) tblSolicitudes.getModel();
+
+        modelo.setRowCount(0);
+
+        for (SolicitudAdopcion solicitud : sistema.getSolicitudes()) {
+
+            String id = String.valueOf(solicitud.getIdSolicitud());
+
+            String adoptante = solicitud.getAdoptante().getNombre()
+                    + " " + solicitud.getAdoptante().getApellidos();
+
+            String mascota = solicitud.getMascota().getNombre();
+
+            String estado = solicitud.getEstado();
+
+            if (id.contains(busqueda)
+                    || adoptante.toLowerCase().contains(busqueda)
+                    || mascota.toLowerCase().contains(busqueda)
+                    || estado.toLowerCase().contains(busqueda)) {
+
+                modelo.addRow(new Object[]{
+                    id, adoptante, mascota, estado
+                });
+            }
+        }
+        colorearEstados();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        txtBuscar.setText("");
+        txtBuscar.setForeground(java.awt.Color.BLACK);
+
+        cargarDatos();
+        cargarSolicitudes();
+
+        JOptionPane.showMessageDialog(
+            this,
+            "La información se ha actualizado correctamente."
+        );
+    }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnRechazarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRechazarActionPerformed
+
+        int fila = tblSolicitudes.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Seleccione una solicitud."
+            );
+            return;
+        }
+
+        try {
+
+            int id = Integer.parseInt(
+                tblSolicitudes.getValueAt(fila, 0).toString()
+            );
+
+            sistema.evaluarSolicitudPorId(id, false);
+
+            cargarSolicitudes();
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Solicitud rechazada correctamente."
+            );
+
+        } catch (IllegalArgumentException e) {
+
+            JOptionPane.showMessageDialog(
+                this,
+                e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_btnRechazarActionPerformed
+
+    private void btnAprobarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAprobarActionPerformed
+
+        int fila = tblSolicitudes.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(
+                this,
+                "Seleccione una solicitud."
+            );
+            return;
+        }
+
+        try {
+
+            int id = Integer.parseInt(
+                tblSolicitudes.getValueAt(fila, 0).toString()
+            );
+
+            sistema.evaluarSolicitudPorId(id, true);
+
+            cargarSolicitudes();
+            cargarDatos();
+
+            JOptionPane.showMessageDialog(
+                this,
+                "Solicitud aprobada correctamente."
+            );
+
+        } catch (IllegalArgumentException e) {
+
+            JOptionPane.showMessageDialog(
+                this,
+                e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
+    }//GEN-LAST:event_btnAprobarActionPerformed
 
     private void btnVerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetalleActionPerformed
         int fila = tblSolicitudes.getSelectedRow();
@@ -323,7 +545,7 @@ public class GestionAdopcion extends javax.swing.JDialog {
         if (fila == -1) {
             javax.swing.JOptionPane.showMessageDialog(this, "Por favor, seleccione una solicitud de la tabla primero.", "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
             return;
-        }  
+        }
         // Extraemos los datos de la tabla visual
         String id = tblSolicitudes.getValueAt(fila, 0).toString();
         String adoptante = tblSolicitudes.getValueAt(fila, 1).toString();
@@ -331,18 +553,11 @@ public class GestionAdopcion extends javax.swing.JDialog {
         String estado = tblSolicitudes.getValueAt(fila, 3).toString();
         // Armamos el diseño del mensaje
         String mensaje = """
-                         === DETALLES DE LA SOLICITUD ===
-                         
-                         ID Solicitud:\t""" + id + "\n" + "Adoptante:\t" + adoptante + "\n" + "Mascota:\t" + mascota + "\n" + "Estado actual:\t" + estado + "\n\n" + "================================";               
+        === DETALLES DE LA SOLICITUD ===
+
+        ID Solicitud:\t""" + id + "\n" + "Adoptante:\t" + adoptante + "\n" + "Mascota:\t" + mascota + "\n" + "Estado actual:\t" + estado + "\n\n" + "================================";
         javax.swing.JOptionPane.showMessageDialog(this, mensaje, "Ficha de Detalle", javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnVerDetalleActionPerformed
-
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        // Por ahora refrescará los selectores. Cuando se integre el JSON, 
-        // aquí también se llamará al método que redibuja la JTable.
-        cargarDatos();
-        javax.swing.JOptionPane.showMessageDialog(this, "Los datos se han sincronizado con los archivos JSON correctamente.", "Actualización Exitosa", javax.swing.JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -369,7 +584,13 @@ public class GestionAdopcion extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                GestionAdopcion dialog = new GestionAdopcion(new javax.swing.JFrame(), true);
+                SistemaAlbergue sistema = PersistenciaDatos.cargarDatos();
+
+                GestionAdopcion dialog = new GestionAdopcion(
+                        new javax.swing.JFrame(),
+                        true,
+                        sistema
+                );
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -379,6 +600,198 @@ public class GestionAdopcion extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+
+    private void cargarDatos() {
+
+        cmbAdoptante.removeAllItems();
+        cmbMascota.removeAllItems();
+
+        cmbAdoptante.addItem("Seleccionar...");
+        cmbMascota.addItem("Seleccionar...");
+
+        if (sistema == null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No se ha conectado el sistema de albergue."
+            );
+            return;
+        }
+
+        for (Adoptante adoptante : sistema.getAdoptantes()) {
+
+            String nombreCompleto = adoptante.getNombre() + " "
+                    + adoptante.getApellidos()
+                    + " - DNI: " + adoptante.getDni();
+
+            cmbAdoptante.addItem(nombreCompleto);
+        }
+
+        for (Mascota mascota : sistema.getMascotas()) {
+
+            String informacion = mascota.getIdMascota()
+                    + " - " + mascota.getNombre();
+
+            if (!"Adoptado".equalsIgnoreCase(mascota.getEstadoAdopcion())) {
+                cmbMascota.addItem(informacion);
+            }
+        }
+    }
+
+    private void cargarSolicitudes() {
+
+        DefaultTableModel modelo
+                = (DefaultTableModel) tblSolicitudes.getModel();
+
+        modelo.setRowCount(0);
+
+        if (sistema == null) {
+            return;
+        }
+
+        for (SolicitudAdopcion solicitud : sistema.getSolicitudes()) {
+
+            String nombreAdoptante
+                    = solicitud.getAdoptante().getNombre() + " "
+                    + solicitud.getAdoptante().getApellidos();
+
+            String nombreMascota
+                    = solicitud.getMascota().getNombre();
+
+            modelo.addRow(new Object[]{
+                solicitud.getIdSolicitud(),
+                nombreAdoptante,
+                nombreMascota,
+                solicitud.getEstado()
+            });
+        }
+        colorearEstados();
+    }
+
+    private void mostrarSiguienteId() {
+
+        if (sistema == null) {
+            txtIdSolicitud.setText("1");
+            return;
+        }
+
+        int siguienteId = 1;
+
+        for (SolicitudAdopcion solicitud : sistema.getSolicitudes()) {
+
+            if (solicitud.getIdSolicitud() >= siguienteId) {
+                siguienteId = solicitud.getIdSolicitud() + 1;
+            }
+        }
+
+        txtIdSolicitud.setText(String.valueOf(siguienteId));
+    }
+
+    private void colorearEstados() {
+        int columnaEstado = 3;
+
+        tblSolicitudes.getColumnModel()
+                .getColumn(columnaEstado)
+                .setCellRenderer(new javax.swing.table.DefaultTableCellRenderer() {
+
+                    @Override
+                    public java.awt.Component getTableCellRendererComponent(
+                            javax.swing.JTable table, Object value,
+                            boolean isSelected, boolean hasFocus,
+                            int row, int column) {
+
+                        java.awt.Component componente
+                                = super.getTableCellRendererComponent(
+                                        table, value, isSelected, hasFocus, row, column);
+
+                        String estado = value == null ? "" : value.toString();
+
+                        if (!isSelected) {
+                            switch (estado) {
+                                case "Rechazada":
+                                    componente.setBackground(
+                                            new java.awt.Color(255, 204, 204));
+                                    componente.setForeground(
+                                            new java.awt.Color(153, 0, 0));
+                                    break;
+
+                                case "Aprobada":
+                                    componente.setBackground(
+                                            new java.awt.Color(204, 255, 204));
+                                    componente.setForeground(
+                                            new java.awt.Color(0, 102, 0));
+                                    break;
+
+                                case "Pendiente":
+                                    componente.setBackground(
+                                            new java.awt.Color(255, 242, 204));
+                                    componente.setForeground(
+                                            new java.awt.Color(153, 102, 0));
+                                    break;
+
+                                default:
+                                    componente.setBackground(table.getBackground());
+                                    componente.setForeground(table.getForeground());
+                                    break;
+                            }
+                        }
+
+                        return componente;
+                    }
+                });
+    }
+
+    private void configurarPlaceholder() {
+
+        String placeholder = "Buscar por ID, adoptante, mascota o estado...";
+
+        txtBuscar.setText(placeholder);
+        txtBuscar.setForeground(java.awt.Color.GRAY);
+
+        txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+
+            @Override
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (txtBuscar.getText().equals(placeholder)) {
+                    txtBuscar.setText("");
+                    txtBuscar.setForeground(java.awt.Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (txtBuscar.getText().trim().isEmpty()) {
+                    txtBuscar.setText(placeholder);
+                    txtBuscar.setForeground(java.awt.Color.GRAY);
+                }
+            }
+        });
+    }
+
+    private void cargarLogo() {
+
+        java.net.URL ruta = getClass().getResource(
+                "/imagenes/logo.jpg"
+        );
+
+        if (ruta != null) {
+
+            javax.swing.ImageIcon imagen
+                    = new javax.swing.ImageIcon(ruta);
+
+            java.awt.Image imagenAjustada
+                    = imagen.getImage().getScaledInstance(
+                            65, 65,
+                            java.awt.Image.SCALE_SMOOTH
+                    );
+
+            lblLogo.setIcon(
+                    new javax.swing.ImageIcon(imagenAjustada)
+            );
+
+        } else {
+            System.out.println("No se encontró el logo.");
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -396,7 +809,9 @@ public class GestionAdopcion extends javax.swing.JDialog {
     private javax.swing.JLabel lblAdoptante;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblEstado;
+    private javax.swing.JLabel lblHistTitulo;
     private javax.swing.JLabel lblIdSolicitud;
+    private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMascota;
     private javax.swing.JPanel pnlBotonesAccion;
     private javax.swing.JPanel pnlBotonesRegistro;
@@ -407,20 +822,4 @@ public class GestionAdopcion extends javax.swing.JDialog {
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtIdSolicitud;
     // End of variables declaration//GEN-END:variables
-private void cargarDatos() {
-        // Limpiamos los selectores
-        cmbAdoptante.removeAllItems();
-        cmbMascota.removeAllItems();
-        cmbAdoptante.addItem("Seleccionar...");
-        cmbMascota.addItem("Seleccionar...");
-        try {
-            // Simulación temporal para probar la interfaz:
-            cmbAdoptante.addItem("Carlos Mendoza - DNI: 72456123");
-            cmbAdoptante.addItem("Ana Silva - DNI: 45217896");
-            cmbMascota.addItem("M001 - Max (Golden Retriever)");
-            cmbMascota.addItem("M002 - Luna (Mestizo)");    
-        } catch (Exception e) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar datos.");
-        }
-    }
 }
