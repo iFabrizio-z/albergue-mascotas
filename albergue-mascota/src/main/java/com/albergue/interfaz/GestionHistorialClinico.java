@@ -102,7 +102,6 @@ public class GestionHistorialClinico extends javax.swing.JDialog {
         btnHistEliminar = new javax.swing.JButton();
         btnHistSiguiente = new javax.swing.JButton();
         btnHistAnterior = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         lblBuscar = new javax.swing.JLabel();
         lblLogo = new javax.swing.JLabel();
 
@@ -330,9 +329,6 @@ public class GestionHistorialClinico extends javax.swing.JDialog {
         btnHistAnterior.setText("Anterior");
         btnHistAnterior.setFocusable(false);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Logo Huellitas System.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
-
         lblBuscar.setText("Buscar:");
 
         javax.swing.GroupLayout pnlHistTablaLayout = new javax.swing.GroupLayout(pnlHistTabla);
@@ -342,25 +338,22 @@ public class GestionHistorialClinico extends javax.swing.JDialog {
             .addGroup(pnlHistTablaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlHistTablaLayout.createSequentialGroup()
-                        .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlHistTablaLayout.createSequentialGroup()
-                                .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnHistAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pnlHistTablaLayout.createSequentialGroup()
-                                        .addComponent(btnHistVerDetalle)
-                                        .addGap(30, 30, 30)
-                                        .addComponent(btnHistEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnHistSiguiente)
-                                    .addGroup(pnlHistTablaLayout.createSequentialGroup()
-                                        .addComponent(btnHistEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnHistActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                            .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnHistAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                                    .addComponent(btnHistVerDetalle)
+                                    .addGap(30, 30, 30)
+                                    .addComponent(btnHistEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                            .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btnHistSiguiente)
+                                .addGroup(pnlHistTablaLayout.createSequentialGroup()
+                                    .addComponent(btnHistEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                                    .addComponent(btnHistActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 468, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlHistTablaLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
                         .addComponent(lblBuscar)
@@ -378,22 +371,18 @@ public class GestionHistorialClinico extends javax.swing.JDialog {
                     .addComponent(txtHistBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBuscar))
-                .addGap(2, 2, 2)
-                .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlHistTablaLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnHistSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHistAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnHistVerDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHistEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHistActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnHistEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnHistSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHistAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlHistTablaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnHistVerDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHistEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHistActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnHistEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -760,6 +749,9 @@ public class GestionHistorialClinico extends javax.swing.JDialog {
     private void buscarHistorial() {
 
         String texto = txtHistBuscar.getText().trim();
+        if (texto.equals("Buscar por ID o nombre de mascota...")) {
+            texto = "";
+        }
 
         DefaultTableModel modelo
                 = (DefaultTableModel) tblHistRegistros.getModel();
@@ -783,6 +775,7 @@ public class GestionHistorialClinico extends javax.swing.JDialog {
     private void actualizarVista() {
 
         txtHistBuscar.setText("");
+        txtHistBuscar.setForeground(java.awt.Color.BLACK);
 
         if (tblHistRegistros.getRowSorter() instanceof TableRowSorter) {
 
@@ -923,6 +916,16 @@ public class GestionHistorialClinico extends javax.swing.JDialog {
      * Editar el historial que se selecciona
      */
     private void editarHistorial() {
+
+        if (sistema == null) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "No se pudieron cargar los datos del albergue.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
 
         int filaSeleccionada = tblHistRegistros.getSelectedRow();
 
@@ -1132,7 +1135,6 @@ public class GestionHistorialClinico extends javax.swing.JDialog {
     private javax.swing.JButton btnHistVerDetalle;
     private javax.swing.JComboBox<String> cmbHistMascota;
     private javax.swing.JComboBox<String> cmbHistProcedimiento;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblHistDiagnostico;
