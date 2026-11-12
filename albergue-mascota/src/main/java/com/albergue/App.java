@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 package com.albergue;
 
 import com.albergue.sistema.SistemaAlbergue;
 import com.albergue.persistencia.PersistenciaDatos;
-
+import com.albergue.interfaz.InicioSesion;
 
 public class App {
 
@@ -16,12 +13,11 @@ public class App {
         SistemaAlbergue sistema = PersistenciaDatos.cargarDatos();
 
         java.awt.EventQueue.invokeLater(() -> {
-            com.albergue.interfaz.GestionHistorialClinico ventana
-                    = new com.albergue.interfaz.GestionHistorialClinico(
-                            null, true, sistema);
+
+            InicioSesion ventana =
+                    new InicioSesion(null, true, sistema);
 
             ventana.setVisible(true);
         });
-    
     }
 }
