@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.albergue.persistencia;
+
 import com.albergue.sistema.SistemaAlbergue;
 import com.albergue.modelo.*;
 
@@ -47,8 +48,7 @@ public class PersistenciaDatos {
             implements JsonSerializer<Mascota>, JsonDeserializer<Mascota> {
 
         @Override
-        public JsonElement serialize(Mascota mascota,
-                java.lang.reflect.Type tipo,
+        public JsonElement serialize(Mascota mascota,java.lang.reflect.Type tipo,
                 JsonSerializationContext contexto) {
 
             JsonObject objeto = contexto.serialize(
@@ -71,7 +71,6 @@ public class PersistenciaDatos {
             if ("Perro".equals(tipoMascota)) {
                 return contexto.deserialize(objeto, Perro.class);
             }
-
             throw new JsonParseException(
                     "Tipo de mascota desconocido: " + tipoMascota);
         }
@@ -167,8 +166,8 @@ public class PersistenciaDatos {
 
             Gson gson = crearGson();
 
-            SistemaAlbergue sistema =
-                    gson.fromJson(lector, SistemaAlbergue.class);
+            SistemaAlbergue sistema
+                    = gson.fromJson(lector, SistemaAlbergue.class);
 
             if (sistema == null) {
                 return new SistemaAlbergue();
