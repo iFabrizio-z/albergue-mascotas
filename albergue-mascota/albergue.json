@@ -1,0 +1,978 @@
+{
+  "mascotas": [
+    {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M001",
+      "raza": "Labrador",
+      "edad": 3,
+      "genero": "Hembra",
+      "peso": 22.5,
+      "tamaño": "55.0",
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Luna",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-10-16",
+          "tipoProcedimiento": "Desparasitación",
+          "diagnosticoMedico": "Buen estado de salud",
+          "tratamientoMedico": "Vacuna antirrabica",
+          "nombreVeterinario": "Dr. Carlos Perez"
+        }
+      ],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M002",
+      "raza": "Pastor Aleman",
+      "edad": 5,
+      "genero": "Macho",
+      "peso": 30.0,
+      "tamaño": "65.0",
+      "estadoAdopcion": "Tratamiento",
+      "nombre": "Max",
+      "historialClinico": [],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M003",
+      "raza": "Beagle",
+      "edad": 2,
+      "genero": "Macho",
+      "peso": 12.0,
+      "tamaño": "38.0",
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Toby",
+      "historialClinico": [],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M004",
+      "raza": "Golden Retriever",
+      "edad": 1,
+      "genero": "Hembra",
+      "peso": 18.0,
+      "tamaño": "48.0",
+      "estadoAdopcion": "Adoptado",
+      "nombre": "Nala",
+      "historialClinico": [],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": false,
+      "idMascota": "M005",
+      "raza": "Doberman",
+      "edad": 5,
+      "genero": "Macho",
+      "peso": 35.0,
+      "tamaño": "69.0",
+      "estadoAdopcion": "Adoptado",
+      "nombre": "Bobby",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-10-16",
+          "tipoProcedimiento": "Vacunacion",
+          "diagnosticoMedico": "Mascota en buen estado de salud",
+          "tratamientoMedico": "Vacuna antipulgas",
+          "nombreVeterinario": "Dr. Carlos Perez"
+        }
+      ],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "basico",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M006",
+      "raza": "Doberman",
+      "edad": 1,
+      "genero": "Macho",
+      "peso": 15.0,
+      "tamaño": "80",
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Rocky",
+      "historialClinico": [],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M007",
+      "raza": "Bulldog Frances",
+      "edad": 2,
+      "genero": "Hembra",
+      "peso": 11.5,
+      "tamaño": "32.0",
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Mia",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-11-03",
+          "tipoProcedimiento": "Vacunación",
+          "diagnosticoMedico": "Buen estado de salud",
+          "tratamientoMedico": "Vacuna anual",
+          "nombreVeterinario": "Dra. Sofia Ramirez"
+        },
+        {
+          "idHistorial": 2,
+          "fechaAtencion": "2026-11-06",
+          "tipoProcedimiento": "Consulta general",
+          "diagnosticoMedico": "Control veterinario satisfactorio",
+          "tratamientoMedico": "Continuar controles preventivos",
+          "nombreVeterinario": "Dr. Carlos Perez"
+        }
+      ],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": false,
+      "idMascota": "M008",
+      "raza": "Rottweiler",
+      "edad": 4,
+      "genero": "Macho",
+      "peso": 38.0,
+      "tamaño": "68.0",
+      "estadoAdopcion": "Tratamiento",
+      "nombre": "Thor",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-11-04",
+          "tipoProcedimiento": "Consulta general",
+          "diagnosticoMedico": "Irritación leve de piel",
+          "tratamientoMedico": "Limpieza y revisión veterinaria",
+          "nombreVeterinario": "Dra. Sofia Ramirez"
+        }
+      ],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M009",
+      "raza": "Boxer",
+      "edad": 3,
+      "genero": "Hembra",
+      "peso": 24.0,
+      "tamaño": "58.0",
+      "estadoAdopcion": "Adoptado",
+      "nombre": "Kira",
+      "historialClinico": [],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M010",
+      "raza": "Poodle",
+      "edad": 2,
+      "genero": "Hembra",
+      "peso": 8.5,
+      "tamaño": "30.0",
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Coco",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-11-02",
+          "tipoProcedimiento": "Vacunación",
+          "diagnosticoMedico": "Buen estado de salud",
+          "tratamientoMedico": "Vacuna anual",
+          "nombreVeterinario": "Dra. Sofia Ramirez"
+        }
+      ],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": false,
+      "idMascota": "M011",
+      "raza": "Chihuahua",
+      "edad": 4,
+      "genero": "Macho",
+      "peso": 4.0,
+      "tamaño": "22.0",
+      "estadoAdopcion": "Tratamiento",
+      "nombre": "Chico",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-11-04",
+          "tipoProcedimiento": "Consulta general",
+          "diagnosticoMedico": "Problema digestivo leve",
+          "tratamientoMedico": "Control veterinario y alimentación indicada",
+          "nombreVeterinario": "Dr. Carlos Perez"
+        }
+      ],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M012",
+      "raza": "Husky Siberiano",
+      "edad": 3,
+      "genero": "Macho",
+      "peso": 25.0,
+      "tamaño": "60.0",
+      "estadoAdopcion": "Adoptado",
+      "nombre": "Zeus",
+      "historialClinico": [],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M013",
+      "raza": "Cocker Spaniel",
+      "edad": 1,
+      "genero": "Hembra",
+      "peso": 10.0,
+      "tamaño": "35.0",
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Molly",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-11-06",
+          "tipoProcedimiento": "Desparasitación",
+          "diagnosticoMedico": "Control preventivo",
+          "tratamientoMedico": "Desparasitación programada",
+          "nombreVeterinario": "Dra. Sofia Ramirez"
+        }
+      ],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": false,
+      "idMascota": "M014",
+      "raza": "Dalmata",
+      "edad": 5,
+      "genero": "Macho",
+      "peso": 28.0,
+      "tamaño": "62.0",
+      "estadoAdopcion": "Tratamiento",
+      "nombre": "Pongo",
+      "historialClinico": [],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M015",
+      "raza": "Shih Tzu",
+      "edad": 3,
+      "genero": "Hembra",
+      "peso": 7.5,
+      "tamaño": "27.0",
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Princesa",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-11-02",
+          "tipoProcedimiento": "Vacunación",
+          "diagnosticoMedico": "Buen estado de salud",
+          "tratamientoMedico": "Vacunación anual",
+          "nombreVeterinario": "Dra. Sofia Ramirez"
+        }
+      ],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": false,
+      "idMascota": "M016",
+      "raza": "Pitbull",
+      "edad": 4,
+      "genero": "Macho",
+      "peso": 29.0,
+      "tamaño": "55.0",
+      "estadoAdopcion": "Tratamiento",
+      "nombre": "Duke",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-11-05",
+          "tipoProcedimiento": "Consulta general",
+          "diagnosticoMedico": "Irritación leve de piel",
+          "tratamientoMedico": "Control veterinario",
+          "nombreVeterinario": "Dr. Carlos Perez"
+        }
+      ],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M017",
+      "raza": "Border Collie",
+      "edad": 2,
+      "genero": "Hembra",
+      "peso": 18.0,
+      "tamaño": "50.0",
+      "estadoAdopcion": "Adoptado",
+      "nombre": "Lola",
+      "historialClinico": [],
+      "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M018",
+      "raza": "Schnauzer",
+      "edad": 5,
+      "genero": "Macho",
+      "peso": 12.0,
+      "tamaño": "40.0",
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Bruno",
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-11-07",
+          "tipoProcedimiento": "Desparasitación",
+          "diagnosticoMedico": "Control preventivo",
+          "tratamientoMedico": "Desparasitación programada",
+          "nombreVeterinario": "Dra. Sofia Ramirez"
+        }
+      ],
+      "tipo": "Perro"
+    }
+  ],
+  "adoptantes": [
+    {
+      "nombre": "Ana",
+      "apellidos": "Garcia Lopez",
+      "dni": "12345678",
+      "direccion": "Av. Los Olivos 123",
+      "email": "ana@ejemplo.com",
+      "telefono": "900111222"
+    },
+    {
+      "nombre": "Luis",
+      "apellidos": "Ramirez Torres",
+      "dni": "87654321",
+      "direccion": "Jr. Las Flores 456",
+      "email": "luis@ejemplo.com",
+      "telefono": "900333444"
+    },
+    {
+      "nombre": "Mariano",
+      "apellidos": "Bolivar",
+      "dni": "11111111",
+      "direccion": "Av. Brasil",
+      "email": "mariano@ejemplo.com",
+      "telefono": "911123459"
+    },
+    {
+      "nombre": "Daniela",
+      "apellidos": "Fernandez Castro",
+      "dni": "22222222",
+      "direccion": "Av. Primavera 250",
+      "email": "daniela@ejemplo.com",
+      "telefono": "900555666"
+    },
+    {
+      "nombre": "Pedro",
+      "apellidos": "Mendoza Ruiz",
+      "dni": "33333333",
+      "direccion": "Jr. Los Jazmines 120",
+      "email": "pedro@ejemplo.com",
+      "telefono": "900777888"
+    },
+    {
+      "nombre": "Valeria",
+      "apellidos": "Castillo Rojas",
+      "dni": "44444444",
+      "direccion": "Av. San Martin 350",
+      "email": "valeria@ejemplo.com",
+      "telefono": "900111333"
+    },
+    {
+      "nombre": "Gabriel",
+      "apellidos": "Torres Medina",
+      "dni": "55555555",
+      "direccion": "Jr. Las Palmeras 220",
+      "email": "gabriel@ejemplo.com",
+      "telefono": "900222444"
+    },
+    {
+      "nombre": "Camila",
+      "apellidos": "Vargas Flores",
+      "dni": "66666666",
+      "direccion": "Av. Central 180",
+      "email": "camila@ejemplo.com",
+      "telefono": "900333555"
+    },
+    {
+      "nombre": "Sebastian",
+      "apellidos": "Morales Diaz",
+      "dni": "77777777",
+      "direccion": "Jr. Los Pinos 450",
+      "email": "sebastian@ejemplo.com",
+      "telefono": "900444666"
+    },
+    {
+      "nombre": "Luciana",
+      "apellidos": "Herrera Soto",
+      "dni": "88888888",
+      "direccion": "Av. Las Flores 520",
+      "email": "luciana@ejemplo.com",
+      "telefono": "900555777"
+    },
+    {
+      "nombre": "Isabella",
+      "apellidos": "Navarro Ruiz",
+      "dni": "99999991",
+      "direccion": "Av. Los Cedros 150",
+      "email": "isabella@ejemplo.com",
+      "telefono": "900666111"
+    },
+    {
+      "nombre": "Alejandro",
+      "apellidos": "Silva Torres",
+      "dni": "99999992",
+      "direccion": "Jr. San Pedro 240",
+      "email": "alejandro@ejemplo.com",
+      "telefono": "900666222"
+    },
+    {
+      "nombre": "Gabriela",
+      "apellidos": "Rojas Mendoza",
+      "dni": "99999993",
+      "direccion": "Av. Las Gardenias 320",
+      "email": "gabriela@ejemplo.com",
+      "telefono": "900666333"
+    },
+    {
+      "nombre": "Diego",
+      "apellidos": "Castro Flores",
+      "dni": "99999994",
+      "direccion": "Jr. Los Alamos 180",
+      "email": "diego@ejemplo.com",
+      "telefono": "900666444"
+    },
+    {
+      "nombre": "Fernanda",
+      "apellidos": "Vega Castillo",
+      "dni": "99999995",
+      "direccion": "Av. Los Robles 400",
+      "email": "fernanda@ejemplo.com",
+      "telefono": "900666555"
+    }
+  ],
+  "solicitudes": [
+    {
+      "idSolicitud": 1,
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Ana",
+        "apellidos": "Garcia Lopez",
+        "dni": "12345678",
+        "direccion": "Av. Los Olivos 123",
+        "email": "ana@ejemplo.com",
+        "telefono": "900111222"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Intermedio",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M001",
+        "raza": "Labrador",
+        "edad": 3,
+        "genero": "Hembra",
+        "peso": 22.5,
+        "tamaño": "55.0",
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Luna",
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-10-16",
+            "tipoProcedimiento": "Desparasitación",
+            "diagnosticoMedico": "Buen estado de salud",
+            "tratamientoMedico": "Vacuna antirrabica",
+            "nombreVeterinario": "Dr. Carlos Perez"
+          }
+        ],
+        "tipo": "Perro"
+      }
+    },
+    {
+      "idSolicitud": 2,
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Luis",
+        "apellidos": "Ramirez Torres",
+        "dni": "87654321",
+        "direccion": "Jr. Las Flores 456",
+        "email": "luis@ejemplo.com",
+        "telefono": "900333444"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Basico",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M003",
+        "raza": "Beagle",
+        "edad": 2,
+        "genero": "Macho",
+        "peso": 12.0,
+        "tamaño": "38.0",
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Toby",
+        "historialClinico": [],
+        "tipo": "Perro"
+      }
+    },
+    {
+      "idSolicitud": 3,
+      "estado": "Aprobada",
+      "adoptante": {
+        "nombre": "Mariano",
+        "apellidos": "Bolivar",
+        "dni": "11111111",
+        "direccion": "Av. Brasil",
+        "email": "mariano@ejemplo.com",
+        "telefono": "911123459"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Avanzado",
+        "conviveConOtrosPerros": false,
+        "idMascota": "M005",
+        "raza": "Doberman",
+        "edad": 5,
+        "genero": "Macho",
+        "peso": 35.0,
+        "tamaño": "69.0",
+        "estadoAdopcion": "Adoptado",
+        "nombre": "Bobby",
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-10-16",
+            "tipoProcedimiento": "Vacunacion",
+            "diagnosticoMedico": "Mascota en buen estado de salud",
+            "tratamientoMedico": "Vacuna antipulgas",
+            "nombreVeterinario": "Dr. Carlos Perez"
+          }
+        ],
+        "tipo": "Perro"
+      }
+    },
+    {
+      "idSolicitud": 4,
+      "fechaSolicitud": "2026-11-01",
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Ana",
+        "apellidos": "Garcia Lopez",
+        "dni": "12345678",
+        "direccion": "Av. Los Olivos 123",
+        "email": "ana@ejemplo.com",
+        "telefono": "900111222"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "basico",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M006",
+        "raza": "Doberman",
+        "edad": 1,
+        "genero": "Macho",
+        "peso": 15.0,
+        "tamaño": "80",
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Rocky",
+        "historialClinico": [],
+        "tipo": "Perro"
+      }
+    },
+    {
+      "idSolicitud": 5,
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Daniela",
+        "apellidos": "Fernandez Castro",
+        "dni": "22222222",
+        "direccion": "Av. Primavera 250",
+        "email": "daniela@ejemplo.com",
+        "telefono": "900555666"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Basico",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M007",
+        "raza": "Bulldog Frances",
+        "edad": 2,
+        "genero": "Hembra",
+        "peso": 11.5,
+        "tamaño": "32.0",
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Mia",
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-03",
+            "tipoProcedimiento": "Vacunación",
+            "diagnosticoMedico": "Buen estado de salud",
+            "tratamientoMedico": "Vacuna anual",
+            "nombreVeterinario": "Dra. Sofia Ramirez"
+          },
+          {
+            "idHistorial": 2,
+            "fechaAtencion": "2026-11-06",
+            "tipoProcedimiento": "Consulta general",
+            "diagnosticoMedico": "Control veterinario satisfactorio",
+            "tratamientoMedico": "Continuar controles preventivos",
+            "nombreVeterinario": "Dr. Carlos Perez"
+          }
+        ],
+        "tipo": "Perro"
+      }
+    },
+    {
+      "idSolicitud": 6,
+      "estado": "Aprobada",
+      "adoptante": {
+        "nombre": "Pedro",
+        "apellidos": "Mendoza Ruiz",
+        "dni": "33333333",
+        "direccion": "Jr. Los Jazmines 120",
+        "email": "pedro@ejemplo.com",
+        "telefono": "900777888"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Avanzado",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M009",
+        "raza": "Boxer",
+        "edad": 3,
+        "genero": "Hembra",
+        "peso": 24.0,
+        "tamaño": "58.0",
+        "estadoAdopcion": "Adoptado",
+        "nombre": "Kira",
+        "historialClinico": [],
+        "tipo": "Perro"
+      }
+    },
+    {
+      "idSolicitud": 7,
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Valeria",
+        "apellidos": "Castillo Rojas",
+        "dni": "44444444",
+        "direccion": "Av. San Martin 350",
+        "email": "valeria@ejemplo.com",
+        "telefono": "900111333"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Basico",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M010",
+        "raza": "Poodle",
+        "edad": 2,
+        "genero": "Hembra",
+        "peso": 8.5,
+        "tamaño": "30.0",
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Coco",
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-02",
+            "tipoProcedimiento": "Vacunación",
+            "diagnosticoMedico": "Buen estado de salud",
+            "tratamientoMedico": "Vacuna anual",
+            "nombreVeterinario": "Dra. Sofia Ramirez"
+          }
+        ],
+        "tipo": "Perro"
+      }
+    },
+    {
+      "idSolicitud": 8,
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Gabriel",
+        "apellidos": "Torres Medina",
+        "dni": "55555555",
+        "direccion": "Jr. Las Palmeras 220",
+        "email": "gabriel@ejemplo.com",
+        "telefono": "900222444"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Basico",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M013",
+        "raza": "Cocker Spaniel",
+        "edad": 1,
+        "genero": "Hembra",
+        "peso": 10.0,
+        "tamaño": "35.0",
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Molly",
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-06",
+            "tipoProcedimiento": "Desparasitación",
+            "diagnosticoMedico": "Control preventivo",
+            "tratamientoMedico": "Desparasitación programada",
+            "nombreVeterinario": "Dra. Sofia Ramirez"
+          }
+        ],
+        "tipo": "Perro"
+      }
+    },
+    {
+      "idSolicitud": 9,
+      "estado": "Aprobada",
+      "adoptante": {
+        "nombre": "Camila",
+        "apellidos": "Vargas Flores",
+        "dni": "66666666",
+        "direccion": "Av. Central 180",
+        "email": "camila@ejemplo.com",
+        "telefono": "900333555"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Avanzado",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M012",
+        "raza": "Husky Siberiano",
+        "edad": 3,
+        "genero": "Macho",
+        "peso": 25.0,
+        "tamaño": "60.0",
+        "estadoAdopcion": "Adoptado",
+        "nombre": "Zeus",
+        "historialClinico": [],
+        "tipo": "Perro"
+      }
+    },
+    {
+      "idSolicitud": 10,
+      "estado": "Rechazada",
+      "adoptante": {
+        "nombre": "Luciana",
+        "apellidos": "Herrera Soto",
+        "dni": "88888888",
+        "direccion": "Av. Las Flores 520",
+        "email": "luciana@ejemplo.com",
+        "telefono": "900555777"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Intermedio",
+        "conviveConOtrosPerros": false,
+        "idMascota": "M011",
+        "raza": "Chihuahua",
+        "edad": 4,
+        "genero": "Macho",
+        "peso": 4.0,
+        "tamaño": "22.0",
+        "estadoAdopcion": "Tratamiento",
+        "nombre": "Chico",
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-04",
+            "tipoProcedimiento": "Consulta general",
+            "diagnosticoMedico": "Problema digestivo leve",
+            "tratamientoMedico": "Control veterinario y alimentación indicada",
+            "nombreVeterinario": "Dr. Carlos Perez"
+          }
+        ],
+        "tipo": "Perro"
+      }
+    },
+    {
+      "idSolicitud": 11,
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Isabella",
+        "apellidos": "Navarro Ruiz",
+        "dni": "99999991",
+        "direccion": "Av. Los Cedros 150",
+        "email": "isabella@ejemplo.com",
+        "telefono": "900666111"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Intermedio",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M015",
+        "raza": "Shih Tzu",
+        "edad": 3,
+        "genero": "Hembra",
+        "peso": 7.5,
+        "tamaño": "27.0",
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Princesa",
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-02",
+            "tipoProcedimiento": "Vacunación",
+            "diagnosticoMedico": "Buen estado de salud",
+            "tratamientoMedico": "Vacunación anual",
+            "nombreVeterinario": "Dra. Sofia Ramirez"
+          }
+        ],
+        "tipo": "Perro"
+      }
+    },
+    {
+      "idSolicitud": 12,
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Alejandro",
+        "apellidos": "Silva Torres",
+        "dni": "99999992",
+        "direccion": "Jr. San Pedro 240",
+        "email": "alejandro@ejemplo.com",
+        "telefono": "900666222"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Intermedio",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M018",
+        "raza": "Schnauzer",
+        "edad": 5,
+        "genero": "Macho",
+        "peso": 12.0,
+        "tamaño": "40.0",
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Bruno",
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-07",
+            "tipoProcedimiento": "Desparasitación",
+            "diagnosticoMedico": "Control preventivo",
+            "tratamientoMedico": "Desparasitación programada",
+            "nombreVeterinario": "Dra. Sofia Ramirez"
+          }
+        ],
+        "tipo": "Perro"
+      }
+    }
+  ],
+  "donaciones": [
+    {
+      "montoEfectivo": 150.0,
+      "idDonacion": 1,
+      "donante": "Maria Torres",
+      "fecha": "2026-10-16",
+      "tipo": "Efectivo"
+    },
+    {
+      "cantidadComidaKg": 25.0,
+      "idDonacion": 2,
+      "donante": "Carlos Mendoza",
+      "fecha": "2026-10-16",
+      "tipo": "Comida"
+    },
+    {
+      "montoEfectivo": 500.0,
+      "idDonacion": 3,
+      "donante": "Piero",
+      "fecha": "2026-10-16",
+      "tipo": "Efectivo"
+    },
+    {
+      "montoEfectivo": 180.0,
+      "idDonacion": 4,
+      "donante": "Ignacio",
+      "fecha": "2026-11-01",
+      "tipo": "Efectivo"
+    },
+    {
+      "montoEfectivo": 250.0,
+      "idDonacion": 5,
+      "donante": "Roberto Sanchez",
+      "fecha": "2026-11-03",
+      "tipo": "Efectivo"
+    },
+    {
+      "cantidadComidaKg": 40.0,
+      "idDonacion": 6,
+      "donante": "Laura Mendoza",
+      "fecha": "2026-11-05",
+      "tipo": "Comida"
+    },
+    {
+      "montoEfectivo": 320.0,
+      "idDonacion": 7,
+      "donante": "Jorge Ramirez",
+      "fecha": "2026-11-08",
+      "tipo": "Efectivo"
+    },
+    {
+      "montoEfectivo": 100.0,
+      "idDonacion": 8,
+      "donante": "Patricia Gomez",
+      "fecha": "2026-11-04",
+      "tipo": "Efectivo"
+    },
+    {
+      "cantidadComidaKg": 15.0,
+      "idDonacion": 9,
+      "donante": "Miguel Torres",
+      "fecha": "2026-11-05",
+      "tipo": "Comida"
+    },
+    {
+      "montoEfectivo": 450.0,
+      "idDonacion": 10,
+      "donante": "Andrea Flores",
+      "fecha": "2026-11-06",
+      "tipo": "Efectivo"
+    },
+    {
+      "cantidadComidaKg": 30.0,
+      "idDonacion": 11,
+      "donante": "Fernando Ruiz",
+      "fecha": "2026-11-08",
+      "tipo": "Comida"
+    },
+    {
+      "montoEfectivo": 200.0,
+      "idDonacion": 12,
+      "donante": "Rosa Castillo",
+      "fecha": "2026-11-09",
+      "tipo": "Efectivo"
+    },
+    {
+      "montoEfectivo": 175.0,
+      "idDonacion": 13,
+      "donante": "Elena Vargas",
+      "fecha": "2026-11-03",
+      "tipo": "Efectivo"
+    },
+    {
+      "cantidadComidaKg": 20.0,
+      "idDonacion": 14,
+      "donante": "Ricardo Salas",
+      "fecha": "2026-11-04",
+      "tipo": "Comida"
+    },
+    {
+      "montoEfectivo": 600.0,
+      "idDonacion": 15,
+      "donante": "Monica Reyes",
+      "fecha": "2026-11-06",
+      "tipo": "Efectivo"
+    }
+  ]
+}
