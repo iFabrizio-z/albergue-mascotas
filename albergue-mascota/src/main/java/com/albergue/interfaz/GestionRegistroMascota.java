@@ -21,6 +21,40 @@ public class GestionRegistroMascota extends javax.swing.JDialog {
     private boolean modoEdicion = false;
     private String idMascotaEnEdicion;
 
+    private static final String PLACEHOLDER = "Buscar por ID de mascota...";
+private static final String[] COLUMNAS = {
+    "Código", "Nombre", "Especie", "Raza", "Edad",
+    "Nivel Entr.", "Conv. Perros", "Estado"
+};
+
+private final SistemaAlbergue sistema;
+private DefaultTableModel modeloTabla;
+private Mascota mascotaEnEdicion = null;
+
+private JLabel lblLogo;
+private JLabel lblHistTitulo;
+private JPanel pnlRegistro;
+private JPanel pnlLista;
+private JTextField txtNombre;
+private JComboBox<String> cmbEspecie;
+private JTextField txtRaza;
+private JSpinner spnEdad;
+private JComboBox<String> cmbEstado;
+private JComboBox<String> cmbNivelEntrenamiento;
+private JRadioButton rbtSi;
+private JRadioButton rbtNo;
+private ButtonGroup grpConvive;
+private JButton btnGuardar;
+private JButton btnLimpiar;
+private JButton btnCancelar;
+private JTextField txtBuscar;
+private JButton btnBuscar;
+private JTable tblMascotas;
+private JScrollPane scrollTabla;
+private JButton btnEditar;
+private JButton btnEliminar;
+private JButton btnActualizar;
+    
     /**
      * Creates new form GestionRegistroMascota
      */
@@ -1066,7 +1100,38 @@ public class GestionRegistroMascota extends javax.swing.JDialog {
             dialog.setVisible(true);
         });
     }
+}
 
+private int obtenerEdad() {
+    return (Integer) spnEdad.getValue();
+}
+
+private String obtenerEstado() {
+    return (String) cmbEstado.getSelectedItem();
+}
+
+private String obtenerNivel() {
+    return (String) cmbNivelEntrenamiento.getSelectedItem();
+}
+
+private void mostrarAviso(String mensaje) {
+    JOptionPane.showMessageDialog(this, mensaje, "Aviso", JOptionPane.WARNING_MESSAGE);
+}
+
+private JLabel crearEtiqueta(String texto) {
+    JLabel lbl = new JLabel(texto);
+    lbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+    lbl.setForeground(new Color(38, 52, 69));
+    return lbl;
+}
+
+private void estilizarBoton(JButton btn, Color fondo, Color texto) {
+    btn.setBackground(fondo);
+    btn.setForeground(texto);
+    btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+    btn.setFocusPainted(false);
+}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgpConvivencia;
     private javax.swing.JButton btnBuscarMascota;
