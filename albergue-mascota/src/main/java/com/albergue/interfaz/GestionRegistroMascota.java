@@ -4,21 +4,93 @@
  */
 package com.albergue.interfaz;
 
-/**
- *
- * @author Fabricioo
- */
+import com.albergue.modelo.Mascota;
+import com.albergue.modelo.Perro;
+import com.albergue.persistencia.PersistenciaDatos;
+import com.albergue.sistema.SistemaAlbergue;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 public class GestionRegistroMascota extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GestionRegistroMascota.class.getName());
 
+    private static final String PLACEHOLDER = "Buscar por ID de mascota...";
+private static final String[] COLUMNAS = {
+    "Código", "Nombre", "Especie", "Raza", "Edad",
+    "Nivel Entr.", "Conv. Perros", "Estado"
+};
+
+private final SistemaAlbergue sistema;
+private DefaultTableModel modeloTabla;
+private Mascota mascotaEnEdicion = null;
+
+private JLabel lblLogo;
+private JLabel lblHistTitulo;
+private JPanel pnlRegistro;
+private JPanel pnlLista;
+private JTextField txtNombre;
+private JComboBox<String> cmbEspecie;
+private JTextField txtRaza;
+private JSpinner spnEdad;
+private JComboBox<String> cmbEstado;
+private JComboBox<String> cmbNivelEntrenamiento;
+private JRadioButton rbtSi;
+private JRadioButton rbtNo;
+private ButtonGroup grpConvive;
+private JButton btnGuardar;
+private JButton btnLimpiar;
+private JButton btnCancelar;
+private JTextField txtBuscar;
+private JButton btnBuscar;
+private JTable tblMascotas;
+private JScrollPane scrollTabla;
+private JButton btnEditar;
+private JButton btnEliminar;
+private JButton btnActualizar;
+    
     /**
      * Creates new form GestionRegistroMascota
      */
-    public GestionRegistroMascota(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        initComponents();
-    }
+    public GestionRegistroMascota(java.awt.Frame parent, boolean modal, SistemaAlbergue sistema) {
+    super(parent, modal);
+    this.sistema = sistema;
+
+    initComponents();        // código generado por NetBeans (no lo tocamos)
+    construirInterfaz();     // nuestra interfaz
+    configurarTabla();
+    configurarFormulario();
+    configurarPlaceholder();
+    cargarLogo();
+    cargarTabla(sistema.getMascotas());
+    setLocationRelativeTo(parent);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,20 +140,472 @@ public class GestionRegistroMascota extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                GestionRegistroMascota dialog = new GestionRegistroMascota(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+           @Override
+public void run() {
+    SistemaAlbergue sistema = PersistenciaDatos.cargarDatos();
+
+    GestionRegistroMascota dialog = new GestionRegistroMascota(
+            new JFrame(), true, sistema);
+    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosing(java.awt.event.WindowEvent e) {
+            System.exit(0);
+        }
+    });
+    dialog.setVisible(true);
+} 
         });
     }
 
+    // ==========================================
+// CONSTRUCCIÓN DE LA INTERFAZ
+// ==========================================
+private void construirInterfaz() {
+    lblLogo = new JLabel();
+    lblHistTitulo = new JLabel("Gestión de Mascotas", SwingConstants.CENTER);
+
+    pnlRegistro = new JPanel(new BorderLayout(0, 10));
+    txtNombre = new JTextField();
+    cmbEspecie = new JComboBox<>();
+    txtRaza = new JTextField();
+    spnEdad = new JSpinner();
+    cmbEstado = new JComboBox<>();
+    cmbNivelEntrenamiento = new JComboBox<>();
+    rbtSi = new JRadioButton("Sí");
+    rbtNo = new JRadioButton("No");
+    grpConvive = new ButtonGroup();
+    btnGuardar = new JButton("Guardar");
+    btnLimpiar = new JButton("Limpiar");
+    btnCancelar = new JButton("Cancelar");
+
+    pnlLista = new JPanel(new BorderLayout(0, 10));
+    txtBuscar = new JTextField();
+    btnBuscar = new JButton("Buscar");
+    tblMascotas = new JTable();
+    scrollTabla = new JScrollPane();
+    btnEditar = new JButton("Editar");
+    btnEliminar = new JButton("Eliminar");
+    btnActualizar = new JButton("Actualizar");
+
+    setTitle("Registro de Mascotas");
+
+    // Encabezado
+    lblHistTitulo.setFont(new Font("Segoe UI", Font.BOLD, 30));
+    lblHistTitulo.setForeground(Color.WHITE);
+    lblHistTitulo.setBackground(new Color(36, 75, 112));
+    lblHistTitulo.setOpaque(true);
+    lblLogo.setPreferredSize(new Dimension(65, 65));
+
+    JPanel pnlEncabezado = new JPanel(new BorderLayout(10, 0));
+    pnlEncabezado.setBackground(new Color(36, 75, 112));
+    pnlEncabezado.add(lblLogo, BorderLayout.WEST);
+    pnlEncabezado.add(lblHistTitulo, BorderLayout.CENTER);
+
+    // Formulario (izquierda)
+    pnlRegistro.setBackground(Color.WHITE);
+    pnlRegistro.setBorder(BorderFactory.createTitledBorder(null, "Registrar Mascota",
+            0, 0, new Font("Segoe UI", Font.BOLD, 18)));
+
+    JPanel pnlCampos = new JPanel(new GridLayout(0, 2, 8, 12));
+    pnlCampos.setBackground(Color.WHITE);
+    pnlCampos.add(crearEtiqueta("Nombre:"));
+    pnlCampos.add(txtNombre);
+    pnlCampos.add(crearEtiqueta("Especie:"));
+    pnlCampos.add(cmbEspecie);
+    pnlCampos.add(crearEtiqueta("Raza:"));
+    pnlCampos.add(txtRaza);
+    pnlCampos.add(crearEtiqueta("Edad:"));
+    pnlCampos.add(spnEdad);
+    pnlCampos.add(crearEtiqueta("Estado:"));
+    pnlCampos.add(cmbEstado);
+    pnlCampos.add(crearEtiqueta("Nivel de entrenamiento:"));
+    pnlCampos.add(cmbNivelEntrenamiento);
+    pnlCampos.add(crearEtiqueta("Convive con perros:"));
+
+    JPanel pnlConvive = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
+    pnlConvive.setBackground(Color.WHITE);
+    grpConvive.add(rbtSi);
+    grpConvive.add(rbtNo);
+    pnlConvive.add(rbtSi);
+    pnlConvive.add(rbtNo);
+    pnlCampos.add(pnlConvive);
+
+    JPanel pnlBotonesRegistro = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+    pnlBotonesRegistro.setBackground(Color.WHITE);
+    estilizarBoton(btnGuardar, new Color(36, 75, 112), Color.WHITE);
+    estilizarBoton(btnLimpiar, new Color(229, 231, 235), new Color(38, 52, 69));
+    estilizarBoton(btnCancelar, new Color(229, 231, 235), new Color(38, 52, 69));
+    pnlBotonesRegistro.add(btnGuardar);
+    pnlBotonesRegistro.add(btnLimpiar);
+    pnlBotonesRegistro.add(btnCancelar);
+
+    pnlRegistro.add(pnlCampos, BorderLayout.NORTH);
+    pnlRegistro.add(pnlBotonesRegistro, BorderLayout.SOUTH);
+    pnlRegistro.setPreferredSize(new Dimension(320, 400));
+
+    // Lista (derecha)
+    pnlLista.setBackground(Color.WHITE);
+    pnlLista.setBorder(BorderFactory.createTitledBorder(null, "Lista de Mascotas",
+            0, 0, new Font("Segoe UI", Font.BOLD, 18)));
+
+    JPanel pnlBusqueda = new JPanel(new BorderLayout(8, 0));
+    pnlBusqueda.setBackground(Color.WHITE);
+    pnlBusqueda.add(txtBuscar, BorderLayout.CENTER);
+    pnlBusqueda.add(btnBuscar, BorderLayout.EAST);
+    estilizarBoton(btnBuscar, new Color(36, 75, 112), Color.WHITE);
+
+    scrollTabla.setViewportView(tblMascotas);
+
+    JPanel pnlAcciones = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 5));
+    pnlAcciones.setBackground(Color.WHITE);
+    estilizarBoton(btnEditar, new Color(36, 75, 112), Color.WHITE);
+    estilizarBoton(btnEliminar, new Color(220, 53, 69), Color.WHITE);
+    estilizarBoton(btnActualizar, new Color(36, 75, 112), Color.WHITE);
+    pnlAcciones.add(btnEditar);
+    pnlAcciones.add(btnEliminar);
+    pnlAcciones.add(btnActualizar);
+
+    pnlLista.add(pnlBusqueda, BorderLayout.NORTH);
+    pnlLista.add(scrollTabla, BorderLayout.CENTER);
+    pnlLista.add(pnlAcciones, BorderLayout.SOUTH);
+
+    // Cuerpo: reemplaza el layout generado por NetBeans
+    JPanel pnlCuerpo = new JPanel(new BorderLayout(15, 0));
+    pnlCuerpo.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+    pnlCuerpo.add(pnlRegistro, BorderLayout.WEST);
+    pnlCuerpo.add(pnlLista, BorderLayout.CENTER);
+
+    getContentPane().removeAll();
+    getContentPane().setLayout(new BorderLayout());
+    getContentPane().add(pnlEncabezado, BorderLayout.NORTH);
+    getContentPane().add(pnlCuerpo, BorderLayout.CENTER);
+
+    // Eventos
+    btnGuardar.addActionListener(evt -> btnGuardarActionPerformed(evt));
+    btnLimpiar.addActionListener(evt -> btnLimpiarActionPerformed(evt));
+    btnCancelar.addActionListener(evt -> btnCancelarActionPerformed(evt));
+    btnBuscar.addActionListener(evt -> btnBuscarActionPerformed(evt));
+    btnEditar.addActionListener(evt -> btnEditarActionPerformed(evt));
+    btnEliminar.addActionListener(evt -> btnEliminarActionPerformed(evt));
+    btnActualizar.addActionListener(evt -> btnActualizarActionPerformed(evt));
+
+    pack();
+    setMinimumSize(new Dimension(900, 520));
+}
+
+private void configurarTabla() {
+    modeloTabla = new DefaultTableModel(new Object[0][], COLUMNAS) {
+        @Override
+        public boolean isCellEditable(int fila, int columna) {
+            return false;
+        }
+    };
+    tblMascotas.setModel(modeloTabla);
+    tblMascotas.setRowHeight(24);
+    tblMascotas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+    DefaultTableCellRenderer renderer = new DefaultTableCellRenderer() {
+        @Override
+        public Component getTableCellRendererComponent(JTable tabla, Object valor,
+                boolean seleccionado, boolean foco, int fila, int columna) {
+
+            Component c = super.getTableCellRendererComponent(tabla, valor,
+                    seleccionado, foco, fila, columna);
+            String texto = valor == null ? "" : valor.toString();
+
+            if (!seleccionado) {
+                switch (texto) {
+                    case "Sí", "Adoptado" -> colorear(c, new Color(204, 255, 204), new Color(0, 102, 0));
+                    case "No" -> colorear(c, new Color(255, 204, 204), new Color(153, 0, 0));
+                    case "Refugiado" -> colorear(c, new Color(255, 242, 204), new Color(153, 102, 0));
+                    case "Tratamiento" -> colorear(c, new Color(204, 229, 255), new Color(0, 64, 128));
+                    default -> colorear(c, tabla.getBackground(), tabla.getForeground());
+                }
+            }
+            return c;
+        }
+
+        private void colorear(Component c, Color fondo, Color texto) {
+            c.setBackground(fondo);
+            c.setForeground(texto);
+        }
+    };
+    tblMascotas.getColumnModel().getColumn(6).setCellRenderer(renderer);
+    tblMascotas.getColumnModel().getColumn(7).setCellRenderer(renderer);
+}
+
+private void configurarFormulario() {
+    cmbEspecie.setModel(new DefaultComboBoxModel<>(new String[]{"Perro", "Gato"}));
+    cmbEstado.setModel(new DefaultComboBoxModel<>(new String[]{"Refugiado", "Tratamiento", "Adoptado"}));
+    cmbNivelEntrenamiento.setModel(new DefaultComboBoxModel<>(new String[]{"Básico", "Intermedio", "Avanzado"}));
+    spnEdad.setModel(new SpinnerNumberModel(0, 0, 30, 1));
+    rbtSi.setSelected(true);
+}
+
+private void configurarPlaceholder() {
+    txtBuscar.setText(PLACEHOLDER);
+    txtBuscar.setForeground(Color.GRAY);
+
+    txtBuscar.addFocusListener(new java.awt.event.FocusAdapter() {
+        @Override
+        public void focusGained(java.awt.event.FocusEvent evt) {
+            if (txtBuscar.getText().equals(PLACEHOLDER)) {
+                txtBuscar.setText("");
+                txtBuscar.setForeground(Color.BLACK);
+            }
+        }
+
+        @Override
+        public void focusLost(java.awt.event.FocusEvent evt) {
+            if (txtBuscar.getText().trim().isEmpty()) {
+                txtBuscar.setText(PLACEHOLDER);
+                txtBuscar.setForeground(Color.GRAY);
+            }
+        }
+    });
+}
+
+private void cargarLogo() {
+    java.net.URL ruta = getClass().getResource("/imagenes/logo.jpg");
+    if (ruta != null) {
+        ImageIcon imagen = new ImageIcon(ruta);
+        java.awt.Image ajustada = imagen.getImage().getScaledInstance(
+                65, 65, java.awt.Image.SCALE_SMOOTH);
+        lblLogo.setIcon(new ImageIcon(ajustada));
+    } else {
+        logger.warning("No se encontró el logo.");
+    }
+}
+
+// ==========================================
+// BOTONES
+// ==========================================
+private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {
+    if (!validarFormulario()) {
+        return;
+    }
+    try {
+        if (mascotaEnEdicion == null) {
+            registrarNuevaMascota();
+            JOptionPane.showMessageDialog(this, "Mascota registrada correctamente.");
+        } else {
+            actualizarMascota();
+            JOptionPane.showMessageDialog(this, "Datos actualizados correctamente.");
+        }
+        limpiarFormulario();
+        cargarTabla(sistema.getMascotas());
+    } catch (IllegalArgumentException ex) {
+        JOptionPane.showMessageDialog(this, ex.getMessage(),
+                "Error al guardar", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {
+    limpiarFormulario();
+}
+
+private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {
+    dispose();
+}
+
+private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {
+    String id = txtBuscar.getText().trim();
+
+    if (id.isEmpty() || id.equals(PLACEHOLDER)) {
+        cargarTabla(sistema.getMascotas());
+        return;
+    }
+
+    Mascota encontrada = sistema.buscarMascotaPorId(id);
+    if (encontrada == null) {
+        JOptionPane.showMessageDialog(this, "No existe una mascota con ese ID.",
+                "Sin resultados", JOptionPane.WARNING_MESSAGE);
+        cargarTabla(List.of());
+    } else {
+        cargarTabla(List.of(encontrada));
+    }
+}
+
+private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {
+    int fila = tblMascotas.getSelectedRow();
+    if (fila == -1) {
+        mostrarAviso("Seleccione una mascota de la tabla.");
+        return;
+    }
+    String id = modeloTabla.getValueAt(fila, 0).toString();
+    mascotaEnEdicion = sistema.buscarMascotaPorId(id);
+    if (mascotaEnEdicion != null) {
+        cargarFormulario(mascotaEnEdicion);
+        btnGuardar.setText("Guardar cambios");
+    }
+}
+
+private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {
+    int fila = tblMascotas.getSelectedRow();
+    if (fila == -1) {
+        mostrarAviso("Seleccione una mascota de la tabla.");
+        return;
+    }
+
+    String id = modeloTabla.getValueAt(fila, 0).toString();
+    Mascota m = sistema.buscarMascotaPorId(id);
+    if (m == null) {
+        return;
+    }
+
+    boolean tieneSolicitudes = sistema.getSolicitudes().stream()
+            .anyMatch(s -> s.getMascota() == m);
+    if (tieneSolicitudes) {
+        JOptionPane.showMessageDialog(this,
+                "No se puede eliminar: la mascota tiene solicitudes de adopción.",
+                "No permitido", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    int confirmar = JOptionPane.showConfirmDialog(this,
+            "¿Seguro que desea eliminar la mascota " + id + "?",
+            "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+    if (confirmar != JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    sistema.getMascotas().remove(m);
+    sistema.setDatosModificados(true);
+    PersistenciaDatos.guardarDatos(sistema);
+
+    limpiarFormulario();
+    cargarTabla(sistema.getMascotas());
+}
+
+private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {
+    txtBuscar.setText(PLACEHOLDER);
+    txtBuscar.setForeground(Color.GRAY);
+    cargarTabla(sistema.getMascotas());
+}
+
+// ==========================================
+// LÓGICA
+// ==========================================
+private void registrarNuevaMascota() {
+    if (!"Perro".equals(cmbEspecie.getSelectedItem())) {
+        throw new IllegalArgumentException("Por ahora el sistema solo registra perros.");
+    }
+
+    Perro nuevo = sistema.registrarMascota(
+            txtNombre.getText().trim(),
+            txtRaza.getText().trim(),
+            obtenerEdad(),
+            "No especificado",
+            0.0,
+            "No especificado",
+            obtenerNivel(),
+            rbtSi.isSelected());
+
+    nuevo.setEstadoAdopcion(obtenerEstado());
+}
+
+private void actualizarMascota() {
+    mascotaEnEdicion.setNombre(txtNombre.getText().trim());
+    mascotaEnEdicion.setRaza(txtRaza.getText().trim());
+    mascotaEnEdicion.setEdad(obtenerEdad());
+    mascotaEnEdicion.setEstadoAdopcion(obtenerEstado());
+
+    if (mascotaEnEdicion instanceof Perro perro) {
+        perro.setNivelEntrenamiento(obtenerNivel());
+        perro.setConviveConOtrosPerros(rbtSi.isSelected());
+    }
+
+    sistema.setDatosModificados(true);
+    PersistenciaDatos.guardarDatos(sistema);
+
+    mascotaEnEdicion = null;
+    btnGuardar.setText("Guardar");
+}
+
+private boolean validarFormulario() {
+    if (txtNombre.getText().isBlank() || txtRaza.getText().isBlank()) {
+        mostrarAviso("El nombre y la raza son obligatorios.");
+        return false;
+    }
+    return true;
+}
+
+private void limpiarFormulario() {
+    txtNombre.setText("");
+    txtRaza.setText("");
+    spnEdad.setValue(0);
+    cmbEspecie.setSelectedIndex(0);
+    cmbEstado.setSelectedIndex(0);
+    cmbNivelEntrenamiento.setSelectedIndex(0);
+    rbtSi.setSelected(true);
+    mascotaEnEdicion = null;
+    btnGuardar.setText("Guardar");
+}
+
+private void cargarFormulario(Mascota m) {
+    txtNombre.setText(m.getNombre());
+    txtRaza.setText(m.getRaza());
+    spnEdad.setValue(m.getEdad());
+    cmbEspecie.setSelectedItem("Perro");
+    cmbEstado.setSelectedItem(m.getEstadoAdopcion());
+
+    if (m instanceof Perro perro) {
+        cmbNivelEntrenamiento.setSelectedItem(perro.getNivelEntrenamiento());
+        rbtSi.setSelected(perro.isConviveConOtrosPerros());
+        rbtNo.setSelected(!perro.isConviveConOtrosPerros());
+    }
+}
+
+private void cargarTabla(List<Mascota> lista) {
+    modeloTabla.setRowCount(0);
+
+    for (Mascota m : lista) {
+        String especie = m instanceof Perro ? "Perro" : "Otro";
+        String nivel = "";
+        String convive = "";
+
+        if (m instanceof Perro perro) {
+            nivel = perro.getNivelEntrenamiento();
+            convive = perro.isConviveConOtrosPerros() ? "Sí" : "No";
+        }
+
+        modeloTabla.addRow(new Object[]{
+            m.getIdMascota(), m.getNombre(), especie, m.getRaza(),
+            m.getEdad() + " años", nivel, convive, m.getEstadoAdopcion()
+        });
+    }
+}
+
+private int obtenerEdad() {
+    return (Integer) spnEdad.getValue();
+}
+
+private String obtenerEstado() {
+    return (String) cmbEstado.getSelectedItem();
+}
+
+private String obtenerNivel() {
+    return (String) cmbNivelEntrenamiento.getSelectedItem();
+}
+
+private void mostrarAviso(String mensaje) {
+    JOptionPane.showMessageDialog(this, mensaje, "Aviso", JOptionPane.WARNING_MESSAGE);
+}
+
+private JLabel crearEtiqueta(String texto) {
+    JLabel lbl = new JLabel(texto);
+    lbl.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+    lbl.setForeground(new Color(38, 52, 69));
+    return lbl;
+}
+
+private void estilizarBoton(JButton btn, Color fondo, Color texto) {
+    btn.setBackground(fondo);
+    btn.setForeground(texto);
+    btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+    btn.setFocusPainted(false);
+}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }
