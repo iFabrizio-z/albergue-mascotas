@@ -19,9 +19,6 @@ public class SistemaAlbergue {
     private List<Donacion> donaciones = new ArrayList<>();
 
     private transient boolean datosModificados = false;
-    public void eliminarDonacion(int id) {
-    donaciones.removeIf(d -> d.getIdDonacion() == id);
-    }
 
     public SistemaAlbergue() {
         mascotas = new ArrayList<>();
@@ -173,6 +170,93 @@ public class SistemaAlbergue {
         guardarCambios();
 
         return nuevoPerro;
+    }
+
+    public void editarMascotaPorId(
+            String idMascota,
+            String nombre,
+            String raza,
+            int edad,
+            String genero,
+            double peso,
+            String tamano,
+            String nivelEntrenamiento,
+            boolean conviveConOtrosPerros) {
+
+        Mascota mascotaEncontrada = buscarMascotaPorId(idMascota);
+
+        if (mascotaEncontrada == null) {
+            throw new IllegalArgumentException("No se encontró la mascota.");
+        }
+
+        if (!(mascotaEncontrada instanceof Perro)) {
+            throw new IllegalArgumentException("La mascota no es un perro.");
+        }
+
+        Perro perro = (Perro) mascotaEncontrada;
+
+        // Validar los datos antes de modificar el objeto original.
+        Perro validacion = new Perro(
+                idMascota,
+                raza,
+                edad,
+                genero,
+                peso,
+                tamano,
+                perro.getEstadoAdopcion(),
+                nombre,
+                nivelEntrenamiento,
+                conviveConOtrosPerros
+        );
+
+        // Actualizar la mascota existente.
+        perro.setNombre(validacion.getNombre());
+        perro.setRaza(validacion.getRaza());
+        perro.setEdad(validacion.getEdad());
+        perro.setGenero(validacion.getGenero());
+        perro.setPeso(validacion.getPeso());
+        perro.setTamaño(validacion.getTamaño());
+        perro.setNivelEntrenamiento(validacion.getNivelEntrenamiento());
+        perro.setConviveConOtrosPerros(validacion.isConviveConOtrosPerros());
+
+        datosModificados = true;
+        guardarCambios();
+    }
+
+    public void eliminarMascotaPorId(String idMascota) {
+
+        Mascota mascota = buscarMascotaPorId(idMascota);
+
+        if (mascota == null) {
+            throw new IllegalArgumentException("No se encontró la mascota.");
+        }
+
+        // No permitir eliminar mascotas que tengan solicitudes.
+        for (SolicitudAdopcion solicitud : solicitudes) {
+
+            if (solicitud != null
+                    && solicitud.getMascota() != null
+                    && Objects.equals(
+                            solicitud.getMascota().getIdMascota(),
+                            idMascota)) {
+
+                throw new IllegalArgumentException(
+                        "No se puede eliminar esta mascota porque tiene solicitudes de adopción registradas."
+                );
+            }
+        }
+
+        // No permitir eliminar mascotas que tengan historial clínico.
+        if (mascota.getHistorialClinico() != null && !mascota.getHistorialClinico().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "No se puede eliminar esta mascota porque tiene registros en su historial clínico."
+            );
+        }
+
+        mascotas.remove(mascota);
+
+        datosModificados = true;
+        guardarCambios();
     }
 
     public Mascota buscarMascotaPorId(String idBuscado) {
@@ -500,6 +584,20 @@ public class SistemaAlbergue {
     // ==========================================
     // DONACIONES
     // ==========================================
+    private int generarNuevoIdDonacion() {
+
+        int mayorId = 0;
+
+        for (Donacion donacion : donaciones) {
+
+            if (donacion != null) {
+                mayorId = Math.max(mayorId, donacion.getIdDonacion());
+            }
+        }
+
+        return mayorId + 1;
+    }
+
     public void agregarDonacion(Donacion donacion) {
 
         if (donacion == null) {
@@ -525,7 +623,7 @@ public class SistemaAlbergue {
             throw new IllegalArgumentException("El monto debe ser mayor que cero.");
         }
 
-        int nuevoId = donaciones.size() + 1;
+        int nuevoId = generarNuevoIdDonacion();
 
         Efectivo donacion = new Efectivo(nuevoId, donante, monto);
 
@@ -547,7 +645,7 @@ public class SistemaAlbergue {
             throw new IllegalArgumentException("La cantidad debe ser mayor que cero.");
         }
 
-        int nuevoId = donaciones.size() + 1;
+        int nuevoId = generarNuevoIdDonacion();
 
         Comida donacion = new Comida(nuevoId, donante, cantidadKg);
 
@@ -592,6 +690,32 @@ public class SistemaAlbergue {
         }
 
         return total;
+    }
+
+    public void eliminarDonacion(int idDonacion) {
+
+        Donacion donacionEncontrada = null;
+
+        for (Donacion donacion : donaciones) {
+
+            if (donacion != null
+                    && donacion.getIdDonacion() == idDonacion) {
+
+                donacionEncontrada = donacion;
+                break;
+            }
+        }
+
+        if (donacionEncontrada == null) {
+            throw new IllegalArgumentException(
+                    "No se encontró la donación seleccionada."
+            );
+        }
+
+        donaciones.remove(donacionEncontrada);
+
+        datosModificados = true;
+        guardarCambios();
     }
 
     // ==========================================

@@ -4,6 +4,15 @@
  */
 package com.albergue.interfaz;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import com.albergue.modelo.Mascota;
+import com.albergue.modelo.SolicitudAdopcion;
+import com.albergue.persistencia.PersistenciaDatos;
+import com.albergue.sistema.SistemaAlbergue;
+import com.albergue.interfaz.*;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Fabricioo
@@ -11,12 +20,27 @@ package com.albergue.interfaz;
 public class VentanaPrincipalAlbergue extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipalAlbergue.class.getName());
+    private SistemaAlbergue sistema;
 
     /**
      * Creates new form VentanaPrincipalAlbergue
      */
     public VentanaPrincipalAlbergue() {
+        this(PersistenciaDatos.cargarDatos());
+    }
+
+    public VentanaPrincipalAlbergue(SistemaAlbergue sistema) {
+        this.sistema = sistema;
+
         initComponents();
+
+        cargarLogo();
+        cargarLogoUsuario();
+
+        configurarEventos();
+        actualizarEstadisticas();
+
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -28,21 +52,532 @@ public class VentanaPrincipalAlbergue extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        lblLogo = new javax.swing.JLabel();
+        btnMenuRegistrarMascota = new javax.swing.JButton();
+        btnMenuSolicitudesAdopcion = new javax.swing.JButton();
+        btnMenuHistorialClinico = new javax.swing.JButton();
+        btnMenuDonaciones = new javax.swing.JButton();
+        btnMenuSalir = new javax.swing.JButton();
+        lblLogoUsuario = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        pnlEstadisticas = new javax.swing.JPanel();
+        pnlSecundarioMascotas = new javax.swing.JPanel();
+        lblNumeroMascotas = new javax.swing.JLabel();
+        lblTituloMascotas = new javax.swing.JLabel();
+        pnlSecundarioAdoptadas = new javax.swing.JPanel();
+        lblNumeroAdoptados = new javax.swing.JLabel();
+        lblTituloAdoptados = new javax.swing.JLabel();
+        pnlSecundarioEfectivo = new javax.swing.JPanel();
+        lblTotalEfectivo = new javax.swing.JLabel();
+        lblTituloEfectivo = new javax.swing.JLabel();
+        pnlSecundarioComida = new javax.swing.JPanel();
+        lblTotalComida = new javax.swing.JLabel();
+        lblTituloComida = new javax.swing.JLabel();
+        pnlSecundarioSolicitudes = new javax.swing.JPanel();
+        lblNumeroSolicitudes = new javax.swing.JLabel();
+        lblTituloSolicitudes = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menú principal");
+        setBackground(new java.awt.Color(244, 246, 249));
+
+        jPanel1.setBackground(new java.awt.Color(36, 75, 112));
+
+        lblLogo.setText("jLabel2");
+        lblLogo.setPreferredSize(new java.awt.Dimension(65, 65));
+
+        btnMenuRegistrarMascota.setBackground(new java.awt.Color(71, 123, 168));
+        btnMenuRegistrarMascota.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnMenuRegistrarMascota.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuRegistrarMascota.setText("Mascotas");
+
+        btnMenuSolicitudesAdopcion.setBackground(new java.awt.Color(71, 123, 168));
+        btnMenuSolicitudesAdopcion.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnMenuSolicitudesAdopcion.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuSolicitudesAdopcion.setText("Adopciones");
+
+        btnMenuHistorialClinico.setBackground(new java.awt.Color(71, 123, 168));
+        btnMenuHistorialClinico.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnMenuHistorialClinico.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuHistorialClinico.setText("Historial clínico");
+
+        btnMenuDonaciones.setBackground(new java.awt.Color(71, 123, 168));
+        btnMenuDonaciones.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnMenuDonaciones.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuDonaciones.setText("Donaciones");
+
+        btnMenuSalir.setBackground(new java.awt.Color(220, 53, 69));
+        btnMenuSalir.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnMenuSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnMenuSalir.setText("Salir");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMenuHistorialClinico, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMenuRegistrarMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMenuSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMenuDonaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnMenuSolicitudesAdopcion, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(btnMenuRegistrarMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnMenuSolicitudesAdopcion, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnMenuHistorialClinico, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnMenuDonaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnMenuSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        lblLogoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/usuario.png"))); // NOI18N
+        lblLogoUsuario.setText("jLabel1");
+        lblLogoUsuario.setPreferredSize(new java.awt.Dimension(45, 45));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Usuario: admin");
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 32)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(36, 75, 112));
+        jLabel2.setText("¡Bienvenido a Huellitas System!");
+
+        pnlEstadisticas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Resumen General", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 24), new java.awt.Color(36, 75, 112))); // NOI18N
+
+        pnlSecundarioMascotas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pnlSecundarioMascotas.setPreferredSize(new java.awt.Dimension(175, 120));
+
+        lblNumeroMascotas.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNumeroMascotas.setForeground(new java.awt.Color(36, 75, 112));
+        lblNumeroMascotas.setText("jLabel4");
+
+        lblTituloMascotas.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        lblTituloMascotas.setForeground(new java.awt.Color(108, 117, 125));
+        lblTituloMascotas.setText("Mascotas en el albergue");
+
+        javax.swing.GroupLayout pnlSecundarioMascotasLayout = new javax.swing.GroupLayout(pnlSecundarioMascotas);
+        pnlSecundarioMascotas.setLayout(pnlSecundarioMascotasLayout);
+        pnlSecundarioMascotasLayout.setHorizontalGroup(
+            pnlSecundarioMascotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecundarioMascotasLayout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addGroup(pnlSecundarioMascotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNumeroMascotas)
+                    .addComponent(lblTituloMascotas)))
+        );
+        pnlSecundarioMascotasLayout.setVerticalGroup(
+            pnlSecundarioMascotasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecundarioMascotasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNumeroMascotas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTituloMascotas)
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+
+        pnlSecundarioAdoptadas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblNumeroAdoptados.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNumeroAdoptados.setForeground(new java.awt.Color(36, 75, 112));
+        lblNumeroAdoptados.setText("jLabel4");
+
+        lblTituloAdoptados.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        lblTituloAdoptados.setForeground(new java.awt.Color(108, 117, 125));
+        lblTituloAdoptados.setText("Mascotas adoptadas");
+
+        javax.swing.GroupLayout pnlSecundarioAdoptadasLayout = new javax.swing.GroupLayout(pnlSecundarioAdoptadas);
+        pnlSecundarioAdoptadas.setLayout(pnlSecundarioAdoptadasLayout);
+        pnlSecundarioAdoptadasLayout.setHorizontalGroup(
+            pnlSecundarioAdoptadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecundarioAdoptadasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlSecundarioAdoptadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNumeroAdoptados)
+                    .addComponent(lblTituloAdoptados))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        pnlSecundarioAdoptadasLayout.setVerticalGroup(
+            pnlSecundarioAdoptadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecundarioAdoptadasLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNumeroAdoptados)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTituloAdoptados)
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+
+        pnlSecundarioEfectivo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblTotalEfectivo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTotalEfectivo.setForeground(new java.awt.Color(36, 75, 112));
+        lblTotalEfectivo.setText("jLabel4");
+
+        lblTituloEfectivo.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        lblTituloEfectivo.setForeground(new java.awt.Color(108, 117, 125));
+        lblTituloEfectivo.setText("Efectivo");
+
+        javax.swing.GroupLayout pnlSecundarioEfectivoLayout = new javax.swing.GroupLayout(pnlSecundarioEfectivo);
+        pnlSecundarioEfectivo.setLayout(pnlSecundarioEfectivoLayout);
+        pnlSecundarioEfectivoLayout.setHorizontalGroup(
+            pnlSecundarioEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecundarioEfectivoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlSecundarioEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTotalEfectivo)
+                    .addComponent(lblTituloEfectivo))
+                .addContainerGap(103, Short.MAX_VALUE))
+        );
+        pnlSecundarioEfectivoLayout.setVerticalGroup(
+            pnlSecundarioEfectivoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecundarioEfectivoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTotalEfectivo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTituloEfectivo)
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+
+        pnlSecundarioComida.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblTotalComida.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTotalComida.setForeground(new java.awt.Color(36, 75, 112));
+        lblTotalComida.setText("jLabel4");
+
+        lblTituloComida.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        lblTituloComida.setForeground(new java.awt.Color(108, 117, 125));
+        lblTituloComida.setText("Comida");
+
+        javax.swing.GroupLayout pnlSecundarioComidaLayout = new javax.swing.GroupLayout(pnlSecundarioComida);
+        pnlSecundarioComida.setLayout(pnlSecundarioComidaLayout);
+        pnlSecundarioComidaLayout.setHorizontalGroup(
+            pnlSecundarioComidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecundarioComidaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlSecundarioComidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTotalComida)
+                    .addComponent(lblTituloComida))
+                .addContainerGap(103, Short.MAX_VALUE))
+        );
+        pnlSecundarioComidaLayout.setVerticalGroup(
+            pnlSecundarioComidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecundarioComidaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblTotalComida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTituloComida)
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+
+        pnlSecundarioSolicitudes.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        lblNumeroSolicitudes.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblNumeroSolicitudes.setForeground(new java.awt.Color(36, 75, 112));
+        lblNumeroSolicitudes.setText("jLabel4");
+
+        lblTituloSolicitudes.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        lblTituloSolicitudes.setForeground(new java.awt.Color(108, 117, 125));
+        lblTituloSolicitudes.setText("Solicitudes pendientes");
+
+        javax.swing.GroupLayout pnlSecundarioSolicitudesLayout = new javax.swing.GroupLayout(pnlSecundarioSolicitudes);
+        pnlSecundarioSolicitudes.setLayout(pnlSecundarioSolicitudesLayout);
+        pnlSecundarioSolicitudesLayout.setHorizontalGroup(
+            pnlSecundarioSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecundarioSolicitudesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlSecundarioSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNumeroSolicitudes)
+                    .addComponent(lblTituloSolicitudes))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+        pnlSecundarioSolicitudesLayout.setVerticalGroup(
+            pnlSecundarioSolicitudesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlSecundarioSolicitudesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNumeroSolicitudes)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblTituloSolicitudes)
+                .addContainerGap(50, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnlEstadisticasLayout = new javax.swing.GroupLayout(pnlEstadisticas);
+        pnlEstadisticas.setLayout(pnlEstadisticasLayout);
+        pnlEstadisticasLayout.setHorizontalGroup(
+            pnlEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEstadisticasLayout.createSequentialGroup()
+                .addGroup(pnlEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEstadisticasLayout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(pnlSecundarioEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73)
+                        .addComponent(pnlSecundarioComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlEstadisticasLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(pnlSecundarioMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61)
+                        .addComponent(pnlSecundarioAdoptadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66)
+                        .addComponent(pnlSecundarioSolicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
+        );
+        pnlEstadisticasLayout.setVerticalGroup(
+            pnlEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlEstadisticasLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(pnlEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlEstadisticasLayout.createSequentialGroup()
+                        .addGroup(pnlEstadisticasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlSecundarioMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(pnlSecundarioAdoptadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlSecundarioEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlEstadisticasLayout.createSequentialGroup()
+                        .addComponent(pnlSecundarioSolicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(pnlSecundarioComida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(108, 117, 125));
+        jLabel3.setText("Sistema que administra el registro de mascotas, solicitudes de adopción, historiales clínicos y donaciones.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lblLogoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel1)
+                        .addGap(27, 27, 27))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(pnlEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLogoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addGap(29, 29, 29)
+                .addComponent(pnlEstadisticas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cargarLogo() {
+
+        java.net.URL ruta = getClass().getResource(
+                "/imagenes/logo.jpg"
+        );
+
+        if (ruta != null) {
+
+            javax.swing.ImageIcon imagen
+                    = new javax.swing.ImageIcon(ruta);
+
+            java.awt.Image imagenAjustada
+                    = imagen.getImage().getScaledInstance(
+                            112, 105,
+                            java.awt.Image.SCALE_SMOOTH
+                    );
+
+            lblLogo.setIcon(
+                    new javax.swing.ImageIcon(imagenAjustada)
+            );
+
+        } else {
+            System.out.println("No se encontró el logo.");
+        }
+    }
+
+    private void cargarLogoUsuario() {
+
+        java.net.URL ruta = getClass().getResource("/imagenes/usuario.png");
+
+        if (ruta != null) {
+            ImageIcon imagen = new ImageIcon(ruta);
+
+            Image imagenAjustada = imagen.getImage().getScaledInstance(
+                    45, 45, Image.SCALE_SMOOTH
+            );
+
+            lblLogoUsuario.setIcon(new ImageIcon(imagenAjustada));
+
+        } else {
+            System.out.println("No se encontró el logo.");
+        }
+    }
+
+    private void actualizarEstadisticas() {
+
+        if (sistema == null) {
+            lblNumeroMascotas.setText("0");
+            lblNumeroAdoptados.setText("0");
+            lblNumeroSolicitudes.setText("0");
+            lblTotalEfectivo.setText("S/ 0.00");
+            lblTotalComida.setText("0 kg");
+            return;
+        }
+
+        // Contar mascotas registradas y adoptadas
+        int mascotasEnAlbergue = 0;
+        int mascotasAdoptadas = 0;
+
+        for (Mascota mascota : sistema.getMascotas()) {
+
+            if ("Adoptado".equalsIgnoreCase(mascota.getEstadoAdopcion())) {
+                mascotasAdoptadas++;
+            } else {
+                mascotasEnAlbergue++;
+            }
+        }
+
+        // Contar solicitudes pendientes
+        int solicitudesPendientes = 0;
+
+        for (SolicitudAdopcion solicitud : sistema.getSolicitudes()) {
+
+            if ("Pendiente".equalsIgnoreCase(solicitud.getEstado())) {
+                solicitudesPendientes++;
+            }
+        }
+
+        // Mostrar resultados
+        lblNumeroMascotas.setText(String.valueOf(mascotasEnAlbergue));
+        lblNumeroAdoptados.setText(String.valueOf(mascotasAdoptadas));
+        lblNumeroSolicitudes.setText(String.valueOf(solicitudesPendientes));
+
+        // Mostrar totales de donaciones
+        lblTotalEfectivo.setText(
+                String.format(
+                        java.util.Locale.US,
+                        "S/ %.2f",
+                        sistema.obtenerTotalEfectivo()
+                )
+        );
+
+        lblTotalComida.setText(
+                String.format(
+                        java.util.Locale.US,
+                        "%.2f kg",
+                        sistema.obtenerTotalComida()
+                )
+        );
+
+    }
+
+    private void configurarEventos() {
+
+        btnMenuRegistrarMascota.addActionListener(e -> abrirRegistroMascota());
+
+        btnMenuSolicitudesAdopcion.addActionListener(e -> abrirGestionAdopcion());
+
+        btnMenuHistorialClinico.addActionListener(e -> abrirHistorialClinico());
+
+        btnMenuDonaciones.addActionListener(e -> abrirGestionDonaciones());
+
+        btnMenuSalir.addActionListener(e -> salirSistema());
+    }
+
+    private void abrirRegistroMascota() {
+
+        GestionRegistroMascota dialogo
+                = new GestionRegistroMascota(this, true, sistema);
+
+        dialogo.setLocationRelativeTo(this);
+        dialogo.setVisible(true);
+
+        actualizarEstadisticas();
+    }
+
+    private void abrirGestionAdopcion() {
+
+        GestionAdopcion dialogo
+                = new GestionAdopcion(this, true, sistema);
+
+        dialogo.setLocationRelativeTo(this);
+        dialogo.setVisible(true);
+
+        actualizarEstadisticas();
+    }
+
+    private void abrirHistorialClinico() {
+
+        GestionHistorialClinico dialogo
+                = new GestionHistorialClinico(this, true, sistema);
+
+        dialogo.setLocationRelativeTo(this);
+        dialogo.setVisible(true);
+
+        actualizarEstadisticas();
+    }
+
+    private void abrirGestionDonaciones() {
+
+        GestionDonacion dialogo
+                = new GestionDonacion(this, true);
+
+        dialogo.setLocationRelativeTo(this);
+        dialogo.setVisible(true);
+
+        actualizarEstadisticas();
+    }
+
+    private void salirSistema() {
+
+        int respuesta = JOptionPane.showConfirmDialog(
+                this,
+                "¿Estás seguro de que deseas salir del sistema?",
+                "Confirmar salida",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE
+        );
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            dispose();
+            System.exit(0);
+        }
+    }
 
     /**
      * @param args the command line arguments
@@ -70,5 +605,32 @@ public class VentanaPrincipalAlbergue extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnMenuDonaciones;
+    private javax.swing.JButton btnMenuHistorialClinico;
+    private javax.swing.JButton btnMenuRegistrarMascota;
+    private javax.swing.JButton btnMenuSalir;
+    private javax.swing.JButton btnMenuSolicitudesAdopcion;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblLogoUsuario;
+    private javax.swing.JLabel lblNumeroAdoptados;
+    private javax.swing.JLabel lblNumeroMascotas;
+    private javax.swing.JLabel lblNumeroSolicitudes;
+    private javax.swing.JLabel lblTituloAdoptados;
+    private javax.swing.JLabel lblTituloComida;
+    private javax.swing.JLabel lblTituloEfectivo;
+    private javax.swing.JLabel lblTituloMascotas;
+    private javax.swing.JLabel lblTituloSolicitudes;
+    private javax.swing.JLabel lblTotalComida;
+    private javax.swing.JLabel lblTotalEfectivo;
+    private javax.swing.JPanel pnlEstadisticas;
+    private javax.swing.JPanel pnlSecundarioAdoptadas;
+    private javax.swing.JPanel pnlSecundarioComida;
+    private javax.swing.JPanel pnlSecundarioEfectivo;
+    private javax.swing.JPanel pnlSecundarioMascotas;
+    private javax.swing.JPanel pnlSecundarioSolicitudes;
     // End of variables declaration//GEN-END:variables
 }

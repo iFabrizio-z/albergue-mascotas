@@ -16,6 +16,7 @@ public class InicioSesion extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(InicioSesion.class.getName());
     private SistemaAlbergue sistema;
+    private int intentosRestantes = 3;
 
     public InicioSesion(java.awt.Frame parent, boolean modal) {
         this(parent, modal, null);
@@ -57,6 +58,7 @@ public class InicioSesion extends javax.swing.JDialog {
         txtContrasena = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Inicio de sesión");
 
         btnIngresar.setBackground(new java.awt.Color(36, 75, 112));
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
@@ -224,6 +226,7 @@ public class InicioSesion extends javax.swing.JDialog {
      * clase Usuario.
      */
     private void validarAcceso() {
+        
         String usuarioIngresado = txtUsuario.getText().trim();
         String contrasenaIngresada = new String(txtContrasena.getPassword());
 
@@ -236,10 +239,9 @@ public class InicioSesion extends javax.swing.JDialog {
             return;
         }
 
-        // Instancia de Autenticable con usuario "admin" y contraseña "1234"
+        // Credenciales del administrador
         Autenticable admin = new Usuario("admin", "1234", "Administrador");
 
-        // Validar usando el método autenticar de la interfaz
         if (admin.autenticar(usuarioIngresado, contrasenaIngresada)) {
 
             JOptionPane.showMessageDialog(this,
@@ -257,13 +259,26 @@ public class InicioSesion extends javax.swing.JDialog {
             this.dispose();
 
         } else {
-            JOptionPane.showMessageDialog(this,
-                    "Usuario o contraseña incorrectos.",
-                    "Error de autenticación",
-                    JOptionPane.ERROR_MESSAGE);
+            intentosRestantes--;
 
             txtContrasena.setText("");
             txtContrasena.requestFocus();
+
+            if (intentosRestantes > 0) {
+                JOptionPane.showMessageDialog(this,
+                        "Usuario o contraseña incorrectos.\n"
+                        + "Te quedan " + intentosRestantes + " intentos.",
+                        "Error de autenticación",
+                        JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this,
+                        "Has agotado los 3 intentos permitidos.\n"
+                        + "El sistema cerrará el inicio de sesión.",
+                        "Acceso bloqueado",
+                        JOptionPane.ERROR_MESSAGE);
+
+                dispose();
+            }
         }
     }
 
