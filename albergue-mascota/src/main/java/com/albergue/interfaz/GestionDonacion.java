@@ -4,7 +4,6 @@
  */
 package com.albergue.interfaz;
 
-
 import com.albergue.modelo.Comida;
 import com.albergue.modelo.Donacion;
 import com.albergue.modelo.Efectivo;
@@ -19,13 +18,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Pattern;
 
-
-
 /**
  *
  * @author Fabricioo
  */
-
 public class GestionDonacion extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GestionDonacion.class.getName());
@@ -34,8 +30,6 @@ public class GestionDonacion extends javax.swing.JDialog {
     private DefaultTableModel modeloAlimento;
     private TableRowSorter<DefaultTableModel> sorterEfectivo;
     private TableRowSorter<DefaultTableModel> sorterAlimento;
-    private int idSeleccionadoGlobal = -1;
-    private String tipoTablaSeleccionada = ""; // "Efectivo" o "Alimento"
 
     /**
      * Creates new form GestionDonacion
@@ -55,34 +49,8 @@ public class GestionDonacion extends javax.swing.JDialog {
         configurarBuscadores();
         cargarLogo();
 
-        // Listener para capturar la selección de la tabla Efectivo sin perder el foco al hacer clic en botones
-        tblEfectivo.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting() && tblEfectivo.getSelectedRow() != -1) {
-                int filaReal = tblEfectivo.convertRowIndexToModel(tblEfectivo.getSelectedRow());
-                try {
-                    idSeleccionadoGlobal = Integer.parseInt(modeloEfectivo.getValueAt(filaReal, 0).toString());
-                    tipoTablaSeleccionada = "Efectivo";
-                    tblAlimento.clearSelection(); // Deselecciona la otra tabla
-                } catch (Exception ex) {
-                    idSeleccionadoGlobal = -1;
-                }
-            }
-        });
+       
 
-        // Listener para capturar la selección de la tabla Alimento
-        tblAlimento.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting() && tblAlimento.getSelectedRow() != -1) {
-                int filaReal = tblAlimento.convertRowIndexToModel(tblAlimento.getSelectedRow());
-                try {
-                    idSeleccionadoGlobal = Integer.parseInt(modeloAlimento.getValueAt(filaReal, 0).toString());
-                    tipoTablaSeleccionada = "Alimento";
-                    tblEfectivo.clearSelection(); // Deselecciona la otra tabla
-                } catch (Exception ex) {
-                    idSeleccionadoGlobal = -1;
-                }
-            }
-        });
-        
         // Establecer fecha actual por defecto en el campo de texto
         txtFecha.setText(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
@@ -95,6 +63,7 @@ public class GestionDonacion extends javax.swing.JDialog {
             return new SistemaAlbergue();
         }
     }
+
     private void cargarLogo() {
 
         java.net.URL ruta = getClass().getResource(
@@ -127,22 +96,26 @@ public class GestionDonacion extends javax.swing.JDialog {
 
     private void configurarTablas() {
         modeloEfectivo = new DefaultTableModel(
-            new Object[][]{},
-            new String[]{"Código", "Donante", "Fecha", "Monto (S/.)"}
+                new Object[][]{},
+                new String[]{"Código", "Donante", "Fecha", "Monto (S/.)"}
         ) {
             @Override
-            public boolean isCellEditable(int row, int column) { return false; }
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
         };
         tblEfectivo.setModel(modeloEfectivo);
         sorterEfectivo = new TableRowSorter<>(modeloEfectivo);
         tblEfectivo.setRowSorter(sorterEfectivo);
 
         modeloAlimento = new DefaultTableModel(
-            new Object[][]{},
-            new String[]{"Código", "Donante", "Fecha", "Cantidad (kg)"}
+                new Object[][]{},
+                new String[]{"Código", "Donante", "Fecha", "Cantidad (kg)"}
         ) {
             @Override
-            public boolean isCellEditable(int row, int column) { return false; }
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
         };
         tblAlimento.setModel(modeloAlimento);
         sorterAlimento = new TableRowSorter<>(modeloAlimento);
@@ -152,20 +125,36 @@ public class GestionDonacion extends javax.swing.JDialog {
     private void configurarBuscadores() {
         txtBuscarEfectivo.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrarEfectivo(); }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                filtrarEfectivo();
+            }
+
             @Override
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrarEfectivo(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                filtrarEfectivo();
+            }
+
             @Override
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrarEfectivo(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                filtrarEfectivo();
+            }
         });
 
         txtBuscarAlimento.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             @Override
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { filtrarAlimento(); }
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                filtrarAlimento();
+            }
+
             @Override
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { filtrarAlimento(); }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                filtrarAlimento();
+            }
+
             @Override
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { filtrarAlimento(); }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                filtrarAlimento();
+            }
         });
     }
 
@@ -188,7 +177,9 @@ public class GestionDonacion extends javax.swing.JDialog {
     }
 
     private void cargarDonaciones() {
-        if (sistema == null) return;
+        if (sistema == null) {
+            return;
+        }
 
         modeloEfectivo.setRowCount(0);
         modeloAlimento.setRowCount(0);
@@ -223,7 +214,6 @@ public class GestionDonacion extends javax.swing.JDialog {
             cmbTipo.setSelectedIndex(0);
         }
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -610,7 +600,7 @@ public class GestionDonacion extends javax.swing.JDialog {
             String donante = txtDonante.getText().trim();
             String tipo = cmbTipo.getSelectedItem().toString();
             double valor = Double.parseDouble(txtMonto.getValue().toString());
-            
+
             if (donante.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Complete el nombre del donante.", "Aviso", JOptionPane.WARNING_MESSAGE);
                 return;
@@ -627,7 +617,6 @@ public class GestionDonacion extends javax.swing.JDialog {
                 sistema.registrarDonacionComida(donante, valor);
             }
 
-            PersistenciaDatos.guardarDatos(sistema);
             cargarDonaciones();
             limpiarFormulario();
             JOptionPane.showMessageDialog(this, "¡Donación guardada con éxito!");
@@ -657,7 +646,7 @@ public class GestionDonacion extends javax.swing.JDialog {
 
     private void btnVerDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerDetalleActionPerformed
         // TODO add your handling code here:
-    int filaEf = tblEfectivo.getSelectedRow();
+        int filaEf = tblEfectivo.getSelectedRow();
         int filaAl = tblAlimento.getSelectedRow();
 
         if (filaEf != -1) {
@@ -665,11 +654,11 @@ public class GestionDonacion extends javax.swing.JDialog {
             int id = Integer.parseInt(modeloEfectivo.getValueAt(filaReal, 0).toString());
             for (Donacion d : sistema.getDonaciones()) {
                 if (d.getIdDonacion() == id && d instanceof Efectivo ef) {
-                    JOptionPane.showMessageDialog(this, "=== DETALLE DE EFECTIVO ===\n" +
-                            "Código: " + ef.getIdDonacion() + "\n" +
-                            "Donante: " + ef.getDonante() + "\n" +
-                            "Fecha: " + ef.getFecha() + "\n" +
-                            "Monto: S/ " + ef.getMontoEfectivo(), "Detalle", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "=== DETALLE DE EFECTIVO ===\n"
+                            + "Código: " + ef.getIdDonacion() + "\n"
+                            + "Donante: " + ef.getDonante() + "\n"
+                            + "Fecha: " + ef.getFecha() + "\n"
+                            + "Monto: S/ " + ef.getMontoEfectivo(), "Detalle", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
             }
@@ -678,11 +667,11 @@ public class GestionDonacion extends javax.swing.JDialog {
             int id = Integer.parseInt(modeloAlimento.getValueAt(filaReal, 0).toString());
             for (Donacion d : sistema.getDonaciones()) {
                 if (d.getIdDonacion() == id && d instanceof Comida co) {
-                    JOptionPane.showMessageDialog(this, "=== DETALLE DE COMIDA ===\n" +
-                            "Código: " + co.getIdDonacion() + "\n" +
-                            "Donante: " + co.getDonante() + "\n" +
-                            "Fecha: " + co.getFecha() + "\n" +
-                            "Cantidad: " + co.getCantidadComidaKg() + " kg", "Detalle", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "=== DETALLE DE COMIDA ===\n"
+                            + "Código: " + co.getIdDonacion() + "\n"
+                            + "Donante: " + co.getDonante() + "\n"
+                            + "Fecha: " + co.getFecha() + "\n"
+                            + "Cantidad: " + co.getCantidadComidaKg() + " kg", "Detalle", JOptionPane.INFORMATION_MESSAGE);
                     return;
                 }
             }
@@ -692,64 +681,62 @@ public class GestionDonacion extends javax.swing.JDialog {
     }//GEN-LAST:event_btnVerDetalleActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
- int filaEf = tblEfectivo.getSelectedRow();
+        int filaEf = tblEfectivo.getSelectedRow();
         int filaAl = tblAlimento.getSelectedRow();
+
         int idSeleccionado = -1;
 
-        System.out.println("=== INTENTO DE ELIMINACIÓN ===");
-        System.out.println("Fila seleccionada en Efectivo (vista): " + filaEf);
-        System.out.println("Fila seleccionada en Alimento (vista): " + filaAl);
-
         if (filaEf != -1) {
-            try {
-                int filaReal = tblEfectivo.convertRowIndexToModel(filaEf);
-                idSeleccionado = Integer.parseInt(modeloEfectivo.getValueAt(filaReal, 0).toString());
-                System.out.println("ID detectado en Efectivo (Modelo fila " + filaReal + "): " + idSeleccionado);
-            } catch (Exception e) {
-                System.out.println("Error al leer ID de Efectivo: " + e.getMessage());
-            }
+            int filaReal = tblEfectivo.convertRowIndexToModel(filaEf);
+
+            idSeleccionado = Integer.parseInt(
+                    modeloEfectivo.getValueAt(filaReal, 0).toString()
+            );
+
         } else if (filaAl != -1) {
-            try {
-                int filaReal = tblAlimento.convertRowIndexToModel(filaAl);
-                idSeleccionado = Integer.parseInt(modeloAlimento.getValueAt(filaReal, 0).toString());
-                System.out.println("ID detectado en Alimento (Modelo fila " + filaReal + "): " + idSeleccionado);
-            } catch (Exception e) {
-                System.out.println("Error al leer ID de Alimento: " + e.getMessage());
-            }
+            int filaReal = tblAlimento.convertRowIndexToModel(filaAl);
+
+            idSeleccionado = Integer.parseInt(
+                    modeloAlimento.getValueAt(filaReal, 0).toString()
+            );
         }
 
-        if (idSeleccionado != -1) {
-            int confirmacion = JOptionPane.showConfirmDialog(
-                this, 
-                "¿Está seguro de eliminar la donación con código " + idSeleccionado + "?", 
-                "Confirmar eliminación", 
-                JOptionPane.YES_NO_OPTION, 
+        if (idSeleccionado == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione una donación para eliminar.",
+                    "Selección requerida",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int confirmacion = JOptionPane.showConfirmDialog(
+                this,
+                "¿Está seguro de eliminar la donación con código "
+                + idSeleccionado + "?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE
-            );
-            
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                final int idEliminar = idSeleccionado;
-                
-                // Ver cuántas donaciones hay antes de borrar
-                System.out.println("Total donaciones antes de borrar: " + sistema.getDonaciones().size());
-                
-                sistema.eliminarDonacion(idEliminar);
-                boolean eliminado = true;
-                
-                System.out.println("¿Se removió de la lista?: " + eliminado);
-                System.out.println("Total donaciones después de borrar: " + sistema.getDonaciones().size());
-                
-                if (eliminado) {
-                    sistema.setDatosModificados(true);
-                    PersistenciaDatos.guardarDatos(sistema);
-                    cargarDonaciones();
-                    JOptionPane.showMessageDialog(this, "Donación eliminada correctamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se encontró el registro con ID " + idEliminar + " en la lista del sistema.", "Aviso", JOptionPane.WARNING_MESSAGE);
-                }
+        );
+
+        if (confirmacion == JOptionPane.YES_OPTION) {
+
+            try {
+                sistema.eliminarDonacion(idSeleccionado);
+
+                cargarDonaciones();
+
+                JOptionPane.showMessageDialog(this,
+                        "Donación eliminada correctamente.",
+                        "Éxito",
+                        JOptionPane.INFORMATION_MESSAGE);
+
+            } catch (IllegalArgumentException e) {
+
+                JOptionPane.showMessageDialog(this,
+                        e.getMessage(),
+                        "Aviso",
+                        JOptionPane.WARNING_MESSAGE);
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, haga clic en una fila de la tabla de Efectivo o de Alimentos antes de presionar Eliminar.", "Selección requerida", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -765,10 +752,10 @@ public class GestionDonacion extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaActionPerformed
 
-     /**
+    /**
      * @param args the command line arguments
      */
-     public static void main(String args[]) {
+    public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -781,7 +768,7 @@ public class GestionDonacion extends javax.swing.JDialog {
         }
 
         java.awt.EventQueue.invokeLater(() -> {
-            SistemaAlbergue sistema = PersistenciaDatos.cargarDatos();
+            SistemaAlbergue sistema = cargarSistema();
             GestionDonacion dialog = new GestionDonacion(new javax.swing.JFrame(), true, sistema);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override

@@ -555,7 +555,7 @@ public class VentanaPrincipalAlbergue extends javax.swing.JFrame {
     private void abrirGestionDonaciones() {
 
         GestionDonacion dialogo
-                = new GestionDonacion(this, true);
+                = new GestionDonacion(this, true, sistema);
 
         dialogo.setLocationRelativeTo(this);
         dialogo.setVisible(true);

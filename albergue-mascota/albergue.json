@@ -99,7 +99,16 @@
       "tamaño": "80",
       "estadoAdopcion": "Refugiado",
       "nombre": "Rocky",
-      "historialClinico": [],
+      "historialClinico": [
+        {
+          "idHistorial": 1,
+          "fechaAtencion": "2026-11-13",
+          "tipoProcedimiento": "Vacunación",
+          "diagnosticoMedico": "Chequeo exitoso",
+          "tratamientoMedico": "Vacuna antirrabica",
+          "nombreVeterinario": "Dr Carlos Perez"
+        }
+      ],
       "tipo": "Perro"
     },
     {
@@ -349,6 +358,20 @@
         }
       ],
       "tipo": "Perro"
+    },
+    {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": true,
+      "idMascota": "M019",
+      "raza": "Labrador",
+      "edad": 5,
+      "genero": "Macho",
+      "peso": 38.7,
+      "tamaño": "32.5",
+      "estadoAdopcion": "Refugiado",
+      "nombre": "Teddy",
+      "historialClinico": [],
+      "tipo": "Perro"
     }
   ],
   "adoptantes": [
@@ -593,7 +616,16 @@
         "tamaño": "80",
         "estadoAdopcion": "Refugiado",
         "nombre": "Rocky",
-        "historialClinico": [],
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-13",
+            "tipoProcedimiento": "Vacunación",
+            "diagnosticoMedico": "Chequeo exitoso",
+            "tratamientoMedico": "Vacuna antirrabica",
+            "nombreVeterinario": "Dr Carlos Perez"
+          }
+        ],
         "tipo": "Perro"
       }
     },
@@ -866,6 +898,33 @@
         ],
         "tipo": "Perro"
       }
+    },
+    {
+      "idSolicitud": 13,
+      "fechaSolicitud": "2026-11-13",
+      "estado": "Pendiente",
+      "adoptante": {
+        "nombre": "Fernanda",
+        "apellidos": "Vega Castillo",
+        "dni": "99999995",
+        "direccion": "Av. Los Robles 400",
+        "email": "fernanda@ejemplo.com",
+        "telefono": "900666555"
+      },
+      "mascota": {
+        "nivelEntrenamiento": "Avanzado",
+        "conviveConOtrosPerros": true,
+        "idMascota": "M019",
+        "raza": "Labrador",
+        "edad": 5,
+        "genero": "Macho",
+        "peso": 38.7,
+        "tamaño": "32.5",
+        "estadoAdopcion": "Refugiado",
+        "nombre": "Teddy",
+        "historialClinico": [],
+        "tipo": "Perro"
+      }
     }
   ],
   "donaciones": [
@@ -973,6 +1032,41 @@
       "donante": "Monica Reyes",
       "fecha": "2026-11-06",
       "tipo": "Efectivo"
+    },
+    {
+      "montoEfectivo": 800.0,
+      "idDonacion": 16,
+      "donante": "Isabel Medina",
+      "fecha": "2026-11-13",
+      "tipo": "Efectivo"
+    },
+    {
+      "montoEfectivo": 950.0,
+      "idDonacion": 17,
+      "donante": "Pierina Montoya",
+      "fecha": "2026-11-13",
+      "tipo": "Efectivo"
+    },
+    {
+      "cantidadComidaKg": 800.0,
+      "idDonacion": 19,
+      "donante": "Pepe",
+      "fecha": "2026-11-13",
+      "tipo": "Comida"
+    },
+    {
+      "cantidadComidaKg": 50.0,
+      "idDonacion": 20,
+      "donante": "Maria Tatina",
+      "fecha": "2026-11-13",
+      "tipo": "Comida"
+    },
+    {
+      "cantidadComidaKg": 58.0,
+      "idDonacion": 21,
+      "donante": "Piero Ugarte",
+      "fecha": "2026-11-13",
+      "tipo": "Comida"
     }
   ]
 }
