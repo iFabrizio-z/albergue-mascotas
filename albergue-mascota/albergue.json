@@ -1,6 +1,8 @@
 {
   "mascotas": [
     {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
       "idMascota": "M001",
       "raza": "Labrador",
       "edad": 3,
@@ -9,8 +11,6 @@
       "tamaño": "55.0",
       "estadoAdopcion": "Refugiado",
       "nombre": "Luna",
-      "nivelEntrenamiento": "Intermedio",
-      "conviveConOtrosPerros": true,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -24,6 +24,8 @@
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": true,
       "idMascota": "M002",
       "raza": "Pastor Aleman",
       "edad": 5,
@@ -32,12 +34,12 @@
       "tamaño": "65.0",
       "estadoAdopcion": "Tratamiento",
       "nombre": "Max",
-      "nivelEntrenamiento": "Avanzado",
-      "conviveConOtrosPerros": true,
       "historialClinico": [],
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": true,
       "idMascota": "M003",
       "raza": "Beagle",
       "edad": 2,
@@ -46,12 +48,12 @@
       "tamaño": "38.0",
       "estadoAdopcion": "Refugiado",
       "nombre": "Toby",
-      "nivelEntrenamiento": "Basico",
-      "conviveConOtrosPerros": true,
       "historialClinico": [],
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
       "idMascota": "M004",
       "raza": "Golden Retriever",
       "edad": 1,
@@ -60,12 +62,12 @@
       "tamaño": "48.0",
       "estadoAdopcion": "Adoptado",
       "nombre": "Nala",
-      "nivelEntrenamiento": "Intermedio",
-      "conviveConOtrosPerros": true,
       "historialClinico": [],
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": false,
       "idMascota": "M005",
       "raza": "Doberman",
       "edad": 5,
@@ -74,8 +76,6 @@
       "tamaño": "69.0",
       "estadoAdopcion": "Adoptado",
       "nombre": "Bobby",
-      "nivelEntrenamiento": "Avanzado",
-      "conviveConOtrosPerros": false,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -89,6 +89,8 @@
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "basico",
+      "conviveConOtrosPerros": true,
       "idMascota": "M006",
       "raza": "Doberman",
       "edad": 1,
@@ -97,12 +99,12 @@
       "tamaño": "80",
       "estadoAdopcion": "Refugiado",
       "nombre": "Rocky",
-      "nivelEntrenamiento": "basico",
-      "conviveConOtrosPerros": true,
       "historialClinico": [],
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": true,
       "idMascota": "M007",
       "raza": "Bulldog Frances",
       "edad": 2,
@@ -111,8 +113,6 @@
       "tamaño": "32.0",
       "estadoAdopcion": "Refugiado",
       "nombre": "Mia",
-      "nivelEntrenamiento": "Basico",
-      "conviveConOtrosPerros": true,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -134,6 +134,8 @@
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": false,
       "idMascota": "M008",
       "raza": "Rottweiler",
       "edad": 4,
@@ -142,8 +144,6 @@
       "tamaño": "68.0",
       "estadoAdopcion": "Tratamiento",
       "nombre": "Thor",
-      "nivelEntrenamiento": "Intermedio",
-      "conviveConOtrosPerros": false,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -157,6 +157,8 @@
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": true,
       "idMascota": "M009",
       "raza": "Boxer",
       "edad": 3,
@@ -165,12 +167,12 @@
       "tamaño": "58.0",
       "estadoAdopcion": "Adoptado",
       "nombre": "Kira",
-      "nivelEntrenamiento": "Avanzado",
-      "conviveConOtrosPerros": true,
       "historialClinico": [],
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": true,
       "idMascota": "M010",
       "raza": "Poodle",
       "edad": 2,
@@ -179,8 +181,6 @@
       "tamaño": "30.0",
       "estadoAdopcion": "Refugiado",
       "nombre": "Coco",
-      "nivelEntrenamiento": "Basico",
-      "conviveConOtrosPerros": true,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -194,6 +194,8 @@
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": false,
       "idMascota": "M011",
       "raza": "Chihuahua",
       "edad": 4,
@@ -202,8 +204,6 @@
       "tamaño": "22.0",
       "estadoAdopcion": "Tratamiento",
       "nombre": "Chico",
-      "nivelEntrenamiento": "Intermedio",
-      "conviveConOtrosPerros": false,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -217,6 +217,8 @@
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": true,
       "idMascota": "M012",
       "raza": "Husky Siberiano",
       "edad": 3,
@@ -225,12 +227,12 @@
       "tamaño": "60.0",
       "estadoAdopcion": "Adoptado",
       "nombre": "Zeus",
-      "nivelEntrenamiento": "Avanzado",
-      "conviveConOtrosPerros": true,
       "historialClinico": [],
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": true,
       "idMascota": "M013",
       "raza": "Cocker Spaniel",
       "edad": 1,
@@ -239,8 +241,6 @@
       "tamaño": "35.0",
       "estadoAdopcion": "Refugiado",
       "nombre": "Molly",
-      "nivelEntrenamiento": "Basico",
-      "conviveConOtrosPerros": true,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -254,6 +254,8 @@
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": false,
       "idMascota": "M014",
       "raza": "Dalmata",
       "edad": 5,
@@ -262,12 +264,12 @@
       "tamaño": "62.0",
       "estadoAdopcion": "Tratamiento",
       "nombre": "Pongo",
-      "nivelEntrenamiento": "Intermedio",
-      "conviveConOtrosPerros": false,
       "historialClinico": [],
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
       "idMascota": "M015",
       "raza": "Shih Tzu",
       "edad": 3,
@@ -276,8 +278,6 @@
       "tamaño": "27.0",
       "estadoAdopcion": "Refugiado",
       "nombre": "Princesa",
-      "nivelEntrenamiento": "Intermedio",
-      "conviveConOtrosPerros": true,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -291,6 +291,8 @@
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Basico",
+      "conviveConOtrosPerros": false,
       "idMascota": "M016",
       "raza": "Pitbull",
       "edad": 4,
@@ -299,8 +301,6 @@
       "tamaño": "55.0",
       "estadoAdopcion": "Tratamiento",
       "nombre": "Duke",
-      "nivelEntrenamiento": "Basico",
-      "conviveConOtrosPerros": false,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -314,6 +314,8 @@
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Avanzado",
+      "conviveConOtrosPerros": true,
       "idMascota": "M017",
       "raza": "Border Collie",
       "edad": 2,
@@ -322,12 +324,12 @@
       "tamaño": "50.0",
       "estadoAdopcion": "Adoptado",
       "nombre": "Lola",
-      "nivelEntrenamiento": "Avanzado",
-      "conviveConOtrosPerros": true,
       "historialClinico": [],
       "tipo": "Perro"
     },
     {
+      "nivelEntrenamiento": "Intermedio",
+      "conviveConOtrosPerros": true,
       "idMascota": "M018",
       "raza": "Schnauzer",
       "edad": 5,
@@ -336,8 +338,6 @@
       "tamaño": "40.0",
       "estadoAdopcion": "Refugiado",
       "nombre": "Bruno",
-      "nivelEntrenamiento": "Intermedio",
-      "conviveConOtrosPerros": true,
       "historialClinico": [
         {
           "idHistorial": 1,
@@ -486,6 +486,8 @@
         "telefono": "900111222"
       },
       "mascota": {
+        "nivelEntrenamiento": "Intermedio",
+        "conviveConOtrosPerros": true,
         "idMascota": "M001",
         "raza": "Labrador",
         "edad": 3,
@@ -494,8 +496,6 @@
         "tamaño": "55.0",
         "estadoAdopcion": "Refugiado",
         "nombre": "Luna",
-        "nivelEntrenamiento": "Intermedio",
-        "conviveConOtrosPerros": true,
         "historialClinico": [
           {
             "idHistorial": 1,
@@ -521,6 +521,8 @@
         "telefono": "900333444"
       },
       "mascota": {
+        "nivelEntrenamiento": "Basico",
+        "conviveConOtrosPerros": true,
         "idMascota": "M003",
         "raza": "Beagle",
         "edad": 2,
@@ -529,8 +531,6 @@
         "tamaño": "38.0",
         "estadoAdopcion": "Refugiado",
         "nombre": "Toby",
-        "nivelEntrenamiento": "Basico",
-        "conviveConOtrosPerros": true,
         "historialClinico": [],
         "tipo": "Perro"
       }
@@ -547,6 +547,8 @@
         "telefono": "911123459"
       },
       "mascota": {
+        "nivelEntrenamiento": "Avanzado",
+        "conviveConOtrosPerros": false,
         "idMascota": "M005",
         "raza": "Doberman",
         "edad": 5,
@@ -555,8 +557,6 @@
         "tamaño": "69.0",
         "estadoAdopcion": "Adoptado",
         "nombre": "Bobby",
-        "nivelEntrenamiento": "Avanzado",
-        "conviveConOtrosPerros": false,
         "historialClinico": [
           {
             "idHistorial": 1,
@@ -583,6 +583,8 @@
         "telefono": "900111222"
       },
       "mascota": {
+        "nivelEntrenamiento": "basico",
+        "conviveConOtrosPerros": true,
         "idMascota": "M006",
         "raza": "Doberman",
         "edad": 1,
@@ -591,8 +593,6 @@
         "tamaño": "80",
         "estadoAdopcion": "Refugiado",
         "nombre": "Rocky",
-        "nivelEntrenamiento": "basico",
-        "conviveConOtrosPerros": true,
         "historialClinico": [],
         "tipo": "Perro"
       }
@@ -609,6 +609,8 @@
         "telefono": "900555666"
       },
       "mascota": {
+        "nivelEntrenamiento": "Basico",
+        "conviveConOtrosPerros": true,
         "idMascota": "M007",
         "raza": "Bulldog Frances",
         "edad": 2,
@@ -617,9 +619,24 @@
         "tamaño": "32.0",
         "estadoAdopcion": "Refugiado",
         "nombre": "Mia",
-        "nivelEntrenamiento": "Basico",
-        "conviveConOtrosPerros": true,
-        "historialClinico": [],
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-03",
+            "tipoProcedimiento": "Vacunación",
+            "diagnosticoMedico": "Buen estado de salud",
+            "tratamientoMedico": "Vacuna anual",
+            "nombreVeterinario": "Dra. Sofia Ramirez"
+          },
+          {
+            "idHistorial": 2,
+            "fechaAtencion": "2026-11-06",
+            "tipoProcedimiento": "Consulta general",
+            "diagnosticoMedico": "Control veterinario satisfactorio",
+            "tratamientoMedico": "Continuar controles preventivos",
+            "nombreVeterinario": "Dr. Carlos Perez"
+          }
+        ],
         "tipo": "Perro"
       }
     },
@@ -635,6 +652,8 @@
         "telefono": "900777888"
       },
       "mascota": {
+        "nivelEntrenamiento": "Avanzado",
+        "conviveConOtrosPerros": true,
         "idMascota": "M009",
         "raza": "Boxer",
         "edad": 3,
@@ -643,8 +662,6 @@
         "tamaño": "58.0",
         "estadoAdopcion": "Adoptado",
         "nombre": "Kira",
-        "nivelEntrenamiento": "Avanzado",
-        "conviveConOtrosPerros": true,
         "historialClinico": [],
         "tipo": "Perro"
       }
@@ -661,6 +678,8 @@
         "telefono": "900111333"
       },
       "mascota": {
+        "nivelEntrenamiento": "Basico",
+        "conviveConOtrosPerros": true,
         "idMascota": "M010",
         "raza": "Poodle",
         "edad": 2,
@@ -669,9 +688,16 @@
         "tamaño": "30.0",
         "estadoAdopcion": "Refugiado",
         "nombre": "Coco",
-        "nivelEntrenamiento": "Basico",
-        "conviveConOtrosPerros": true,
-        "historialClinico": [],
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-02",
+            "tipoProcedimiento": "Vacunación",
+            "diagnosticoMedico": "Buen estado de salud",
+            "tratamientoMedico": "Vacuna anual",
+            "nombreVeterinario": "Dra. Sofia Ramirez"
+          }
+        ],
         "tipo": "Perro"
       }
     },
@@ -687,6 +713,8 @@
         "telefono": "900222444"
       },
       "mascota": {
+        "nivelEntrenamiento": "Basico",
+        "conviveConOtrosPerros": true,
         "idMascota": "M013",
         "raza": "Cocker Spaniel",
         "edad": 1,
@@ -695,9 +723,16 @@
         "tamaño": "35.0",
         "estadoAdopcion": "Refugiado",
         "nombre": "Molly",
-        "nivelEntrenamiento": "Basico",
-        "conviveConOtrosPerros": true,
-        "historialClinico": [],
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-06",
+            "tipoProcedimiento": "Desparasitación",
+            "diagnosticoMedico": "Control preventivo",
+            "tratamientoMedico": "Desparasitación programada",
+            "nombreVeterinario": "Dra. Sofia Ramirez"
+          }
+        ],
         "tipo": "Perro"
       }
     },
@@ -713,6 +748,8 @@
         "telefono": "900333555"
       },
       "mascota": {
+        "nivelEntrenamiento": "Avanzado",
+        "conviveConOtrosPerros": true,
         "idMascota": "M012",
         "raza": "Husky Siberiano",
         "edad": 3,
@@ -721,8 +758,6 @@
         "tamaño": "60.0",
         "estadoAdopcion": "Adoptado",
         "nombre": "Zeus",
-        "nivelEntrenamiento": "Avanzado",
-        "conviveConOtrosPerros": true,
         "historialClinico": [],
         "tipo": "Perro"
       }
@@ -739,6 +774,8 @@
         "telefono": "900555777"
       },
       "mascota": {
+        "nivelEntrenamiento": "Intermedio",
+        "conviveConOtrosPerros": false,
         "idMascota": "M011",
         "raza": "Chihuahua",
         "edad": 4,
@@ -747,9 +784,16 @@
         "tamaño": "22.0",
         "estadoAdopcion": "Tratamiento",
         "nombre": "Chico",
-        "nivelEntrenamiento": "Intermedio",
-        "conviveConOtrosPerros": false,
-        "historialClinico": [],
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-04",
+            "tipoProcedimiento": "Consulta general",
+            "diagnosticoMedico": "Problema digestivo leve",
+            "tratamientoMedico": "Control veterinario y alimentación indicada",
+            "nombreVeterinario": "Dr. Carlos Perez"
+          }
+        ],
         "tipo": "Perro"
       }
     },
@@ -765,6 +809,8 @@
         "telefono": "900666111"
       },
       "mascota": {
+        "nivelEntrenamiento": "Intermedio",
+        "conviveConOtrosPerros": true,
         "idMascota": "M015",
         "raza": "Shih Tzu",
         "edad": 3,
@@ -773,9 +819,16 @@
         "tamaño": "27.0",
         "estadoAdopcion": "Refugiado",
         "nombre": "Princesa",
-        "nivelEntrenamiento": "Intermedio",
-        "conviveConOtrosPerros": true,
-        "historialClinico": [],
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-02",
+            "tipoProcedimiento": "Vacunación",
+            "diagnosticoMedico": "Buen estado de salud",
+            "tratamientoMedico": "Vacunación anual",
+            "nombreVeterinario": "Dra. Sofia Ramirez"
+          }
+        ],
         "tipo": "Perro"
       }
     },
@@ -791,6 +844,8 @@
         "telefono": "900666222"
       },
       "mascota": {
+        "nivelEntrenamiento": "Intermedio",
+        "conviveConOtrosPerros": true,
         "idMascota": "M018",
         "raza": "Schnauzer",
         "edad": 5,
@@ -799,118 +854,125 @@
         "tamaño": "40.0",
         "estadoAdopcion": "Refugiado",
         "nombre": "Bruno",
-        "nivelEntrenamiento": "Intermedio",
-        "conviveConOtrosPerros": true,
-        "historialClinico": [],
+        "historialClinico": [
+          {
+            "idHistorial": 1,
+            "fechaAtencion": "2026-11-07",
+            "tipoProcedimiento": "Desparasitación",
+            "diagnosticoMedico": "Control preventivo",
+            "tratamientoMedico": "Desparasitación programada",
+            "nombreVeterinario": "Dra. Sofia Ramirez"
+          }
+        ],
         "tipo": "Perro"
       }
     }
   ],
   "donaciones": [
     {
+      "montoEfectivo": 150.0,
       "idDonacion": 1,
       "donante": "Maria Torres",
       "fecha": "2026-10-16",
-      "tipo": "Efectivo",
-      "montoEfectivo": 150.0
+      "tipo": "Efectivo"
     },
     {
+      "cantidadComidaKg": 25.0,
       "idDonacion": 2,
       "donante": "Carlos Mendoza",
       "fecha": "2026-10-16",
-      "tipo": "Comida",
-      "cantidadComidaKg": 25.0
+      "tipo": "Comida"
     },
     {
+      "montoEfectivo": 500.0,
       "idDonacion": 3,
       "donante": "Piero",
       "fecha": "2026-10-16",
-      "tipo": "Efectivo",
-      "montoEfectivo": 500.0
+      "tipo": "Efectivo"
     },
     {
+      "montoEfectivo": 180.0,
       "idDonacion": 4,
       "donante": "Ignacio",
       "fecha": "2026-11-01",
-      "tipo": "Efectivo",
-      "montoEfectivo": 180.0
+      "tipo": "Efectivo"
     },
     {
+      "montoEfectivo": 250.0,
       "idDonacion": 5,
       "donante": "Roberto Sanchez",
       "fecha": "2026-11-03",
-      "tipo": "Efectivo",
-      "montoEfectivo": 250.0
+      "tipo": "Efectivo"
     },
     {
+      "cantidadComidaKg": 40.0,
       "idDonacion": 6,
       "donante": "Laura Mendoza",
       "fecha": "2026-11-05",
-      "tipo": "Comida",
-      "cantidadComidaKg": 40.0
+      "tipo": "Comida"
     },
     {
+      "montoEfectivo": 320.0,
       "idDonacion": 7,
       "donante": "Jorge Ramirez",
       "fecha": "2026-11-08",
-      "tipo": "Efectivo",
-      "montoEfectivo": 320.0
+      "tipo": "Efectivo"
     },
     {
+      "montoEfectivo": 100.0,
       "idDonacion": 8,
       "donante": "Patricia Gomez",
       "fecha": "2026-11-04",
-      "tipo": "Efectivo",
-      "montoEfectivo": 100.0
+      "tipo": "Efectivo"
     },
     {
+      "cantidadComidaKg": 15.0,
       "idDonacion": 9,
       "donante": "Miguel Torres",
       "fecha": "2026-11-05",
-      "tipo": "Comida",
-      "cantidadComidaKg": 15.0
+      "tipo": "Comida"
     },
     {
+      "montoEfectivo": 450.0,
       "idDonacion": 10,
       "donante": "Andrea Flores",
       "fecha": "2026-11-06",
-      "tipo": "Efectivo",
-      "montoEfectivo": 450.0
+      "tipo": "Efectivo"
     },
     {
+      "cantidadComidaKg": 30.0,
       "idDonacion": 11,
       "donante": "Fernando Ruiz",
       "fecha": "2026-11-08",
-      "tipo": "Comida",
-      "cantidadComidaKg": 30.0
+      "tipo": "Comida"
     },
     {
+      "montoEfectivo": 200.0,
       "idDonacion": 12,
       "donante": "Rosa Castillo",
       "fecha": "2026-11-09",
-      "tipo": "Efectivo",
-      "montoEfectivo": 200.0
+      "tipo": "Efectivo"
     },
     {
+      "montoEfectivo": 175.0,
       "idDonacion": 13,
       "donante": "Elena Vargas",
       "fecha": "2026-11-03",
-      "tipo": "Efectivo",
-      "montoEfectivo": 175.0
+      "tipo": "Efectivo"
     },
     {
+      "cantidadComidaKg": 20.0,
       "idDonacion": 14,
       "donante": "Ricardo Salas",
       "fecha": "2026-11-04",
-      "tipo": "Comida",
-      "cantidadComidaKg": 20.0
+      "tipo": "Comida"
     },
     {
+      "montoEfectivo": 600.0,
       "idDonacion": 15,
       "donante": "Monica Reyes",
       "fecha": "2026-11-06",
-      "tipo": "Efectivo",
-      "montoEfectivo": 600.0
+      "tipo": "Efectivo"
     }
   ]
 }

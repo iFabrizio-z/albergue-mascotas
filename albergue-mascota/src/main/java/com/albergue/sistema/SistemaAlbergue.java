@@ -19,6 +19,9 @@ public class SistemaAlbergue {
     private List<Donacion> donaciones = new ArrayList<>();
 
     private transient boolean datosModificados = false;
+    public void eliminarDonacion(int id) {
+    donaciones.removeIf(d -> d.getIdDonacion() == id);
+    }
 
     public SistemaAlbergue() {
         mascotas = new ArrayList<>();
