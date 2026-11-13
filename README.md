@@ -137,6 +137,7 @@ albergue-mascota/
 │               └── VentanaPrincipalAlbergue.java
 │
 ├── albergue.json
+├── pom.xml
 └── README.md
 ```
 
